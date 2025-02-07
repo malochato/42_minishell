@@ -56,4 +56,6 @@ dkms.conf
 *.swo
 *.swn
 
+# Local files
+minishell
 
