@@ -22,8 +22,14 @@ INCLUDE = minishell.h
 all: $(NAME)
 
 $(NAME): $(OBJ) $(LIBFT)
+	@echo -n "Compilation "
+	@for i in 1 2 3; do \
+		echo -n "."; \
+		sleep 0.35; \
+	done
+	@echo ""
 	@$(CC) $(FLAGS) -o $(NAME) $(OBJ) -L $(LIBFT_PATH) -lft
-	@echo "Compilation done"
+	@echo "Compilation $(NAME) done"
 
 $(LIBFT):
 	@$(MAKE) -C $(LIBFT_PATH) --no-print-directory 
