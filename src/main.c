@@ -20,7 +20,7 @@ int	main(int argc, char **argv, char **envp)
 
 	char *input;
 	while (1) {
-        input = readline("minishell ");
+        input = readline("minishell >>");
 		// this as to change (it's need to not be static),we have to put minishell + the directory where we are in.
         if (input == NULL)
             break;
