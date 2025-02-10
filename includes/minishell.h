@@ -17,5 +17,15 @@
 # include <stdlib.h>
 # include <unistd.h>
 # include <string.h>
+# include <readline/readline.h>
+# include <readline/history.h>
+
+
+typedef struct s_env
+{
+    char            *key;
+    char            *value;
+    struct s_env    *next;
+} t_env;
 
 #endif
