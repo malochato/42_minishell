@@ -42,6 +42,7 @@ $(OBJ_DIR)%.o: $(SRC_DIR)%.c
 clean: 
 	@$(MAKE) -C $(LIBFT_PATH) clean --no-print-directory > /dev/null 2>&1
 	@$(RM) $(OBJ)
+	@$(RM) -r $(OBJ_DIR)
 	@echo "Clean done"
 
 fclean: clean
