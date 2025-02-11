@@ -6,7 +6,7 @@
 /*   By: malde-ch <malo@chato.fr>                   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/07 17:00:22 by malde-ch          #+#    #+#             */
-/*   Updated: 2025/02/11 13:42:59 by malde-ch         ###   ########.fr       */
+/*   Updated: 2025/02/11 13:50:42 by malde-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,5 @@ typedef struct s_mini
 	t_cmd *cmd;
 } t_mini;
 
-#include "exec.h"
 
 #endif
