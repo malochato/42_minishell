@@ -14,7 +14,19 @@
 
 int	exec(t_mini *mini)
 {
-	(void)mini;
+
+	printf("mini->cmd = %s\n", mini->cmd->cmd[0]);
+
+
 	printf("You entered in exec\n");
+
+	/*
+		il va y avoir une boucle sur mini->cmd
+		avec un check pour regarder si la commande fait partis des builtins
+		si oui on execute le builtin
+		sinon on execute le binaire.
+	*/
+
+
 	return (0);
 }

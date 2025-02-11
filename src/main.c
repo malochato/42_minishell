@@ -6,7 +6,7 @@
 /*   By: malde-ch <malo@chato.fr>                   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/07 16:53:33 by malde-ch          #+#    #+#             */
-/*   Updated: 2025/02/11 11:13:06 by malde-ch         ###   ########.fr       */
+/*   Updated: 2025/02/11 12:16:21 by malde-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,17 @@
 
 int	main(int argc, char **argv, char **envp)
 {
+
+	t_mini	mini;
 	(void)argc;
 	(void)argv;
-	(void)envp;
-
+	
 	char *input;
+	mini.cmd = malloc(sizeof(t_cmd));
+	if (mini.cmd == NULL) {
+        perror("malloc");
+        return 1;
+    }
 	while (1) {
         input = readline("minishell $>");
 		// this as to change (it's need to not be static),we have to put minishell + the directory where we are in.
@@ -33,9 +39,15 @@ int	main(int argc, char **argv, char **envp)
 
         printf("You entered: %s\n", input);
         free(input);
-		exec(NULL);
+
+
+			mini.cmd->cmd = ft_split("ls -l", ' ');
+			mini.cmd->next = NULL;
+			mini.envp = envp;
+		exec(&mini);
     }
 	rl_clear_history();
+	free(mini.cmd->cmd);
 	// this is to clear the history
 	// we need it also for the exit() fnction that will be doing.
     return 0;
