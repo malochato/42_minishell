@@ -13,7 +13,7 @@ OBJ = $(SRC:$(SRC_DIR)%.c=$(OBJ_DIR)%.o)
 INC_DIR = ./includes/
 
 CC = cc
-FLAGS = -Wall -Wextra -Werror -g -I$(INC_DIR)
+FLAGS = -Wall -Wextra -Werror -g -I$(INC_DIR) -I$(LIBFT_PATH)
 
 RM = rm -f
 
