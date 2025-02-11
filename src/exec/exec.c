@@ -1,33 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.h                                        :+:      :+:    :+:   */
+/*   exec.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: malde-ch <malo@chato.fr>                   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/02/07 17:00:22 by malde-ch          #+#    #+#             */
-/*   Updated: 2025/02/11 11:13:55 by malde-ch         ###   ########.fr       */
+/*   Created: 2025/02/11 10:59:02 by malde-ch          #+#    #+#             */
+/*   Updated: 2025/02/11 10:59:04 by malde-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINISHELL_H
-# define MINISHELL_H
-
-# include "libft.h"
-# include <stdio.h>
-# include <stdlib.h>
-# include <unistd.h>
-# include <string.h>
-# include <readline/readline.h>
-# include <readline/history.h>
-
-//don't need this structure we have acess to the function getenv()
-
-typedef struct s_mini
-{
-    char **envp;
-} t_mini;
-
 #include "exec.h"
 
-#endif
+int	exec(t_mini *mini)
+{
+	(void)mini;
+	printf("You entered in exec\n");
+	return (0);
+}

@@ -4,8 +4,16 @@ LIBFT_PATH = ./libs/libft/
 LIBFT = $(LIBFT_PATH)libft.a
 
 SRC_DIR = ./src/
+
+EXEC_DIR = $(SRC_DIR)exec/
+EXEC_FILES = exec.c
+EXEC = $(addprefix $(EXEC_DIR), $(EXEC_FILES))
+
 SRC_FILES = main.c
-SRC = $(addprefix $(SRC_DIR), $(SRC_FILES))
+SRC = $(addprefix $(SRC_DIR), $(SRC_FILES)) $(EXEC)
+
+
+
 
 OBJ_DIR = ./obj/
 OBJ = $(SRC:$(SRC_DIR)%.c=$(OBJ_DIR)%.o)
@@ -36,7 +44,7 @@ $(LIBFT):
 	@echo "LIBFT created"
 
 $(OBJ_DIR)%.o: $(SRC_DIR)%.c
-	@mkdir -p $(OBJ_DIR)
+	@mkdir -p $(dir $@)
 	@$(CC) $(FLAGS) -c -o $@ $<
 
 clean: 

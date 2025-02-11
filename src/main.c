@@ -6,7 +6,7 @@
 /*   By: malde-ch <malo@chato.fr>                   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/07 16:53:33 by malde-ch          #+#    #+#             */
-/*   Updated: 2025/02/11 10:53:29 by malde-ch         ###   ########.fr       */
+/*   Updated: 2025/02/11 11:13:06 by malde-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ int	main(int argc, char **argv, char **envp)
 
         printf("You entered: %s\n", input);
         free(input);
+		exec(NULL);
     }
 	rl_clear_history();
 	// this is to clear the history
