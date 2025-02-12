@@ -5,12 +5,16 @@ LIBFT = $(LIBFT_PATH)libft.a
 
 SRC_DIR = ./src/
 
+BUILTINS_DIR = $(SRC_DIR)builtins/
+BUILTINS_FILES = pwd.c #cd.c echo.c env.c exit.c export.c unset.c
+BUILTINS = $(addprefix $(BUILTINS_DIR), $(BUILTINS_FILES))
+
 EXEC_DIR = $(SRC_DIR)exec/
 EXEC_FILES = exec.c
 EXEC = $(addprefix $(EXEC_DIR), $(EXEC_FILES))
 
 SRC_FILES = main.c
-SRC = $(addprefix $(SRC_DIR), $(SRC_FILES)) $(EXEC)
+SRC = $(addprefix $(SRC_DIR), $(SRC_FILES)) $(EXEC) $(BUILTINS)
 
 
 

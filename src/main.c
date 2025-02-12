@@ -6,7 +6,7 @@
 /*   By: malde-ch <malo@chato.fr>                   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/07 16:53:33 by malde-ch          #+#    #+#             */
-/*   Updated: 2025/02/11 15:29:14 by malde-ch         ###   ########.fr       */
+/*   Updated: 2025/02/12 17:41:38 by malde-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ int	main(int argc, char **argv, char **envp)
         }
 
         // Allouer et initialiser la nouvelle commande
-        mini.cmd->cmd = ft_split("ls -l", ' ');
+        mini.cmd->cmd = ft_split("pwd", ' ');
 	        mini.cmd->next = NULL;
         mini.envp = envp;
 
