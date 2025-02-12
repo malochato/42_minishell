@@ -6,7 +6,7 @@
 /*   By: malde-ch <malo@chato.fr>                   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/07 16:53:33 by malde-ch          #+#    #+#             */
-/*   Updated: 2025/02/11 12:16:21 by malde-ch         ###   ########.fr       */
+/*   Updated: 2025/02/11 15:29:14 by malde-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,41 +14,53 @@
 
 int	main(int argc, char **argv, char **envp)
 {
+    t_mini	mini;
 
-	t_mini	mini;
-	(void)argc;
-	(void)argv;
-	
-	char *input;
-	mini.cmd = malloc(sizeof(t_cmd));
-	if (mini.cmd == NULL) {
+	(void)envp;
+    (void)argc;
+    (void)argv;
+    
+    char *input;
+    mini.cmd = malloc(sizeof(t_cmd));
+    if (mini.cmd == NULL) {
         perror("malloc");
         return 1;
     }
-	while (1) {
+    mini.cmd->cmd = NULL;
+    while (1) {
         input = readline("minishell $>");
-		// this as to change (it's need to not be static),we have to put minishell + the directory where we are in.
         if (input == NULL)
             break;
-		// this is CRL + D
         if (*input) {
             add_history(input);
-			// this is to add the input in the history	
-			// and use it with the up arrow	
         }
 
-        printf("You entered: %s\n", input);
+        // Libérer la mémoire de la commande précédente
+        if (mini.cmd->cmd != NULL) {
+            for (int i = 0; mini.cmd->cmd[i] != NULL; i++) {
+                free(mini.cmd->cmd[i]);
+            }
+            free(mini.cmd->cmd);
+        }
+
+        // Allouer et initialiser la nouvelle commande
+        mini.cmd->cmd = ft_split("ls -l", ' ');
+	        mini.cmd->next = NULL;
+        mini.envp = envp;
+
+        exec(&mini);
+
+        // Libérer la mémoire de l'input après utilisation
         free(input);
-
-
-			mini.cmd->cmd = ft_split("ls -l", ' ');
-			mini.cmd->next = NULL;
-			mini.envp = envp;
-		exec(&mini);
     }
-	rl_clear_history();
-	free(mini.cmd->cmd);
-	// this is to clear the history
-	// we need it also for the exit() fnction that will be doing.
+
+    rl_clear_history();
+    if (mini.cmd->cmd != NULL) {
+        for (int i = 0; mini.cmd->cmd[i] != NULL; i++) {
+            free(mini.cmd->cmd[i]);
+        }
+        free(mini.cmd->cmd);
+    }
+    free(mini.cmd);
     return 0;
 }

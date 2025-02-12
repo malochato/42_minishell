@@ -1,8 +1,0 @@
-documentation
-includes
-libs
-Makefile
-minishell
-obj
-src
-test.txt

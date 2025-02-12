@@ -14,10 +14,6 @@
 
 int	exec(t_mini *mini)
 {
-
-	printf("mini->cmd = %s\n", mini->cmd->cmd[0]);
-
-
 	printf("You entered in exec\n");
 
 	/*
@@ -27,6 +23,7 @@ int	exec(t_mini *mini)
 		sinon on execute le binaire.
 	*/
 
+	printf("cmd[0] = %s\n", mini->cmd->cmd[0]);
 
 	return (0);
 }
