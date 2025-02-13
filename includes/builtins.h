@@ -6,7 +6,7 @@
 /*   By: malde-ch <malo@chato.fr>                   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/12 17:42:39 by malde-ch          #+#    #+#             */
-/*   Updated: 2025/02/13 11:58:34 by malde-ch         ###   ########.fr       */
+/*   Updated: 2025/02/13 16:11:40 by malde-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,11 @@ int builtin_export(t_mini *mini);
 void init_builtins(t_builtin *builtins);
 builtin_func get_builtin_func(const char *name, t_builtin *builtins);
 
+
+// UTILS
+int		array_size(char **array);
+void	free_array(char **array);
+char	**copy_array(char **array, int size);
 
 #endif
 
