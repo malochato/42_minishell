@@ -6,7 +6,7 @@
 /*   By: malde-ch <malo@chato.fr>                   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/13 09:56:50 by malde-ch          #+#    #+#             */
-/*   Updated: 2025/02/13 10:43:51 by malde-ch         ###   ########.fr       */
+/*   Updated: 2025/02/13 11:58:21 by malde-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,12 @@ void init_builtins(t_builtin *builtins)
 {
     builtins[0].name = "pwd";
     builtins[0].func = builtin_pwd;
-	builtins[1].name = 0;
-	builtins[1].func = 0;
+	builtins[1].name = "export";
+	builtins[1].func = builtin_export;
+	builtins[2].name = "env";
+	builtins[2].func = builtin_env;
+	builtins[3].name = NULL;
+	builtins[3].func = NULL;
 /*     builtins[1].name = "cd";
     builtins[1].func = builtin_cd;
     builtins[2].name = "echo";
