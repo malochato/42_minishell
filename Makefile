@@ -7,6 +7,7 @@ SRC_DIR = ./src/
 
 BUILTINS_DIR = $(SRC_DIR)builtins/
 BUILTINS_FILES = 	pwd.c export.c env.c\
+					utils.c  export_utils.c\
 					builtins.c #cd.c echo.c env.c exit.c unset.c
 BUILTINS = $(addprefix $(BUILTINS_DIR), $(BUILTINS_FILES))
 

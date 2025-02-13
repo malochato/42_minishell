@@ -6,7 +6,7 @@
 /*   By: malde-ch <malo@chato.fr>                   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/07 16:53:33 by malde-ch          #+#    #+#             */
-/*   Updated: 2025/02/13 14:52:17 by malde-ch         ###   ########.fr       */
+/*   Updated: 2025/02/13 19:59:26 by malde-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ int	main(int argc, char **argv, char **envp)
     
     char *input;
     mini.cmd = malloc(sizeof(t_cmd));
+    mini.envp = copy_array(envp, array_size(envp));
     if (mini.cmd == NULL) {
         perror("malloc");
         return 1;
@@ -43,10 +44,13 @@ int	main(int argc, char **argv, char **envp)
             free(mini.cmd->cmd);
         }
 
+
         // Allouer et initialiser la nouvelle commande
         mini.cmd->cmd = ft_split(input, ' ');
+		if (mini.cmd->cmd == NULL){
+			mini.cmd->cmd = malloc(sizeof(char *));
+		}
 	        mini.cmd->next = NULL;
-        mini.envp = envp;
 
         exec(&mini);
 
@@ -62,5 +66,7 @@ int	main(int argc, char **argv, char **envp)
         free(mini.cmd->cmd);
     }
     free(mini.cmd);
+	if (mini.envp != NULL)
+		free_array(mini.envp);
     return 0;
 }

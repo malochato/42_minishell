@@ -1,0 +1,34 @@
+// Test cases for invalid export commands
+int main(void)
+{
+	int i = 0;
+	char *invalid_exports[] = {
+		"1INVALID=123",    // Starts with a digit
+		"INVALID-CHAR=123", // Contains invalid character '-'
+		"=NO_KEY",         // No key before '='
+		"INVALID CHAR=123", // Contains space
+		"INVALID@CHAR=123", // Contains invalid character '@'
+		"INVALID#CHAR=123", // Contains invalid character '#'
+		"INVALID$CHAR=123", // Contains invalid character '$'
+		"INVALID%CHAR=123", // Contains invalid character '%'
+		"INVALID^CHAR=123", // Contains invalid character '^'
+		"INVALID&CHAR=123", // Contains invalid character '&'
+		"INVALID*CHAR=123", // Contains invalid character '*'
+		"INVALID(CHAR=123", // Contains invalid character '('
+		"INVALID)CHAR=123", // Contains invalid character ')'
+		"INVALID+CHAR=123", // Contains invalid character '+'
+		"INVALID!CHAR=123", // Contains invalid character '!'
+		NULL
+	};
+
+	while (invalid_exports[i] != NULL)
+	{
+		if (check_valide_export(invalid_exports[i]) == 0)
+			printf("\033[0;31mTest failed for: %s\033[0m\n", invalid_exports[i]); // Red color for failed tests
+		else
+			printf("\033[0;32mTest passed for: %s\033[0m\n", invalid_exports[i]); // Green color for passed tests
+		i++;
+	}
+
+	return 0;
+}

@@ -6,7 +6,7 @@
 /*   By: malde-ch <malo@chato.fr>                   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/12 17:42:39 by malde-ch          #+#    #+#             */
-/*   Updated: 2025/02/13 16:11:40 by malde-ch         ###   ########.fr       */
+/*   Updated: 2025/02/13 17:31:16 by malde-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,12 @@ builtin_func get_builtin_func(const char *name, t_builtin *builtins);
 int		array_size(char **array);
 void	free_array(char **array);
 char	**copy_array(char **array, int size);
+void free_split(char **split);
+
+
+// EXPORT UTILS
+void	selection_sort(char **array, int size);
+int check_valide_export(char *str);
 
 #endif
 

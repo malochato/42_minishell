@@ -6,7 +6,7 @@
 /*   By: malde-ch <malo@chato.fr>                   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/13 16:09:32 by malde-ch          #+#    #+#             */
-/*   Updated: 2025/02/13 16:10:53 by malde-ch         ###   ########.fr       */
+/*   Updated: 2025/02/13 16:55:01 by malde-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,4 +63,18 @@ int	array_size(char **array)
 	while (array[size] != NULL)
 		size++;
 	return (size);
+}
+
+
+void free_split(char **split)
+{
+	int i;
+
+	i = 0;
+	while (split[i] != NULL)
+	{
+		free(split[i]);
+		i++;
+	}
+	free(split);
 }

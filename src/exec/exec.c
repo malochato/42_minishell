@@ -30,7 +30,8 @@ int	exec(t_mini *mini)
 
 
 	printf("cmd[0] = %s\n", mini->cmd->cmd[0]);
-
+	if (mini->cmd->cmd[0] == NULL)
+		return (0);
 	func = get_builtin_func(mini->cmd->cmd[0], builtins);
 	if (func)
     {

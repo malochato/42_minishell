@@ -6,7 +6,7 @@
 /*   By: malde-ch <malo@chato.fr>                   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/13 11:57:38 by malde-ch          #+#    #+#             */
-/*   Updated: 2025/02/13 12:01:54 by malde-ch         ###   ########.fr       */
+/*   Updated: 2025/02/13 19:29:26 by malde-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,8 @@ int	builtin_env(t_mini *mini)
 	i = 0;
 	while (mini->envp[i])
 	{
-		printf("%s\n", mini->envp[i]);
+		if (ft_strchr(mini->envp[i], '='))
+			printf("%s\n", mini->envp[i]);
 		i++;
 	}
 	return (0);
