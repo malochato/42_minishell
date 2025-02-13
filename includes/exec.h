@@ -6,7 +6,7 @@
 /*   By: malde-ch <malo@chato.fr>                   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/11 11:03:32 by malde-ch          #+#    #+#             */
-/*   Updated: 2025/02/11 11:10:03 by malde-ch         ###   ########.fr       */
+/*   Updated: 2025/02/13 10:14:40 by malde-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,5 +16,7 @@
 # include "minishell.h"
 
 int	exec(t_mini *mini);
+
+#include "builtins.h"
 
 #endif

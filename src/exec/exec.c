@@ -14,24 +14,35 @@
 
 int	exec(t_mini *mini)
 {
+	t_builtin builtins[8];
+	builtin_func func;
+
+	init_builtins(builtins);
+
 	printf("You entered in exec\n");
 
 	/*
 		il va y avoir une boucle sur mini->cmd
-		avec un check pour regarder si la commande fait partis des builtins
-		si oui on execute le builtin
+		avec un check pour regarder si la commande fait partis des builtins    CHECK
+		si oui on execute le builtin											CHECK
 		sinon on execute le binaire.
 	*/
 
+
 	printf("cmd[0] = %s\n", mini->cmd->cmd[0]);
-	if (ft_strncmp(mini->cmd->cmd[0], "pwd", 3) == 0)
-	{
-		builtin_pwd(mini);
-	}
-	else
-	{
-		printf("Not a builtin\n");
-	}
+
+	func = get_builtin_func(mini->cmd->cmd[0], builtins);
+	if (func)
+    {
+        func(mini);
+    }
+    else
+    {
+        printf("Not a builtin\n");
+        // Execute binary here
+    }
+
+
 
 	return (0);
 }
