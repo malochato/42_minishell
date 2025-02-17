@@ -6,7 +6,7 @@
 /*   By: malde-ch <malo@chato.fr>                   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/07 16:53:33 by malde-ch          #+#    #+#             */
-/*   Updated: 2025/02/17 14:30:20 by malde-ch         ###   ########.fr       */
+/*   Updated: 2025/02/17 18:38:56 by malde-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ int	main(int argc, char **argv, char **envp)
 	(void)argc;
 	(void)argv;
 	mini.cmd = malloc(sizeof(t_cmd));
+	mini.cmd->cmd = malloc(sizeof(char *));
 	if (mini.cmd == NULL)
 	{
 		perror("malloc");
@@ -63,6 +64,17 @@ int	main(int argc, char **argv, char **envp)
 		free(input);
 	}
 	rl_clear_history();
+	if(mini.cmd->cmd != NULL)
+	{
+		int i = 0;
+		while(mini.cmd->cmd[i] != NULL)
+		{
+			free(mini.cmd->cmd[i]);
+			i++;
+		}
+		free(mini.cmd->cmd);
+	}
+
 	if (mini.cmd != NULL)
 		free(mini.cmd);
 	// need real free function

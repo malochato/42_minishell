@@ -6,7 +6,7 @@
 /*   By: malde-ch <malo@chato.fr>                   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/13 11:57:38 by malde-ch          #+#    #+#             */
-/*   Updated: 2025/02/17 15:49:19 by malde-ch         ###   ########.fr       */
+/*   Updated: 2025/02/17 16:04:47 by malde-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ int	builtin_env(t_mini *mini)
 	env = mini->env;
 	while (env != NULL)
 	{
-		if (env->value != NULL && ft_strncmp(env->key, "_", 2) != 0)
+		if (env->value != NULL)
 			printf("%s=%s\n", env->key, env->value);
 		env = env->next;
 	}

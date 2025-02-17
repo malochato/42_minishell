@@ -6,40 +6,11 @@
 /*   By: malde-ch <malo@chato.fr>                   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/13 17:27:32 by malde-ch          #+#    #+#             */
-/*   Updated: 2025/02/13 18:04:04 by malde-ch         ###   ########.fr       */
+/*   Updated: 2025/02/17 17:14:37 by malde-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "builtins.h"
-
-void	selection_sort(char **array, int size)
-{
-	int		i;
-	int		j;
-	char	*temp;
-	int		indice_min;
-
-	i = 0;
-	while (i < size -1)
-	{
-		indice_min = i;
-		j = i + 1;
-		while (j < size)
-		{
-			if (ft_strncmp(array[j], array[indice_min], \
-			ft_strlen(array[j])) < 0)
-				indice_min = j;
-			j++;
-		}
-		if (indice_min != i)
-		{
-			temp = array[i];
-			array[i] = array[indice_min];
-			array[indice_min] = temp;
-		}
-		i++;
-	}
-}
 
 void print_export_error(char *str)
 {
@@ -66,7 +37,9 @@ static	int is_valid_identifier(char *str)
 int check_valide_export(char *str)
 {
 	char	**tmp;
+	int		return_value;
 
+	return_value = 0;
 	if (str == NULL || ft_isdigit(str[0]))
 		return (1);
 	tmp = ft_split(str, '=');
@@ -78,11 +51,10 @@ int check_valide_export(char *str)
 	if (tmp[0] == NULL || !is_valid_identifier(tmp[0]) || str[0] == '=')
 	{
 		print_export_error(str);
-		free_split(tmp);
-		return (1);
+		return_value = 1;
 	}
 	free_split(tmp);
-	return (0);
+	return (return_value);
 }
 
 

@@ -6,63 +6,25 @@
 /*   By: malde-ch <malo@chato.fr>                   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/13 16:09:32 by malde-ch          #+#    #+#             */
-/*   Updated: 2025/02/13 16:55:01 by malde-ch         ###   ########.fr       */
+/*   Updated: 2025/02/17 16:15:24 by malde-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "builtins.h"
 
-char	**copy_array(char **array, int size)
+int	ft_lstsize_env(t_env_var *env)
 {
-	char	**copy;
-	int		i;
+	int			i;
+	t_env_var	*tmp;
 
-	copy = malloc(sizeof(char *) * (size + 1));
-	if (copy == NULL)
-		return (NULL);
 	i = 0;
-	while (i < size)
+	tmp = env;
+	while (tmp != NULL)
 	{
-		copy[i] = ft_strdup(array[i]);
-		if (copy[i] == NULL)
-		{
-			while (i >= 0)
-			{
-				free(copy[i]);
-				i--;
-			}
-			free(copy);
-			return (NULL);
-		}
 		i++;
+		tmp = tmp->next;
 	}
-	copy[size] = NULL;
-	return (copy);
-}
-
-void	free_array(char **array)
-{
-	int	i;
-
-	if (array == NULL)
-		return ;
-	i = 0;
-	while (array[i] != NULL)
-	{
-		free(array[i]);
-		i++;
-	}
-	free(array);
-}
-
-int	array_size(char **array)
-{
-	int	size;
-
-	size = 0;
-	while (array[size] != NULL)
-		size++;
-	return (size);
+	return (i);
 }
 
 
