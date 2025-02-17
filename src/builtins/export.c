@@ -6,7 +6,7 @@
 /*   By: malde-ch <malo@chato.fr>                   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/13 11:49:49 by malde-ch          #+#    #+#             */
-/*   Updated: 2025/02/17 18:33:40 by malde-ch         ###   ########.fr       */
+/*   Updated: 2025/02/17 18:57:45 by malde-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,78 +36,6 @@ int handle_export_no_args(t_mini *mini)
 // je ferais cela apres quand j'aurais des fonctions pour transformer les listes en tableau
 
 
-
-
-
-int update_env_var(t_env_var *env, char **split, char *str)
-{
-    while (env != NULL)
-    {
-        if (ft_strncmp(env->key, split[0], ft_strlen(env->key)) == 0 && ft_strlen(env->key) == ft_strlen(split[0]))
-        {
-            if (env->value != NULL)
-                free(env->value);
-            if (split[1] != NULL)
-			{
-				ft_strdup(str + ft_strlen(split[0]) + 1);
-            }
-			else if (str[ft_strlen(str) - 1] == '=')
-				env->value = ft_strdup("");
-			else
-				env->value = NULL;
-            return (0);
-        }
-        env = env->next;
-    }
-    return (1);
-}
-
-int add_env_var(t_mini *mini, char *key, char *value, char *str)
-{
-	t_env_var *env;
-	t_env_var *new;
-
-	printf("add_env_var %s |%s|\n", key, value);
-	new = malloc(sizeof(t_env_var));
-	if (new == NULL)
-	{
-		perror("Error with malloc");
-		return (1);
-	}
-	new->key = ft_strdup(key);
-	if (value != NULL)
-	{
-		new->value = ft_strdup(value);
-	}
-	else if (str[ft_strlen(str) - 1] == '=')
-		new->value = ft_strdup("");
-	else
-		new->value = NULL;
-	new->next = NULL;
-	env = mini->env;
-	while (env->next != NULL)
-		env = env->next;
-	env->next = new;
-	return (0);
-}
-
-
-int add_or_update_env_var(t_mini *mini, char **split, char *str)
-{
-    if (update_env_var(mini->env, split, str) == 0)
-        return (0);
-
-    if (split[1] != NULL)
-	{
-		add_env_var(mini, split[0], str + ft_strlen(split[0]) + 1, str);
-	}
-	else
-        add_env_var(mini, split[0], NULL, str);
-
-    return (0);
-}
-
-
 int export_args(t_mini *mini, char *str)
 {
     char	**split;
@@ -123,7 +51,6 @@ int export_args(t_mini *mini, char *str)
     free_split(split);
     return result;
 }
-
 
 
 int handle_export_args(t_mini *mini)
@@ -147,21 +74,34 @@ int builtin_export(t_mini *mini)
 	// si export est le seul token
 	if (mini->cmd->cmd[1] == NULL)
 	{
-		// return (handle_export_no_args(mini));
 		return_value = handle_export_no_args(mini);
 		// regardez s'il y a pas d'erreur.
 	}
 	if (mini->cmd->cmd[1] != NULL)
 	{
 		printf("export %s\n", mini->cmd->cmd[1]);
-		// si export a un argument
-		// on der la variable doit ajout'environnement
-		// si elle n'existe pas
-		// sinon on doit la modifier
-
-		// de plus ensuite on refait cette action si il y a plusieurs arguments
-
 		return_value = handle_export_args(mini);
+		//regardez s'il y a pas d'erreur.
 	}
 	return (return_value);
 }
+
+
+
+// limitations: 
+/*
+	il faut que je mette en place le tri, !!!!!!!!!!!!!!!!!!
+
+
+	et en plus je dois mettre en place la fonction qui transforme la liste en tableau
+	pour update les variables d'environnement
+
+	Je ne crois pas que le sens dans lequelle sont les variable est important. 
+
+
+
+	Limitations que je ne vais pas faire mtn:
+
+	Cas 1. Var1=hola export Var1
+	Cas 2. export var1+=hola
+*/

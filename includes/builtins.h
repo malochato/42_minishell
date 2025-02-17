@@ -6,7 +6,7 @@
 /*   By: malde-ch <malo@chato.fr>                   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/12 17:42:39 by malde-ch          #+#    #+#             */
-/*   Updated: 2025/02/17 16:02:18 by malde-ch         ###   ########.fr       */
+/*   Updated: 2025/02/17 18:46:46 by malde-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,8 +41,11 @@ int		ft_lstsize_env(t_env_var *env);
 void	free_split(char **split);
 
 
-// EXPORT UTILS
+// EXPORT UTILS 0 
 int		check_valide_export(char *str);
+
+// EXPORT UTILS 1
+int add_or_update_env_var(t_mini *mini, char **split, char *str);
 
 #endif
 

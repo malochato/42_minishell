@@ -11,7 +11,7 @@ PARSING = $(addprefix $(PARSING_DIR), $(PARSING_FILES))
 
 BUILTINS_DIR = $(SRC_DIR)builtins/
 BUILTINS_FILES = 	pwd.c export.c env.c\
-					utils.c  export_utils.c\
+					utils.c  export_utils_0.c export_utils_1.c\
 					builtins.c #cd.c echo.c env.c exit.c unset.c
 BUILTINS = $(addprefix $(BUILTINS_DIR), $(BUILTINS_FILES))
 
