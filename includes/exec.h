@@ -1,29 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   env.c                                              :+:      :+:    :+:   */
+/*   exec.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: malde-ch <malo@chato.fr>                   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/02/13 11:57:38 by malde-ch          #+#    #+#             */
-/*   Updated: 2025/02/17 15:49:19 by malde-ch         ###   ########.fr       */
+/*   Created: 2025/02/17 13:40:50 by malde-ch          #+#    #+#             */
+/*   Updated: 2025/02/17 15:39:47 by malde-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "builtins.h"
+#ifndef EXEC_H
+# define EXEC_H
 
+# include "minishell.h"
+# include <sys/wait.h>
 
-int	builtin_env(t_mini *mini)
-{
-	t_env_var	*env;
+int	exec(t_mini *mini);
 
-	env = mini->env;
-	while (env != NULL)
-	{
-		if (env->value != NULL && ft_strncmp(env->key, "_", 2) != 0)
-			printf("%s=%s\n", env->key, env->value);
-		env = env->next;
-	}
-	return (0);
-}
-
+#endif

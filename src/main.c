@@ -6,7 +6,7 @@
 /*   By: malde-ch <malo@chato.fr>                   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/07 16:53:33 by malde-ch          #+#    #+#             */
-/*   Updated: 2025/02/17 13:35:59 by malde-ch         ###   ########.fr       */
+/*   Updated: 2025/02/17 14:30:20 by malde-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ int	main(int argc, char **argv, char **envp)
 		return (1);
 	}
 	mini.env = parser_env(envp);
+	mini.envp = envp;
 	while (1)
 	{
 		input = readline("minishell $>");
