@@ -45,7 +45,7 @@ $(LIBFT):
 
 $(OBJ_DIR)%.o: $(SRC_DIR)%.c
 	@mkdir -p $(dir $@)
-	@$(CC) $(FLAGS) -c -o $@ $<
+	@$(CC) $(FLAGS) -c $< -o $@
 
 clean: 
 	@$(MAKE) -C $(LIBFT_PATH) clean --no-print-directory > /dev/null 2>&1
