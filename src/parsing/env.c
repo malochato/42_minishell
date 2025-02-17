@@ -6,7 +6,7 @@
 /*   By: malde-ch <malo@chato.fr>                   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/17 10:31:52 by malde-ch          #+#    #+#             */
-/*   Updated: 2025/02/17 12:44:32 by malde-ch         ###   ########.fr       */
+/*   Updated: 2025/02/17 18:42:31 by malde-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,8 @@ void	free_env(t_env_var *env_var)
 		current = head;
 		head = head->next;
 		free(current->key);
-		free(current->value);
+		if (current->value)
+			free(current->value);
 		free(current);
 	}
 }
