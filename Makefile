@@ -5,6 +5,10 @@ LIBFT = $(LIBFT_PATH)libft.a
 
 SRC_DIR = ./src/
 
+PARSING_DIR = $(SRC_DIR)parsing/
+PARSING_FILES = env.c
+PARSING = $(addprefix $(PARSING_DIR), $(PARSING_FILES))
+
 BUILTINS_DIR = $(SRC_DIR)builtins/
 BUILTINS_FILES = 	pwd.c export.c env.c\
 					utils.c  export_utils.c\
@@ -16,7 +20,7 @@ EXEC_FILES = exec.c
 EXEC = $(addprefix $(EXEC_DIR), $(EXEC_FILES))
 
 SRC_FILES = main.c
-SRC = $(addprefix $(SRC_DIR), $(SRC_FILES)) $(EXEC) $(BUILTINS)
+SRC = $(addprefix $(SRC_DIR), $(SRC_FILES))  $(PARSING) $(EXEC) $(BUILTINS)
 
 
 
@@ -51,7 +55,7 @@ $(LIBFT):
 
 $(OBJ_DIR)%.o: $(SRC_DIR)%.c
 	@mkdir -p $(dir $@)
-	@$(CC) $(FLAGS) -c -o $@ $<
+	@$(CC) $(FLAGS) -c $< -o $@
 
 clean: 
 	@$(MAKE) -C $(LIBFT_PATH) clean --no-print-directory > /dev/null 2>&1
