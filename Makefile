@@ -5,12 +5,12 @@ LIBFT = $(LIBFT_PATH)libft.a
 
 SRC_DIR = ./src/
 
-EXEC_DIR = $(SRC_DIR)exec/
-EXEC_FILES = exec.c
-EXEC = $(addprefix $(EXEC_DIR), $(EXEC_FILES))
+PARSING_DIR = $(SRC_DIR)parsing/
+PARSING_FILES = env.c
+PARSING = $(addprefix $(PARSING_DIR), $(PARSING_FILES))
 
 SRC_FILES = main.c
-SRC = $(addprefix $(SRC_DIR), $(SRC_FILES)) $(EXEC)
+SRC = $(addprefix $(SRC_DIR), $(SRC_FILES)) $(PARSING)
 
 
 

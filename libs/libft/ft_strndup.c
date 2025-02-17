@@ -1,20 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   exec.h                                             :+:      :+:    :+:   */
+/*   ft_strndup.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: malde-ch <malo@chato.fr>                   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/02/11 11:03:32 by malde-ch          #+#    #+#             */
-/*   Updated: 2025/02/11 11:10:03 by malde-ch         ###   ########.fr       */
+/*   Created: 2025/02/17 10:51:52 by malde-ch          #+#    #+#             */
+/*   Updated: 2025/02/17 10:52:07 by malde-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef EXEC_H
-# define EXEC_H
+#include "libft.h"
 
-# include "minishell.h"
+char	*ft_strndup(const char *s, size_t n)
+{
+	char	*dup;
+	size_t	i;
 
-int	exec(t_mini *mini);
-
-#endif
+	dup = (char *)malloc(sizeof(char) * (n + 1));
+	if (!dup)
+		return (NULL);
+	i = 0;
+	while (s[i] && i < n)
+	{
+		dup[i] = s[i];
+		i++;
+	}
+	dup[i] = '\0';
+	return (dup);
+}

@@ -6,7 +6,7 @@
 /*   By: malde-ch <malo@chato.fr>                   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/07 17:00:22 by malde-ch          #+#    #+#             */
-/*   Updated: 2025/02/11 14:00:30 by malde-ch         ###   ########.fr       */
+/*   Updated: 2025/02/17 11:13:19 by malde-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,15 @@
 # include <readline/history.h>
 
 
+typedef struct s_env_var
+{
+	char *key;
+	char *value;
+	struct s_env_var *next;
+}	t_env_var;
+
+
+
 typedef enum e_operator
 {
     OP_NONE, // 0
@@ -32,7 +41,7 @@ typedef enum e_operator
     OP_REDIRECT_OUT_APPEND, // >>
     OP_REDIRECT_IN, // <
 	OP_HERE_DOC, // <<
-} t_operator;
+}	t_operator;
 
 
 typedef struct s_redirection
@@ -52,10 +61,16 @@ typedef struct s_cmd
 
 typedef struct s_mini
 {
-    char **envp;
-	t_cmd *cmd;
+    char		**envp;
+	t_cmd		*cmd;
+	t_env_var	*env;
 } t_mini;
 
-#include "exec.h"
+
+
+// to put in the parsing.h
+
+t_env_var *parser_env(char **env);
+void	free_env(t_env_var *env_var);
 
 #endif
