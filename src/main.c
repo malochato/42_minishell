@@ -6,11 +6,36 @@
 /*   By: malde-ch <malo@chato.fr>                   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/07 16:53:33 by malde-ch          #+#    #+#             */
-/*   Updated: 2025/02/17 18:38:56 by malde-ch         ###   ########.fr       */
+/*   Updated: 2025/02/18 15:34:25 by malde-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+char **duplicate_env(char **envp)
+{
+	int i;
+	char **new_env;
+
+	for (i = 0; envp[i] != NULL; i++)
+		;
+	new_env = malloc((i + 1) * sizeof(char *));
+	if (new_env == NULL)
+		return (NULL);
+	for (i = 0; envp[i] != NULL; i++)
+	{
+		new_env[i] = strdup(envp[i]);
+		if (new_env[i] == NULL)
+		{
+			while (i > 0)
+				free(new_env[--i]);
+			free(new_env);
+			return (NULL);
+		}
+	}
+	new_env[i] = NULL;
+	return (new_env);
+}
 
 int	main(int argc, char **argv, char **envp)
 {
@@ -21,13 +46,15 @@ int	main(int argc, char **argv, char **envp)
 	(void)argv;
 	mini.cmd = malloc(sizeof(t_cmd));
 	mini.cmd->cmd = malloc(sizeof(char *));
+	mini.cmd->cmd[0] = NULL;
 	if (mini.cmd == NULL)
 	{
 		perror("malloc");
 		return (1);
 	}
 	mini.env = parser_env(envp);
-	mini.envp = envp;
+	mini.envp = duplicate_env(envp);
+
 	while (1)
 	{
 		input = readline("minishell $>");
@@ -80,5 +107,11 @@ int	main(int argc, char **argv, char **envp)
 	// need real free function
 	if (mini.env != NULL)
 		free_env(mini.env);
+	if (mini.envp != NULL)
+	{
+		for (int i = 0; mini.envp[i] != NULL; i++)
+			free(mini.envp[i]);
+		free(mini.envp);
+	}
 	return (0);
 }

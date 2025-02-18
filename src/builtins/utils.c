@@ -6,11 +6,12 @@
 /*   By: malde-ch <malo@chato.fr>                   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/13 16:09:32 by malde-ch          #+#    #+#             */
-/*   Updated: 2025/02/17 16:15:24 by malde-ch         ###   ########.fr       */
+/*   Updated: 2025/02/18 13:41:55 by malde-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "builtins.h"
+
 
 int	ft_lstsize_env(t_env_var *env)
 {

@@ -6,19 +6,17 @@
 /*   By: malde-ch <malo@chato.fr>                   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/13 11:49:49 by malde-ch          #+#    #+#             */
-/*   Updated: 2025/02/17 18:57:45 by malde-ch         ###   ########.fr       */
+/*   Updated: 2025/02/18 16:14:30 by malde-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "builtins.h"
 
 
-int handle_export_no_args(t_mini *mini)
+int handle_export_no_args(t_env_var *env)
 {
-	t_env_var *env;
 	int size;
-
-	env = mini->env;
+	
 	size = ft_lstsize_env(env);
 	while (size > 0)
 	{
@@ -61,10 +59,14 @@ int handle_export_args(t_mini *mini)
 	while (mini->cmd->cmd[i] != NULL)
 	{
 		if (check_valide_export(mini->cmd->cmd[i]) == 0)
+		{
+			printf("export %s is valid\n", mini->cmd->cmd[i]);
 			export_args(mini, mini->cmd->cmd[i]);
+
+		}
 		i++;
 	}
-
+	update_env_array(mini);
 	return (0);
 }
 
@@ -72,10 +74,10 @@ int builtin_export(t_mini *mini)
 {
 	int return_value;
 	// si export est le seul token
+	return_value = 0;
 	if (mini->cmd->cmd[1] == NULL)
 	{
-		return_value = handle_export_no_args(mini);
-		// regardez s'il y a pas d'erreur.
+		handle_export_no_args(create_sorted_list(mini));
 	}
 	if (mini->cmd->cmd[1] != NULL)
 	{
@@ -83,8 +85,13 @@ int builtin_export(t_mini *mini)
 		return_value = handle_export_args(mini);
 		//regardez s'il y a pas d'erreur.
 	}
+	printf("last env in array is: %s\n", mini->envp[ft_lstsize_env(mini->env) - 1]);
 	return (return_value);
 }
+
+
+
+
 
 
 

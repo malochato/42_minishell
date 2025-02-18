@@ -6,7 +6,7 @@
 /*   By: malde-ch <malo@chato.fr>                   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/12 17:42:39 by malde-ch          #+#    #+#             */
-/*   Updated: 2025/02/17 18:46:46 by malde-ch         ###   ########.fr       */
+/*   Updated: 2025/02/18 15:17:08 by malde-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,11 +41,38 @@ int		ft_lstsize_env(t_env_var *env);
 void	free_split(char **split);
 
 
+
+
 // EXPORT UTILS 0 
 int		check_valide_export(char *str);
 
 // EXPORT UTILS 1
 int add_or_update_env_var(t_mini *mini, char **split, char *str);
+void update_env_array(t_mini *mini);
+
+//EXPORT UTILS 2
+t_env_var	*create_sorted_list(t_mini *mini);
+
+// to sup:
+int handle_export_no_args(t_env_var *env);
+
 
 #endif
 
+
+
+
+/* 
+bien revoir tous cela: 
+
+typedef int (*builtin_func)(t_mini *);
+
+typedef struct s_builtin
+{
+    char *name;
+    builtin_func func;
+} t_builtin;
+
+je suis pas tres sur 
+
+*/
