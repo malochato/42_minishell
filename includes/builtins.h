@@ -6,7 +6,7 @@
 /*   By: malde-ch <malo@chato.fr>                   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/12 17:42:39 by malde-ch          #+#    #+#             */
-/*   Updated: 2025/02/18 15:17:08 by malde-ch         ###   ########.fr       */
+/*   Updated: 2025/02/18 17:21:37 by malde-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,14 +47,16 @@ void	free_split(char **split);
 int		check_valide_export(char *str);
 
 // EXPORT UTILS 1
-int add_or_update_env_var(t_mini *mini, char **split, char *str);
+//int add_or_update_env_var(t_mini *mini, char **split, char *str);
 void update_env_array(t_mini *mini);
+int export_args(t_mini *mini, char *str);
+
 
 //EXPORT UTILS 2
-t_env_var	*create_sorted_list(t_mini *mini);
+t_env_var	*create_sorted_list(char **envp);
 
 // to sup:
-int handle_export_no_args(t_env_var *env);
+int handle_export_no_args(char **envp);
 
 
 #endif
