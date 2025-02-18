@@ -6,7 +6,7 @@
 /*   By: malde-ch <malo@chato.fr>                   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/17 10:31:52 by malde-ch          #+#    #+#             */
-/*   Updated: 2025/02/17 18:42:31 by malde-ch         ###   ########.fr       */
+/*   Updated: 2025/02/18 16:22:14 by malde-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,9 @@ t_env_var	*create_env_var(char *env_entry)
 	delimiter_pos = ft_strchr(env_entry, '=');
 	if (!delimiter_pos)
 	{
-		free(new_var);
-		return (NULL);
+		new_var->key = ft_strdup(env_entry);
+		new_var->value = NULL;
+		return (new_var);
 	}
 	new_var->key = ft_strndup(env_entry, delimiter_pos - env_entry);
 	new_var->value = ft_strdup(delimiter_pos + 1);
