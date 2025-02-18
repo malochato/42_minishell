@@ -6,12 +6,11 @@
 /*   By: malde-ch <malo@chato.fr>                   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/13 16:09:32 by malde-ch          #+#    #+#             */
-/*   Updated: 2025/02/18 13:41:55 by malde-ch         ###   ########.fr       */
+/*   Updated: 2025/02/18 19:37:27 by malde-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "builtins.h"
-
 
 int	ft_lstsize_env(t_env_var *env)
 {
@@ -28,10 +27,9 @@ int	ft_lstsize_env(t_env_var *env)
 	return (i);
 }
 
-
-void free_split(char **split)
+void	free_split(char **split)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (split[i] != NULL)

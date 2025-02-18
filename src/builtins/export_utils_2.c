@@ -6,14 +6,13 @@
 /*   By: malde-ch <malo@chato.fr>                   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/18 12:56:38 by malde-ch          #+#    #+#             */
-/*   Updated: 2025/02/18 17:28:22 by malde-ch         ###   ########.fr       */
+/*   Updated: 2025/02/18 19:38:34 by malde-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "builtins.h"
 
-
-void swap_node_env(t_env_var *env_0, t_env_var *env_1)
+void	swap_node_env(t_env_var *env_0, t_env_var *env_1)
 {
 	char	*tmp_key;
 	char	*tmp_value;
@@ -25,7 +24,6 @@ void swap_node_env(t_env_var *env_0, t_env_var *env_1)
 	env_1->key = tmp_key;
 	env_1->value = tmp_value;
 }
-
 
 t_env_var	*sort_env(t_env_var *env)
 {
@@ -46,19 +44,16 @@ t_env_var	*sort_env(t_env_var *env)
 	return (env);
 }
 
-
 t_env_var	*create_sorted_list(char **envp)
 {
-	t_env_var *env_cpy;
+	t_env_var	*env_cpy;
 
 	env_cpy = parser_env(envp);
 	if (env_cpy == NULL)
 	{
-		perror("ERROR MALLOOOOOOOOOC");
+		perror("Error with malloc");
 		return (NULL);
 	}
-		
 	env_cpy = sort_env(env_cpy);
 	return (env_cpy);
-
 }

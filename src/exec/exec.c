@@ -14,8 +14,8 @@
 
 int	exec(t_mini *mini)
 {
-	t_builtin builtins[8];
-	builtin_func func;
+	t_builtin		builtins[8];
+	builtin_func	func;
 
 	init_builtins(builtins);
 
@@ -34,14 +34,14 @@ int	exec(t_mini *mini)
 		return (0);
 	func = get_builtin_func(mini->cmd->cmd[0], builtins);
 	if (func)
-    {
-        func(mini);
-    }
-    else
-    {
-        printf("Not a builtin\n");
-        // Execute binary here
-    }
+	{
+		func(mini);
+	}
+	else
+	{
+		printf("Not a builtin\n");
+		// Execute binary here
+	}
 
 
 

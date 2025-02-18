@@ -6,23 +6,22 @@
 /*   By: malde-ch <malo@chato.fr>                   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/13 17:27:32 by malde-ch          #+#    #+#             */
-/*   Updated: 2025/02/17 18:47:22 by malde-ch         ###   ########.fr       */
+/*   Updated: 2025/02/18 19:41:48 by malde-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "builtins.h"
 
-void print_export_error(char *str)
+void	print_export_error(char *str)
 {
 	ft_putstr_fd("minishell: export: `", 2);
 	ft_putstr_fd(str, 2);
 	ft_putstr_fd("': not a valid identifier\n", 2);
 }
 
-
-static	int is_valid_identifier(char *str)
+static	int	is_valid_identifier(char *str)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (str[i] != '\0')
@@ -34,7 +33,7 @@ static	int is_valid_identifier(char *str)
 	return (1);
 }
 
-int check_valide_export(char *str)
+int	check_valide_export(char *str)
 {
 	char	**tmp;
 	int		return_value;
@@ -56,5 +55,3 @@ int check_valide_export(char *str)
 	free_split(tmp);
 	return (return_value);
 }
-
-
