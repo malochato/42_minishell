@@ -45,6 +45,19 @@ int	exec(t_mini *mini)
 		// Execute binary here
 	}
 
+/* 
+	TO DO: 
+	execute builtins, 
+	
+
+	Un petit plus : 
+		si on utilise un bultins 
+		mais avec des options executer le binaire
+
+		ca pourrais etre vraiment cool. 
+
+ */
+
 
 
 	return (0);
