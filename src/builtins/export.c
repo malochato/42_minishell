@@ -6,7 +6,7 @@
 /*   By: malde-ch <malo@chato.fr>                   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/13 11:49:49 by malde-ch          #+#    #+#             */
-/*   Updated: 2025/02/18 19:39:24 by malde-ch         ###   ########.fr       */
+/*   Updated: 2025/02/19 20:02:42 by malde-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ int	handle_export_no_args(char **envp)
 
 	env = create_sorted_list(envp);
 	if (env == NULL)
-		return (1);
+		return (2);
 	tmp = env;
 	size = ft_lstsize_env(env);
 	while (size > 0)
@@ -70,4 +70,7 @@ int	builtin_export(t_mini *mini)
 
 	Cas 1. Var1=hola export Var1
 	Cas 2. export var1+=hola
+
+
+	Need to change the error $? to 1 when the variable is not in a good format
 */

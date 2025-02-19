@@ -6,7 +6,7 @@
 /*   By: malde-ch <malo@chato.fr>                   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/12 17:42:39 by malde-ch          #+#    #+#             */
-/*   Updated: 2025/02/19 16:29:53 by malde-ch         ###   ########.fr       */
+/*   Updated: 2025/02/19 20:19:07 by malde-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ typedef struct s_builtin
 
 int builtin_pwd(t_mini *mini);
 int	builtin_unset(t_mini *mini);
-/* int builtin_cd(t_mini *mini); */
+int builtin_cd(t_mini *mini);
 int builtin_echo(t_mini *mini);
 /* int builtin_exit(t_mini *mini); */
 int builtin_env(t_mini *mini);
@@ -39,6 +39,8 @@ builtin_func get_builtin_func(const char *name, t_builtin *builtins);
 int		ft_lstsize_env(t_env_var *env);
 void	free_split(char **split);
 void 	update_env_array(t_mini *mini);
+char	*get_env_value(t_env_var *env, char *key);
+
 
 
 // EXPORT UTILS 0 
@@ -55,6 +57,9 @@ t_env_var	*create_sorted_list(char **envp);
 int			handle_export_no_args(char **envp);
 
 #endif
+
+
+
 
 /* 
 bien revoir tous cela: 

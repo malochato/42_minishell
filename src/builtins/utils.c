@@ -6,7 +6,7 @@
 /*   By: malde-ch <malo@chato.fr>                   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/13 16:09:32 by malde-ch          #+#    #+#             */
-/*   Updated: 2025/02/19 16:29:30 by malde-ch         ###   ########.fr       */
+/*   Updated: 2025/02/19 20:18:26 by malde-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,18 @@ void	free_split(char **split)
 		i++;
 	}
 	free(split);
+}
+
+char	*get_env_value(t_env_var *env, char *key)
+{
+	while (env != NULL)
+	{
+		if (ft_strncmp(env->key, key, ft_strlen(key)) == 0 && \
+			ft_strlen(env->key) == ft_strlen(key))
+			return (env->value);
+		env = env->next;
+	}
+	return (NULL);
 }
 
 void update_env_array(t_mini *mini)

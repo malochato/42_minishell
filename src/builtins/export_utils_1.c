@@ -6,7 +6,7 @@
 /*   By: malde-ch <malo@chato.fr>                   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/17 18:45:09 by malde-ch          #+#    #+#             */
-/*   Updated: 2025/02/19 16:29:57 by malde-ch         ###   ########.fr       */
+/*   Updated: 2025/02/19 20:00:30 by malde-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ int add_env_var(t_mini *mini, char *key, char *delimiter_pos)
 	if (new == NULL)
 	{
 		perror("Error with malloc");
-		return (1);
+		return (2);
 	}
 	new->key = ft_strdup(key);
 	if (delimiter_pos == NULL)
@@ -58,7 +58,7 @@ int add_env_var(t_mini *mini, char *key, char *delimiter_pos)
 		free(new->value);
 		free(new);
 		perror("Error with malloc");
-		return (1);
+		return (2);
 	}
 	new->next = NULL;
 
