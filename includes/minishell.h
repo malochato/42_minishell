@@ -6,7 +6,7 @@
 /*   By: malde-ch <malo@chato.fr>                   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/07 17:00:22 by malde-ch          #+#    #+#             */
-/*   Updated: 2025/02/17 13:37:17 by malde-ch         ###   ########.fr       */
+/*   Updated: 2025/02/19 13:56:56 by malde-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,8 +57,8 @@ typedef struct s_cmd
 typedef struct s_mini
 {
 	char		**envp;
-	t_cmd		*cmd;
 	t_env_var	*env;
+	t_cmd		*cmd;
 } t_mini;
 
 

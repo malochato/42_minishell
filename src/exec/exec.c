@@ -35,7 +35,9 @@ int	exec(t_mini *mini)
 	func = get_builtin_func(mini->cmd->cmd[0], builtins);
 	if (func)
 	{
+		printf("|\n");
 		func(mini);
+		printf("\n|\n");
 	}
 	else
 	{

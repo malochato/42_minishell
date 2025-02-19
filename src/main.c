@@ -6,7 +6,7 @@
 /*   By: malde-ch <malo@chato.fr>                   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/07 16:53:33 by malde-ch          #+#    #+#             */
-/*   Updated: 2025/02/18 15:34:25 by malde-ch         ###   ########.fr       */
+/*   Updated: 2025/02/19 13:37:35 by malde-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,6 +84,18 @@ int	main(int argc, char **argv, char **envp)
 			mini.cmd->cmd = malloc(sizeof(char *));
 		}
 	        mini.cmd->next = NULL;
+
+		if(mini.cmd->cmd != NULL)
+		{
+			int i = 0;
+			while(mini.cmd->cmd[i] != NULL)
+			{
+				printf ("cmd: %s\n",mini.cmd->cmd[i]);
+				i++;
+			}
+			printf("end\n");
+			i = 0;
+		}
 
         exec(&mini);
 
