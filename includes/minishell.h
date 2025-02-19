@@ -6,7 +6,7 @@
 /*   By: malde-ch <malo@chato.fr>                   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/07 17:00:22 by malde-ch          #+#    #+#             */
-/*   Updated: 2025/02/19 13:56:56 by malde-ch         ###   ########.fr       */
+/*   Updated: 2025/02/19 20:34:41 by malde-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,5 +69,6 @@ void	free_env(t_env_var *env_var);
 
 #include "exec.h"
 #include "builtins.h"
+#include "env.h"
 
 #endif

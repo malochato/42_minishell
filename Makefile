@@ -9,10 +9,15 @@ PARSING_DIR = $(SRC_DIR)parsing/
 PARSING_FILES = env.c
 PARSING = $(addprefix $(PARSING_DIR), $(PARSING_FILES))
 
+ENV_DIR = $(SRC_DIR)env/
+ENV_FILES = env_manager.c utils_0.c utils_1.c
+ENV = $(addprefix $(ENV_DIR), $(ENV_FILES))
+
 BUILTINS_DIR = $(SRC_DIR)builtins/
 BUILTINS_FILES = 	pwd.c env.c echo.c unset.c\
-					export.c export_utils_0.c export_utils_1.c export_utils_2.c\
-					utils.c builtins.c #cd.c echo.c env.c exit.c unset.c
+					export.c export_utils_0.c  export_utils_1.c\
+					utils.c builtins.c #cd.c echo.c env.c exit.c unset.c export_utils_1.c
+					
 BUILTINS = $(addprefix $(BUILTINS_DIR), $(BUILTINS_FILES))
 
 EXEC_DIR = $(SRC_DIR)exec/
@@ -20,7 +25,7 @@ EXEC_FILES = exec.c
 EXEC = $(addprefix $(EXEC_DIR), $(EXEC_FILES))
 
 SRC_FILES = main.c
-SRC = $(addprefix $(SRC_DIR), $(SRC_FILES))  $(PARSING) $(EXEC) $(BUILTINS)
+SRC = $(addprefix $(SRC_DIR), $(SRC_FILES))  $(PARSING) $(EXEC) $(BUILTINS) $(ENV)
 
 
 

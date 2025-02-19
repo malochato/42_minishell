@@ -6,7 +6,7 @@
 /*   By: malde-ch <malo@chato.fr>                   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/12 17:42:39 by malde-ch          #+#    #+#             */
-/*   Updated: 2025/02/19 16:29:53 by malde-ch         ###   ########.fr       */
+/*   Updated: 2025/02/19 21:35:55 by malde-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 
 # include "minishell.h"
 # include "exec.h"
+# include "env.h"
 
 typedef int	(*builtin_func)(t_mini *);
 
@@ -36,17 +37,12 @@ void init_builtins(t_builtin *builtins);
 builtin_func get_builtin_func(const char *name, t_builtin *builtins);
 
 // UTILS
-int		ft_lstsize_env(t_env_var *env);
 void	free_split(char **split);
-void 	update_env_array(t_mini *mini);
 
 
 // EXPORT UTILS 0 
 int		check_valide_export(char *str);
 
-// EXPORT UTILS 1
-//int add_or_update_env_var(t_mini *mini, char **split, char *str);
-int			export_args(t_mini *mini, char *str);
 
 //EXPORT UTILS 2
 t_env_var	*create_sorted_list(char **envp);

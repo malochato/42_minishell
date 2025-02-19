@@ -6,7 +6,7 @@
 /*   By: malde-ch <malo@chato.fr>                   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/13 11:49:49 by malde-ch          #+#    #+#             */
-/*   Updated: 2025/02/18 19:39:24 by malde-ch         ###   ########.fr       */
+/*   Updated: 2025/02/19 21:35:39 by malde-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,30 @@ int	handle_export_no_args(char **envp)
 	return (0);
 }
 
+int export_args(t_mini *mini, char *str)
+{
+	int		result;
+	char		*delimiter_pos;
+	char		*key;
+	char		*value;
+
+	delimiter_pos = ft_strchr(str, '=');
+	printf("delimiter_pos: %s\n", delimiter_pos);
+
+	if (delimiter_pos != NULL)
+	{
+		key = ft_strndup(str, delimiter_pos - str);
+		value = ft_strdup(delimiter_pos + 1);
+	}
+	else
+	{
+		key = ft_strdup(str);
+		value = NULL;
+	}
+	result = env_manager(mini, key, value);
+	return (result);
+}
+
 int	handle_export_args(t_mini *mini)
 {
 	int	i;
@@ -47,7 +71,6 @@ int	handle_export_args(t_mini *mini)
 			export_args(mini, mini->cmd->cmd[i]);
 		i++;
 	}
-	update_env_array(mini);
 	return (0);
 }
 
@@ -70,4 +93,7 @@ int	builtin_export(t_mini *mini)
 
 	Cas 1. Var1=hola export Var1
 	Cas 2. export var1+=hola
+
+
+	put handle_export_args et export_args dans la meme fonction
 */
