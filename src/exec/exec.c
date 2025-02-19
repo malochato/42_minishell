@@ -38,7 +38,6 @@ int	exec(t_mini *mini)
 		printf("|\n");
 		func(mini);
 		printf("\n|\n");
-		
 	}
 	else
 	{

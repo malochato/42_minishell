@@ -5,108 +5,55 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: malde-ch <malo@chato.fr>                   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/02/17 18:45:09 by malde-ch          #+#    #+#             */
-/*   Updated: 2025/02/19 20:00:30 by malde-ch         ###   ########.fr       */
+/*   Created: 2025/02/19 21:41:37 by malde-ch          #+#    #+#             */
+/*   Updated: 2025/02/19 21:41:43 by malde-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "builtins.h"
 
-int update_env_var(t_env_var *env, char *key, char *delimiter_pos)
+void	swap_node_env(t_env_var *env_0, t_env_var *env_1)
 {
-	while (env != NULL)
+	char	*tmp_key;
+	char	*tmp_value;
+
+	tmp_key = env_0->key;
+	tmp_value = env_0->value;
+	env_0->key = env_1->key;
+	env_0->value = env_1->value;
+	env_1->key = tmp_key;
+	env_1->value = tmp_value;
+}
+
+t_env_var	*sort_env(t_env_var *env)
+{
+	t_env_var	*tmp;
+
+	tmp = env;
+	while (env->next != NULL)
 	{
-		if (ft_strncmp(env->key, key, ft_strlen(env->key)) == 0 && ft_strlen(env->key) == ft_strlen(key))
+		if (ft_strncmp(env->key, env->next->key, ft_strlen(env->key) + 1) > 0)
 		{
-			if (env->value != NULL)
-			{
-				free(env->value);
-				env->value = NULL;
-			}
-			if (delimiter_pos == NULL)
-			{
-				env->value = NULL;
-				return (0);
-			}
-			env->value = ft_strdup(delimiter_pos + 1);
-			return (0);
+			swap_node_env(env, env->next);
+			env = tmp;
 		}
-		env = env->next;
+		else
+			env = env->next;
 	}
-	return (1);
+	env = tmp;
+	return (env);
 }
 
-int add_env_var(t_mini *mini, char *key, char *delimiter_pos)
+t_env_var	*create_sorted_list(char **envp)
 {
-	t_env_var *new;
-	t_env_var *current;
+	t_env_var	*env_cpy;
 
-	new = malloc(sizeof(t_env_var));
-	if (new == NULL)
+	env_cpy = parser_env(envp);
+	if (env_cpy == NULL)
 	{
 		perror("Error with malloc");
-		return (2);
+		return (NULL);
 	}
-	new->key = ft_strdup(key);
-	if (delimiter_pos == NULL)
-		new->value = NULL;
-	else
-		new->value = ft_strdup(delimiter_pos + 1);
-	if (new->key == NULL || (delimiter_pos != NULL && new->value == NULL))
-	{
-		free(new->key);
-		free(new->value);
-		free(new);
-		perror("Error with malloc");
-		return (2);
-	}
-	new->next = NULL;
-
-	if (mini->env == NULL)
-	{
-		mini->env = new;
-	}
-	else
-	{
-		current = mini->env;
-		while (current->next != NULL)
-			current = current->next;
-		current->next = new;
-	}
-	return (0);
+	env_cpy = sort_env(env_cpy);
+	return (env_cpy);
 }
-
-
-int add_or_update_env_var(t_mini *mini, char *key, char *delimiter_pos)
-{
-	if (update_env_var(mini->env, key, delimiter_pos) == 0)
-	{
-		return (0);
-	}
-	add_env_var(mini, key, delimiter_pos);
-	return (0);
-}
-
-
-int export_args(t_mini *mini, char *str)
-{
-	int		result;
-	char		*delimiter_pos;
-	char		*key;
-
-	delimiter_pos = ft_strchr(str, '=');
-	printf("delimiter_pos: %s\n", delimiter_pos);
-	if (delimiter_pos != NULL)
-	{
-		key = ft_strndup(str, delimiter_pos - str);
-		result = add_or_update_env_var(mini, key, delimiter_pos);
-		free(key);
-	}
-	else
-	{
-		result = add_or_update_env_var(mini, str, NULL);
-	}
-	return (result);
-}
-
- 

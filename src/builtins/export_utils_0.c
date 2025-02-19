@@ -6,7 +6,7 @@
 /*   By: malde-ch <malo@chato.fr>                   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/13 17:27:32 by malde-ch          #+#    #+#             */
-/*   Updated: 2025/02/19 20:01:54 by malde-ch         ###   ########.fr       */
+/*   Updated: 2025/02/18 19:41:48 by malde-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ int	check_valide_export(char *str)
 	if (tmp == NULL)
 	{
 		perror("Error with malloc");
-		return (2);
+		return (1);
 	}
 	if (tmp[0] == NULL || !is_valid_identifier(tmp[0]) || str[0] == '=')
 	{
