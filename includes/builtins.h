@@ -6,7 +6,7 @@
 /*   By: malde-ch <malo@chato.fr>                   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/12 17:42:39 by malde-ch          #+#    #+#             */
-/*   Updated: 2025/02/19 21:35:55 by malde-ch         ###   ########.fr       */
+/*   Updated: 2025/02/19 22:22:37 by malde-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ typedef struct s_builtin
 
 int builtin_pwd(t_mini *mini);
 int	builtin_unset(t_mini *mini);
-/* int builtin_cd(t_mini *mini); */
+int builtin_cd(t_mini *mini);
 int builtin_echo(t_mini *mini);
 /* int builtin_exit(t_mini *mini); */
 int builtin_env(t_mini *mini);

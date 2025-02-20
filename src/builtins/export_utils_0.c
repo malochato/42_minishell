@@ -6,7 +6,7 @@
 /*   By: malde-ch <malo@chato.fr>                   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/13 17:27:32 by malde-ch          #+#    #+#             */
-/*   Updated: 2025/02/18 19:41:48 by malde-ch         ###   ########.fr       */
+/*   Updated: 2025/02/20 00:54:42 by malde-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,39 +19,24 @@ void	print_export_error(char *str)
 	ft_putstr_fd("': not a valid identifier\n", 2);
 }
 
-static	int	is_valid_identifier(char *str)
+int check_valide_export(char *str)
 {
-	int	i;
+	int i;
 
-	i = 0;
-	while (str[i] != '\0')
+	if (str == NULL || str[0] == '=' || ft_isdigit(str[0]))
 	{
-		if (ft_isalnum(str[i]) == 0 && str[i] != '_')
+		print_export_error(str);
+		return (0);
+	}
+	i = 0;
+	while (str[i] != '\0' && str[i] != '=')
+	{
+		if (!ft_isalnum(str[i]) && str[i] != '_')
+		{
+			print_export_error(str);
 			return (0);
+		}
 		i++;
 	}
 	return (1);
-}
-
-int	check_valide_export(char *str)
-{
-	char	**tmp;
-	int		return_value;
-
-	return_value = 0;
-	if (str == NULL || ft_isdigit(str[0]))
-		return (1);
-	tmp = ft_split(str, '=');
-	if (tmp == NULL)
-	{
-		perror("Error with malloc");
-		return (1);
-	}
-	if (tmp[0] == NULL || !is_valid_identifier(tmp[0]) || str[0] == '=')
-	{
-		print_export_error(str);
-		return_value = 1;
-	}
-	free_split(tmp);
-	return (return_value);
 }

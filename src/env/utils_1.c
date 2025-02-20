@@ -6,7 +6,7 @@
 /*   By: malde-ch <malo@chato.fr>                   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/19 21:39:29 by malde-ch          #+#    #+#             */
-/*   Updated: 2025/02/19 21:43:13 by malde-ch         ###   ########.fr       */
+/*   Updated: 2025/02/20 00:54:22 by malde-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,11 +52,8 @@ void update_env_array(t_mini *mini)
 				return;
 			}
 			ft_strlcpy(temp, env->key, ft_strlen(env->key) + 1);
-			printf("temp: %s\n", temp);
 			ft_strlcat(temp, "=", ft_strlen(temp) + 2);
-			printf("temp: %s\n", temp);
 			ft_strlcat(temp, env->value, ft_strlen(env->key) + ft_strlen(env->value) + 2);
-			printf("temp: %s\n", temp);
 			mini->envp[i] = temp;
 		}
 		else

@@ -16,6 +16,7 @@ int	exec(t_mini *mini)
 {
 	t_builtin		builtins[8];
 	builtin_func	func;
+	int				return_value;
 
 	init_builtins(builtins);
 
@@ -36,7 +37,17 @@ int	exec(t_mini *mini)
 	if (func)
 	{
 		printf("|\n");
-		func(mini);
+		return_value = func(mini);
+		if (return_value == 2)
+		{
+			perror("Error with malloc");
+			return (2);
+		}
+		if (return_value == 3)
+		{
+			perror("getcwd");
+			return (3);
+		}
 		printf("\n|\n");
 	}
 	else

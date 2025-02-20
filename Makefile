@@ -14,9 +14,9 @@ ENV_FILES = env_manager.c utils_0.c utils_1.c
 ENV = $(addprefix $(ENV_DIR), $(ENV_FILES))
 
 BUILTINS_DIR = $(SRC_DIR)builtins/
-BUILTINS_FILES = 	pwd.c env.c echo.c unset.c\
+BUILTINS_FILES = 	pwd.c env.c echo.c unset.c cd.c\
 					export.c export_utils_0.c  export_utils_1.c\
-					utils.c builtins.c #cd.c echo.c env.c exit.c unset.c export_utils_1.c
+					utils.c builtins.c #cd.c echo.c env.c exit.c unset.c
 					
 BUILTINS = $(addprefix $(BUILTINS_DIR), $(BUILTINS_FILES))
 

@@ -6,7 +6,7 @@
 /*   By: malde-ch <malo@chato.fr>                   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/19 21:41:37 by malde-ch          #+#    #+#             */
-/*   Updated: 2025/02/19 21:41:43 by malde-ch         ###   ########.fr       */
+/*   Updated: 2025/02/19 23:54:32 by malde-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,10 +50,7 @@ t_env_var	*create_sorted_list(char **envp)
 
 	env_cpy = parser_env(envp);
 	if (env_cpy == NULL)
-	{
-		perror("Error with malloc");
 		return (NULL);
-	}
 	env_cpy = sort_env(env_cpy);
 	return (env_cpy);
 }

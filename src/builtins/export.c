@@ -6,7 +6,7 @@
 /*   By: malde-ch <malo@chato.fr>                   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/13 11:49:49 by malde-ch          #+#    #+#             */
-/*   Updated: 2025/02/19 21:35:39 by malde-ch         ###   ########.fr       */
+/*   Updated: 2025/02/19 23:54:51 by malde-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,21 +15,21 @@
 int	handle_export_no_args(char **envp)
 {
 	int			size;
-	t_env_var	*env;
+	t_env_var	*env_cpy;
 	t_env_var	*tmp;
 
-	env = create_sorted_list(envp);
-	if (env == NULL)
-		return (1);
-	tmp = env;
-	size = ft_lstsize_env(env);
+	env_cpy = create_sorted_list(envp);
+	if (env_cpy == NULL)
+		return (2);
+	tmp = env_cpy;
+	size = ft_lstsize_env(env_cpy);
 	while (size > 0)
 	{
-		if (env->value != NULL)
-			printf("declare -x %s=\"%s\"\n", env->key, env->value);
+		if (env_cpy->value != NULL)
+			printf("declare -x %s=\"%s\"\n", env_cpy->key, env_cpy->value);
 		else
-			printf("declare -x %s\n", env->key);
-		env = env->next;
+			printf("declare -x %s\n", env_cpy->key);
+		env_cpy = env_cpy->next;
 		size--;
 	}
 	free_env(tmp);
@@ -38,22 +38,29 @@ int	handle_export_no_args(char **envp)
 
 int export_args(t_mini *mini, char *str)
 {
-	int		result;
+	int			result;
 	char		*delimiter_pos;
 	char		*key;
 	char		*value;
 
 	delimiter_pos = ft_strchr(str, '=');
-	printf("delimiter_pos: %s\n", delimiter_pos);
-
 	if (delimiter_pos != NULL)
 	{
 		key = ft_strndup(str, delimiter_pos - str);
+		if(key == NULL)
+			return (2);
 		value = ft_strdup(delimiter_pos + 1);
+		if(key == NULL)
+		{
+			free(key);
+			return (2);
+		}
 	}
 	else
 	{
 		key = ft_strdup(str);
+		if(key == NULL)
+			return (2);
 		value = NULL;
 	}
 	result = env_manager(mini, key, value);
@@ -63,15 +70,19 @@ int export_args(t_mini *mini, char *str)
 int	handle_export_args(t_mini *mini)
 {
 	int	i;
+	int	return_value;
 
 	i = 1;
+	return_value = 1;
 	while (mini->cmd->cmd[i] != NULL)
 	{
-		if (check_valide_export(mini->cmd->cmd[i]) == 0)
-			export_args(mini, mini->cmd->cmd[i]);
+		if (check_valide_export(mini->cmd->cmd[i]))
+			return_value = export_args(mini, mini->cmd->cmd[i]);
+		if (return_value == 2)
+			return (return_value);
 		i++;
 	}
-	return (0);
+	return (return_value);
 }
 
 int	builtin_export(t_mini *mini)

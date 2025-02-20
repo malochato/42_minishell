@@ -6,7 +6,7 @@
 /*   By: malde-ch <malo@chato.fr>                   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/17 10:31:52 by malde-ch          #+#    #+#             */
-/*   Updated: 2025/02/19 11:59:28 by malde-ch         ###   ########.fr       */
+/*   Updated: 2025/02/19 23:53:56 by malde-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,10 @@ t_env_var	*parser_env(char **env)
 	{
 		new_var = create_env_var(env[i]);
 		if (!new_var)
+		{
 			free_env(head);
+			return (NULL);
+		}
 		if (!head)
 			head = new_var;
 		else

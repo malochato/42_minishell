@@ -6,7 +6,7 @@
 /*   By: malde-ch <malo@chato.fr>                   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/13 11:07:51 by malde-ch          #+#    #+#             */
-/*   Updated: 2025/02/19 14:17:07 by malde-ch         ###   ########.fr       */
+/*   Updated: 2025/02/19 23:09:49 by malde-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,3 +51,7 @@ int	builtin_echo(t_mini *mini)
 		printf("\n");
 	return (0);
 }
+
+
+// non je vais pas proteger mes printf, je suis un rebelle
+// ca arrive seuelement sil y a un probleme avec l'espace.

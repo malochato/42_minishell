@@ -6,7 +6,7 @@
 /*   By: malde-ch <malo@chato.fr>                   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/17 18:45:09 by malde-ch          #+#    #+#             */
-/*   Updated: 2025/02/19 22:03:50 by malde-ch         ###   ########.fr       */
+/*   Updated: 2025/02/19 23:51:09 by malde-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,10 +40,7 @@ int add_env_var(t_mini *mini, char *key, char *value)
 
 	new = malloc(sizeof(t_env_var));
 	if (new == NULL)
-	{
-		perror("Error with malloc");
 		return (2);
-	}
 	new->key = key;
 	new->value = value;
 	new->next = NULL;
