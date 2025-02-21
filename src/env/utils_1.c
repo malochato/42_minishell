@@ -6,72 +6,62 @@
 /*   By: malde-ch <malo@chato.fr>                   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/19 21:39:29 by malde-ch          #+#    #+#             */
-/*   Updated: 2025/02/20 23:21:19 by malde-ch         ###   ########.fr       */
+/*   Updated: 2025/02/21 04:12:43 by malde-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "env.h"
 
-
-void update_env_array(t_mini *mini)
-
+char *create_env_string(t_mini *mini, t_env_var *env)
 {
-    t_env_var *env;
-    int i;
     char *temp;
 
-    // Free the old envp if it exists
-    if (mini->envp != NULL)
+    if (env->value != NULL)
     {
-        for (i = 0; mini->envp[i] != NULL; i++)
-            free(mini->envp[i]);
-        free(mini->envp);
+        temp = malloc(ft_strlen(env->key) + ft_strlen(env->value) + 2);
+        if (temp == NULL)
+            ft_exit(mini, 1, "malloc");
+        ft_strlcpy(temp, env->key, ft_strlen(env->key) + 1);
+        ft_strlcat(temp, "=", ft_strlen(temp) + 2);
+        ft_strlcat(temp, env->value, ft_strlen(temp) + ft_strlen(env->value) + 1);
+    }
+    else
+    {
+        temp = malloc(ft_strlen(env->key) + 1);
+        if (temp == NULL)
+            ft_exit(mini, 1, "malloc");
+        ft_strlcpy(temp, env->key, ft_strlen(env->key) + 1);
     }
 
-    // Count the number of environment variables
-    i = ft_lstsize_env(mini->env);
+    return temp;
+}
 
-    // Allocate memory for the new envp
-    mini->envp = malloc((i + 1) * sizeof(char *));
-    if (mini->envp == NULL)
-    {
-        perror("Error with malloc");
-        return;
-    }
+void fill_env_array(t_mini *mini)
+{
+    t_env_var	*env;
+    int			i;
 
-    // Fill the new envp with the environment variables
-    env = mini->env;
-    i = 0;
+	i = 0;
+	env = mini->env;
     while (env != NULL)
     {
-		//printf("key and value : %s %s\n", env->key, env->value);
-        if (env->value != NULL)
-        {
-            temp = malloc(ft_strlen(env->key) + ft_strlen(env->value) + 2);
-            if (temp == NULL)
-            {
-                perror("Error with malloc");
-                return;
-            }
-            ft_strlcpy(temp, env->key, ft_strlen(env->key) + 1);
-            ft_strlcat(temp, "=", ft_strlen(temp) + 2);
-            ft_strlcat(temp, env->value, ft_strlen(temp) + ft_strlen(env->value) + 1);
-            mini->envp[i] = temp;
-        }
-        else
-        {
-            temp = malloc(ft_strlen(env->key) + 1);
-            if (temp == NULL)
-            {
-                perror("Error with malloc");
-                return;
-            }
-            ft_strlcpy(temp, env->key, ft_strlen(env->key) + 1);
-            mini->envp[i] = temp;
-        }
+        mini->envp[i] = create_env_string(mini, env);
         i++;
         env = env->next;
     }
     mini->envp[i] = NULL;
 }
 
+void update_env_array(t_mini *mini)
+{
+	int	i;
+
+	i = 0;
+    if (mini->envp != NULL)
+        free_split(mini->envp);
+    i = ft_lstsize_env(mini->env);
+    mini->envp = malloc((i + 1) * sizeof(char *));
+    if (mini->envp == NULL)
+        ft_exit(mini, 1, "malloc");
+    fill_env_array(mini);
+} 

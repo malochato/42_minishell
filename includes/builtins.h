@@ -6,7 +6,7 @@
 /*   By: malde-ch <malo@chato.fr>                   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/12 17:42:39 by malde-ch          #+#    #+#             */
-/*   Updated: 2025/02/21 01:08:09 by malde-ch         ###   ########.fr       */
+/*   Updated: 2025/02/21 03:05:06 by malde-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,35 +23,29 @@ typedef struct s_builtin
 {
 	char			*name;
 	builtin_func	func;
-} t_builtin;
+}	t_builtin;
 
-int builtin_pwd(t_mini *mini);
-int	builtin_unset(t_mini *mini);
-int builtin_cd(t_mini *mini);
-int builtin_echo(t_mini *mini);
-int builtin_exit(t_mini *mini);
-int builtin_env(t_mini *mini);
-int builtin_export(t_mini *mini);
+int		builtin_pwd(t_mini *mini);
+int		builtin_unset(t_mini *mini);
+int		builtin_cd(t_mini *mini);
+int		builtin_echo(t_mini *mini);
+int		builtin_exit(t_mini *mini);
+int		builtin_env(t_mini *mini);
+int		builtin_export(t_mini *mini);
 
-void init_builtins(t_builtin *builtins);
+void	init_builtins(t_builtin *builtins);
 builtin_func get_builtin_func(const char *name, t_builtin *builtins);
 
 // UTILS
-int ft_error(char *cmd, char *error_type, char *val, int perror_active);
-
+int		ft_error(char *cmd, char *error_type, char *val, int perror_active);
 
 // EXPORT UTILS 0 
 int		check_valide_export(char *str);
 
-
 //EXPORT UTILS 2
 t_env_var	*create_sorted_list(char **envp);
 
-// to sup:
-int			handle_export_no_args(char **envp);
-
 #endif
-
 /* 
 bien revoir tous cela: 
 

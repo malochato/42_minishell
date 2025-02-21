@@ -6,7 +6,7 @@
 /*   By: malde-ch <malo@chato.fr>                   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/07 17:00:22 by malde-ch          #+#    #+#             */
-/*   Updated: 2025/02/21 02:20:14 by malde-ch         ###   ########.fr       */
+/*   Updated: 2025/02/21 03:08:13 by malde-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ typedef struct s_redirection
 {
 	char *file;
 	t_operator type;
-} t_redirection;
+}	t_redirection;
 
 typedef struct s_cmd
 {
@@ -53,7 +53,7 @@ typedef struct s_cmd
 	t_redirection *input;
 	t_redirection *output;
 	struct s_cmd *next;
-} t_cmd;
+}	t_cmd;
 
 typedef struct s_mini
 {
@@ -61,22 +61,20 @@ typedef struct s_mini
 	char		**envp;
 	t_env_var	*env;
 	t_cmd		*cmd;
-} t_mini;
-
-
+}	t_mini;
 
 // to put in the parsing.h
 t_env_var *parser_env(char **env);
-char **duplicate_env(char **envp);
+char	**duplicate_env(char **envp);
 
-
-// keep this
+// From free_all.c
 void	free_env(t_env_var *env_var);
 void	free_split(char **split);
 void	free_cmd(t_cmd *cmd);
 void	free_all(t_mini *mini);
 
-void ft_exit(t_mini *mini, int num, char *str);
+// From main.c
+void	ft_exit(t_mini *mini, int num, char *str);
 
 #include "exec.h"
 #include "builtins.h"
