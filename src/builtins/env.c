@@ -1,31 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strndup.c                                       :+:      :+:    :+:   */
+/*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: malde-ch <malo@chato.fr>                   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/02/17 10:51:52 by malde-ch          #+#    #+#             */
-/*   Updated: 2025/02/17 13:37:42 by malde-ch         ###   ########.fr       */
+/*   Created: 2025/02/13 11:57:38 by malde-ch          #+#    #+#             */
+/*   Updated: 2025/02/21 04:45:02 by malde-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "builtins.h"
 
-char	*ft_strndup(const char *s, size_t n)
+int	builtin_env(t_mini *mini, t_cmd *cmd)
 {
-	char	*dup;
-	size_t	i;
+	t_env_var	*env;
 
-	dup = (char *)malloc(sizeof(char) * (n + 1));
-	if (!dup)
-		return (NULL);
-	i = 0;
-	while (s[i] && i < n)
+	(void)cmd;
+	env = mini->env;
+	while (env != NULL)
 	{
-		dup[i] = s[i];
-		i++;
+		if (env->value != NULL)
+			printf("%s=%s\n", env->key, env->value);
+		env = env->next;
 	}
-	dup[i] = '\0';
-	return (dup);
+	return (0);
 }

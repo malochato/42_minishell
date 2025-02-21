@@ -1,31 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strndup.c                                       :+:      :+:    :+:   */
+/*   unset.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: malde-ch <malo@chato.fr>                   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/02/17 10:51:52 by malde-ch          #+#    #+#             */
-/*   Updated: 2025/02/17 13:37:42 by malde-ch         ###   ########.fr       */
+/*   Created: 2025/02/19 14:49:04 by malde-ch          #+#    #+#             */
+/*   Updated: 2025/02/21 04:50:16 by malde-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "builtins.h"
 
-char	*ft_strndup(const char *s, size_t n)
+int	builtin_unset(t_mini *mini, t_cmd *cmd)
 {
-	char	*dup;
-	size_t	i;
+	int	i;
 
-	dup = (char *)malloc(sizeof(char) * (n + 1));
-	if (!dup)
-		return (NULL);
-	i = 0;
-	while (s[i] && i < n)
-	{
-		dup[i] = s[i];
-		i++;
-	}
-	dup[i] = '\0';
-	return (dup);
+	i = 1;
+	while (cmd->cmd[i] != NULL)
+		remove_env_var(mini, cmd->cmd[i++]);
+	return (0);
 }

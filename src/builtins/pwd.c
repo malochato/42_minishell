@@ -1,31 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strndup.c                                       :+:      :+:    :+:   */
+/*   pwd.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: malde-ch <malo@chato.fr>                   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/02/17 10:51:52 by malde-ch          #+#    #+#             */
-/*   Updated: 2025/02/17 13:37:42 by malde-ch         ###   ########.fr       */
+/*   Created: 2025/02/12 17:42:04 by malde-ch          #+#    #+#             */
+/*   Updated: 2025/02/21 04:30:41 by malde-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "builtins.h"
 
-char	*ft_strndup(const char *s, size_t n)
+int	builtin_pwd(t_mini *mini, t_cmd *cmd)
 {
-	char	*dup;
-	size_t	i;
+	char	*pwd;
 
-	dup = (char *)malloc(sizeof(char) * (n + 1));
-	if (!dup)
-		return (NULL);
-	i = 0;
-	while (s[i] && i < n)
-	{
-		dup[i] = s[i];
-		i++;
-	}
-	dup[i] = '\0';
-	return (dup);
+	(void)mini;
+	(void)cmd;
+	pwd = getcwd(NULL, 0);
+	if (pwd == NULL)
+		return (ft_error("error retrieving current directory", \
+		"getcwd", NULL, 1));
+	printf("%s\n", pwd);
+	free(pwd);
+	return (0);
 }

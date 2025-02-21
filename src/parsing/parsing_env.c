@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   env.c                                              :+:      :+:    :+:   */
+/*   parsing_env.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: malde-ch <malo@chato.fr>                   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/17 10:31:52 by malde-ch          #+#    #+#             */
-/*   Updated: 2025/02/17 12:44:32 by malde-ch         ###   ########.fr       */
+/*   Updated: 2025/02/21 05:57:25 by malde-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,10 @@ t_env_var	*create_env_var(char *env_entry)
 	delimiter_pos = ft_strchr(env_entry, '=');
 	if (!delimiter_pos)
 	{
-		free(new_var);
-		return (NULL);
+		new_var->key = ft_strdup(env_entry);
+		new_var->value = NULL;
+		new_var->next = NULL;
+		return (new_var);
 	}
 	new_var->key = ft_strndup(env_entry, delimiter_pos - env_entry);
 	new_var->value = ft_strdup(delimiter_pos + 1);
@@ -35,22 +37,32 @@ t_env_var	*create_env_var(char *env_entry)
 	return (new_var);
 }
 
-void	free_env(t_env_var *env_var)
+char	**duplicate_env(char **envp)
 {
-	t_env_var	*head;
-	t_env_var	*current;
+	int		i;
+	char	**new_env;
 
-	head = env_var;
-	if (!head)
-		return ;
-	while (head)
+	i = 0;
+	while (envp[i] != NULL)
+		i++;
+	new_env = malloc((i + 1) * sizeof(char *));
+	if (new_env == NULL)
+		return (NULL);
+	i = 0;
+	while (envp[i] != NULL)
 	{
-		current = head;
-		head = head->next;
-		free(current->key);
-		free(current->value);
-		free(current);
+		new_env[i] = strdup(envp[i]);
+		if (new_env[i] == NULL)
+		{
+			while (i > 0)
+				free(new_env[--i]);
+			free(new_env);
+			return (NULL);
+		}
+		i++;
 	}
+	new_env[i] = NULL;
+	return (new_env);
 }
 
 t_env_var	*parser_env(char **env)
@@ -63,11 +75,16 @@ t_env_var	*parser_env(char **env)
 	head = NULL;
 	current = NULL;
 	i = 0;
+	if (!env)
+		return (NULL);
 	while (env[i])
 	{
 		new_var = create_env_var(env[i]);
 		if (!new_var)
+		{
 			free_env(head);
+			return (NULL);
+		}
 		if (!head)
 			head = new_var;
 		else
@@ -77,3 +94,8 @@ t_env_var	*parser_env(char **env)
 	}
 	return (head);
 }
+/* 
+	TO DO:
+	- create_env_var if there is no envp
+
+ */
