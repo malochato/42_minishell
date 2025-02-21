@@ -6,7 +6,7 @@
 /*   By: malde-ch <malo@chato.fr>                   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/12 17:42:04 by malde-ch          #+#    #+#             */
-/*   Updated: 2025/02/19 23:04:58 by malde-ch         ###   ########.fr       */
+/*   Updated: 2025/02/21 02:13:33 by malde-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,8 @@ int	builtin_pwd(t_mini *mini)
 	(void)mini;
 	pwd = getcwd(NULL, 0);
 	if (pwd == NULL)
-		return (3);
+		return (ft_error("error retrieving current directory", \
+		"getcwd", NULL, 1));
 	printf("%s\n", pwd);
 	free(pwd);
 	return (0);

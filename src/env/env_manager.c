@@ -6,13 +6,13 @@
 /*   By: malde-ch <malo@chato.fr>                   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/19 20:32:49 by malde-ch          #+#    #+#             */
-/*   Updated: 2025/02/20 00:56:03 by malde-ch         ###   ########.fr       */
+/*   Updated: 2025/02/21 02:34:21 by malde-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "env.h"
 
-char *get_env_value(t_env_var *env, char *key)
+char	*get_env_value(t_env_var *env, char *key)
 {
 	t_env_var	*current;
 
@@ -27,7 +27,7 @@ char *get_env_value(t_env_var *env, char *key)
 	return (NULL);
 }
 
-int is_new_env_var(t_env_var *env, char *key)
+int	is_new_env_var(t_env_var *env, char *key)
 {
 	t_env_var	*current;
 
@@ -71,7 +71,7 @@ int	remove_env_var(t_mini *mini, char *str)
 	return (0);
 }
 
-int env_manager(t_mini *mini, char *key, char *value)
+int	env_manager(t_mini *mini, char *key, char *value)
 {
 	int		result;
 

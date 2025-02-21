@@ -6,7 +6,7 @@
 /*   By: malde-ch <malo@chato.fr>                   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/12 17:42:39 by malde-ch          #+#    #+#             */
-/*   Updated: 2025/02/19 22:22:37 by malde-ch         ###   ########.fr       */
+/*   Updated: 2025/02/21 01:08:09 by malde-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ int builtin_pwd(t_mini *mini);
 int	builtin_unset(t_mini *mini);
 int builtin_cd(t_mini *mini);
 int builtin_echo(t_mini *mini);
-/* int builtin_exit(t_mini *mini); */
+int builtin_exit(t_mini *mini);
 int builtin_env(t_mini *mini);
 int builtin_export(t_mini *mini);
 
@@ -37,7 +37,7 @@ void init_builtins(t_builtin *builtins);
 builtin_func get_builtin_func(const char *name, t_builtin *builtins);
 
 // UTILS
-void	free_split(char **split);
+int ft_error(char *cmd, char *error_type, char *val, int perror_active);
 
 
 // EXPORT UTILS 0 

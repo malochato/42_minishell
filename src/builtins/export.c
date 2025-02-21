@@ -6,7 +6,7 @@
 /*   By: malde-ch <malo@chato.fr>                   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/13 11:49:49 by malde-ch          #+#    #+#             */
-/*   Updated: 2025/02/19 23:54:51 by malde-ch         ###   ########.fr       */
+/*   Updated: 2025/02/21 02:32:53 by malde-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,9 +36,8 @@ int	handle_export_no_args(char **envp)
 	return (0);
 }
 
-int export_args(t_mini *mini, char *str)
+int	export_args(t_mini *mini, char *str)
 {
-	int			result;
 	char		*delimiter_pos;
 	char		*key;
 	char		*value;
@@ -47,10 +46,10 @@ int export_args(t_mini *mini, char *str)
 	if (delimiter_pos != NULL)
 	{
 		key = ft_strndup(str, delimiter_pos - str);
-		if(key == NULL)
+		if (key == NULL)
 			return (2);
 		value = ft_strdup(delimiter_pos + 1);
-		if(key == NULL)
+		if (key == NULL)
 		{
 			free(key);
 			return (2);
@@ -59,12 +58,11 @@ int export_args(t_mini *mini, char *str)
 	else
 	{
 		key = ft_strdup(str);
-		if(key == NULL)
+		if (key == NULL)
 			return (2);
 		value = NULL;
 	}
-	result = env_manager(mini, key, value);
-	return (result);
+	return (env_manager(mini, key, value));
 }
 
 int	handle_export_args(t_mini *mini)
@@ -76,7 +74,7 @@ int	handle_export_args(t_mini *mini)
 	return_value = 1;
 	while (mini->cmd->cmd[i] != NULL)
 	{
-		if (check_valide_export(mini->cmd->cmd[i]))
+		if (check_valide_export(mini->cmd->cmd[i]) == 0)
 			return_value = export_args(mini, mini->cmd->cmd[i]);
 		if (return_value == 2)
 			return (return_value);

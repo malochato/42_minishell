@@ -6,124 +6,103 @@
 /*   By: malde-ch <malo@chato.fr>                   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/07 16:53:33 by malde-ch          #+#    #+#             */
-/*   Updated: 2025/02/19 16:59:42 by malde-ch         ###   ########.fr       */
+/*   Updated: 2025/02/21 02:55:01 by malde-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-char **duplicate_env(char **envp)
+int	shell_init(t_mini *mini)
 {
-	int i;
-	char **new_env;
+	char	*pwd;
+	char	*char_shlvl;
+	int		shlvl;
 
-	for (i = 0; envp[i] != NULL; i++)
-		;
-	new_env = malloc((i + 1) * sizeof(char *));
-	if (new_env == NULL)
-		return (NULL);
-	for (i = 0; envp[i] != NULL; i++)
+	pwd = getcwd(NULL, 0);
+	if (pwd == NULL)
+		return (ft_error("error retrieving current directory", "getcwd", \
+		NULL, 1));
+	env_manager(mini, ft_strdup("PWD"), pwd);
+	char_shlvl = get_env_value(mini->env, "SHLVL");
+	if (char_shlvl != NULL)
 	{
-		new_env[i] = strdup(envp[i]);
-		if (new_env[i] == NULL)
-		{
-			while (i > 0)
-				free(new_env[--i]);
-			free(new_env);
-			return (NULL);
-		}
+		shlvl = ft_atoi(char_shlvl);
+		if (shlvl >= 0)
+			char_shlvl = ft_itoa(shlvl + 1);
+		else
+			char_shlvl = ft_strdup("1");
 	}
-	new_env[i] = NULL;
-	return (new_env);
+	else
+		char_shlvl = ft_strdup("1");
+	env_manager(mini, ft_strdup("SHLVL"), char_shlvl);
+	return (0);
+}
+
+void	parse_input(t_mini *mini, char *input)
+{
+	mini->cmd = malloc(sizeof(t_cmd));
+	if (mini->cmd == NULL)
+	{
+		perror("malloc");
+		free_all(mini);
+		exit(1);
+	}
+	mini->cmd->cmd = ft_split(input, ' ');
+	if (mini->cmd->cmd == NULL)
+	{
+		mini->cmd->cmd = malloc(sizeof(char *));
+		if (mini->cmd->cmd == NULL)
+		{
+			perror("malloc");
+			free_all(mini);
+			exit(1);
+		}
+		mini->cmd->cmd[0] = NULL;
+	}
+	mini->cmd->next = NULL;
 }
 
 int	main(int argc, char **argv, char **envp)
 {
-	t_mini	mini;
+	t_mini	*mini;
 	char	*input;
 
 	(void)argc;
 	(void)argv;
-	mini.cmd = malloc(sizeof(t_cmd));
-	mini.cmd->cmd = malloc(sizeof(char *));
-	mini.cmd->cmd[0] = NULL;
-	if (mini.cmd == NULL)
+	mini = malloc(sizeof(t_mini));
+	if (mini == NULL)
 	{
 		perror("malloc");
 		return (1);
 	}
-	mini.env = parser_env(envp);
-	mini.envp = duplicate_env(envp);
-
+	mini->cmd = NULL;
+	mini->exit_status = 0;
+	mini->env = parser_env(envp);
+	if (!mini->env)
+	{
+		printf("No env: Bye (with love)\n");
+		free(mini);
+		return (1);
+	}
+	mini->envp = duplicate_env(envp);
+	shell_init(mini);
 	while (1)
 	{
 		input = readline("minishell $>");
-		// this as to change (it's need to not be static),we have to put minishell + the directory where we are in.
 		if (input == NULL)
 			break ;
-		// this is CRL + D
 		if (*input)
 		{
 			add_history(input);
-			// this is to add the input in the history	
-			// and use it with the up arrow	
 		}
-
-		        // Libérer la mémoire de la commande précédente
-        if (mini.cmd->cmd != NULL) {
-            for (int i = 0; mini.cmd->cmd[i] != NULL; i++) {
-                free(mini.cmd->cmd[i]);
-            }
-            free(mini.cmd->cmd);
-        }
-
-
-        // Allouer et initialiser la nouvelle commande
-        mini.cmd->cmd = ft_split(input, ' ');
-		if (mini.cmd->cmd == NULL){
-			mini.cmd->cmd = malloc(sizeof(char *));
-		}
-	        mini.cmd->next = NULL;
-
-		if(mini.cmd->cmd != NULL)
-		{
-			int i = 0;
-			while(mini.cmd->cmd[i] != NULL)
-			{
-				printf ("cmd: %s\n",mini.cmd->cmd[i]);
-				i++;
-			}
-			printf("end\n");
-			i = 0;
-		}
-
-        exec(&mini);
-
+		parse_input(mini, input);
+		exec(mini);
 		printf("You entered: %s\n", input);
 		free(input);
+		free_cmd(mini->cmd);
+		mini->cmd = NULL;
 	}
 	rl_clear_history();
-	if(mini.cmd->cmd != NULL)
-	{
-		int i = 0;
-		while(mini.cmd->cmd[i] != NULL)
-		{
-			free(mini.cmd->cmd[i]);
-			i++;
-		}
-		free(mini.cmd->cmd);
-	}
-
-	if (mini.cmd != NULL)
-		free(mini.cmd);
-	// need real free function
-	if (mini.env != NULL)
-		free_env(mini.env);
-	if (mini.envp != NULL)
-	{
-		for (int i = 0; mini.envp[i] != NULL; i++)
-			free(mini.envp[i]);
-		free(mini.envp);
-	}
+	free_all(mini);
 	return (0);
 }

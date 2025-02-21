@@ -6,7 +6,7 @@
 /*   By: malde-ch <malo@chato.fr>                   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/13 09:56:50 by malde-ch          #+#    #+#             */
-/*   Updated: 2025/02/19 22:23:16 by malde-ch         ###   ########.fr       */
+/*   Updated: 2025/02/21 02:30:32 by malde-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,13 +26,10 @@ void	init_builtins(t_builtin *builtins)
 	builtins[4].func = builtin_unset;
 	builtins[5].name = "cd";
 	builtins[5].func = builtin_cd;
-	builtins[6].name = NULL;
-	builtins[6].func = NULL;
-/*  
-	builtins[3].name = "exit";
-	builtins[3].func = builtin_exit;
+	builtins[6].name = "exit";
+	builtins[6].func = builtin_exit;
 	builtins[7].name = NULL;
-	builtins[7].func = NULL; */
+	builtins[7].func = NULL;
 }
 
 builtin_func	get_builtin_func(const char *name, t_builtin *builtins)
@@ -44,14 +41,7 @@ builtin_func	get_builtin_func(const char *name, t_builtin *builtins)
 	{
 		if (ft_strncmp(name, builtins[i].name, ft_strlen(name)) == 0 \
 			&& ft_strlen(name) == ft_strlen(builtins[i].name))
-		{
-
-			// check here also if the next token is not an option
-			// if it is an option, return NULL
-			// so we execute the binary
-			printf("Found builtin %s\n", name);
 			return (builtins[i].func);
-		}
 		i++;
 	}
 	return (NULL);

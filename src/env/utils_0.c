@@ -6,17 +6,18 @@
 /*   By: malde-ch <malo@chato.fr>                   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/17 18:45:09 by malde-ch          #+#    #+#             */
-/*   Updated: 2025/02/19 23:51:09 by malde-ch         ###   ########.fr       */
+/*   Updated: 2025/02/21 02:36:42 by malde-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "env.h"
 
-int update_env_var(t_env_var *env, char *key, char *value)
+int	update_env_var(t_env_var *env, char *key, char *value)
 {
 	while (env != NULL)
 	{
-		if (ft_strncmp(env->key, key, ft_strlen(env->key)) == 0 && ft_strlen(env->key) == ft_strlen(key))
+		if (ft_strncmp(env->key, key, ft_strlen(env->key)) == 0 && \
+			ft_strlen(env->key) == ft_strlen(key))
 		{
 			if (env->value != NULL)
 			{
@@ -33,10 +34,10 @@ int update_env_var(t_env_var *env, char *key, char *value)
 	return (1);
 }
 
-int add_env_var(t_mini *mini, char *key, char *value)
+int	add_env_var(t_mini *mini, char *key, char *value)
 {
-	t_env_var *new;
-	t_env_var *current;
+	t_env_var	*new;
+	t_env_var	*current;
 
 	new = malloc(sizeof(t_env_var));
 	if (new == NULL)
@@ -56,7 +57,6 @@ int add_env_var(t_mini *mini, char *key, char *value)
 	return (0);
 }
 
-
 int	ft_lstsize_env(t_env_var *env)
 {
 	int			i;
@@ -71,5 +71,3 @@ int	ft_lstsize_env(t_env_var *env)
 	}
 	return (i);
 }
-
- 

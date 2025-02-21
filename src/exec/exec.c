@@ -19,8 +19,7 @@ int	exec(t_mini *mini)
 	int				return_value;
 
 	init_builtins(builtins);
-
-	printf("You entered in exec\n");
+	return_value = 0;
 
 	/*
 		il va y avoir une boucle sur mini->cmd
@@ -29,33 +28,19 @@ int	exec(t_mini *mini)
 		sinon on execute le binaire.
 	*/
 
-
 	printf("cmd[0] = %s\n", mini->cmd->cmd[0]);
 	if (mini->cmd->cmd[0] == NULL)
 		return (0);
 	func = get_builtin_func(mini->cmd->cmd[0], builtins);
 	if (func)
-	{
-		printf("|\n");
 		return_value = func(mini);
-		if (return_value == 2)
-		{
-			perror("Error with malloc");
-			return (2);
-		}
-		if (return_value == 3)
-		{
-			perror("getcwd");
-			return (3);
-		}
-		printf("\n|\n");
-	}
 	else
 	{
 		printf("Not a builtin\n");
 		// Execute binary here
 	}
-
+	return (return_value);
+}
 /* 
 	TO DO: 
 	execute builtins, 
@@ -68,8 +53,3 @@ int	exec(t_mini *mini)
 		ca pourrais etre vraiment cool. 
 
  */
-
-
-
-	return (0);
-}
