@@ -6,7 +6,7 @@
 /*   By: malde-ch <malo@chato.fr>                   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/19 21:41:37 by malde-ch          #+#    #+#             */
-/*   Updated: 2025/02/19 23:54:32 by malde-ch         ###   ########.fr       */
+/*   Updated: 2025/02/21 05:06:04 by malde-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,4 +53,20 @@ t_env_var	*create_sorted_list(char **envp)
 		return (NULL);
 	env_cpy = sort_env(env_cpy);
 	return (env_cpy);
+}
+
+int	check_valide_export(char *str)
+{
+	int	i;
+
+	if (str == NULL || str[0] == '=' || ft_isdigit(str[0]))
+		return (ft_error("export", "not a valid identifier", str, 0));
+	i = 0;
+	while (str[i] != '\0' && str[i] != '=')
+	{
+		if (!ft_isalnum(str[i]) && str[i] != '_')
+			return (ft_error("export", "not a valid identifier", str, 0));
+		i++;
+	}
+	return (0);
 }

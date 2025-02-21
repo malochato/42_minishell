@@ -6,7 +6,7 @@
 /*   By: malde-ch <malo@chato.fr>                   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/17 10:31:52 by malde-ch          #+#    #+#             */
-/*   Updated: 2025/02/21 02:44:59 by malde-ch         ###   ########.fr       */
+/*   Updated: 2025/02/21 05:57:25 by malde-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,9 +76,7 @@ t_env_var	*parser_env(char **env)
 	current = NULL;
 	i = 0;
 	if (!env)
-		return (create_env_var(NULL));
-	// creer une liste vide, sans Key sans value sans rien
-	// mais quelle soit pas null.
+		return (NULL);
 	while (env[i])
 	{
 		new_var = create_env_var(env[i]);
@@ -96,3 +94,8 @@ t_env_var	*parser_env(char **env)
 	}
 	return (head);
 }
+/* 
+	TO DO:
+	- create_env_var if there is no envp
+
+ */

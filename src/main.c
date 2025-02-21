@@ -6,7 +6,7 @@
 /*   By: malde-ch <malo@chato.fr>                   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/07 16:53:33 by malde-ch          #+#    #+#             */
-/*   Updated: 2025/02/21 04:51:30 by malde-ch         ###   ########.fr       */
+/*   Updated: 2025/02/21 05:04:40 by malde-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ int	shell_init(t_mini *mini)
 	return (0);
 }
 
-void	parse_input(t_mini *mini, char *input)
+void	parse_input_simple(t_mini *mini, char *input)
 {
 	mini->cmd = malloc(sizeof(t_cmd));
 	if (mini->cmd == NULL)
@@ -52,11 +52,7 @@ void	parse_input(t_mini *mini, char *input)
 	{
 		mini->cmd->cmd = malloc(sizeof(char *));
 		if (mini->cmd->cmd == NULL)
-		{
-			perror("malloc");
-			free_all(mini);
-			exit(1);
-		}
+			ft_exit(mini, 1, "malloc");
 		mini->cmd->cmd[0] = NULL;
 	}
 	mini->cmd->next = NULL;
@@ -95,7 +91,7 @@ int	main(int argc, char **argv, char **envp)
 		{
 			add_history(input);
 		}
-		parse_input(mini, input);
+		parse_input_simple(mini, input);
 		exec(mini);
 		printf("You entered: %s\n", input);
 		free(input);

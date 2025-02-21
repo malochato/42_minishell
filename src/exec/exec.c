@@ -15,21 +15,14 @@
 int	exec(t_mini *mini)
 {
 	t_builtin		builtins[8];
-	builtin_func	func;
+	t_builtin_func	func;
 	int				return_value;
 	t_cmd			*cmd;
 
 	init_builtins(builtins);
 	return_value = 0;
 	cmd = mini->cmd;
-
-	/*
-		il va y avoir une boucle sur mini->cmd
-		avec un check pour regarder si la commande fait partis des builtins    CHECK
-		si oui on execute le builtin											CHECK
-		sinon on execute le binaire.
-	*/
- 	while (cmd)
+	while (cmd)
 	{
 		if (cmd->cmd[0] == NULL)
 			return (0);
@@ -39,22 +32,15 @@ int	exec(t_mini *mini)
 		else
 		{
 			printf("Not a builtin\n");
-			// Execute binary here
+			printf("Executing biinaire\n");
 		}
 		cmd = cmd->next;
 	}
-
 	return (return_value);
 }
 /* 
 	TO DO: 
-	execute builtins, 
-	
-
-	Un petit plus : 
-		si on utilise un bultins 
-		mais avec des options executer le binaire
-
-		ca pourrais etre vraiment cool. 
+	execute builtins, CHECK
+	launch binaries NEXT BRANCH !!
 
  */

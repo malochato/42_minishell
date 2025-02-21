@@ -6,7 +6,7 @@
 /*   By: malde-ch <malo@chato.fr>                   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/13 09:56:50 by malde-ch          #+#    #+#             */
-/*   Updated: 2025/02/21 02:30:32 by malde-ch         ###   ########.fr       */
+/*   Updated: 2025/02/21 05:47:47 by malde-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ void	init_builtins(t_builtin *builtins)
 	builtins[7].func = NULL;
 }
 
-builtin_func	get_builtin_func(const char *name, t_builtin *builtins)
+t_builtin_func	get_builtin_func(const char *name, t_builtin *builtins)
 {
 	int	i;
 

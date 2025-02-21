@@ -6,14 +6,14 @@
 /*   By: malde-ch <malo@chato.fr>                   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/13 16:09:32 by malde-ch          #+#    #+#             */
-/*   Updated: 2025/02/21 04:30:33 by malde-ch         ###   ########.fr       */
+/*   Updated: 2025/02/21 05:08:03 by malde-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "builtins.h"
 
 /*
-4. Messages d’erreurs standardisés
+4. Messages d’erreurs standardisés POSIX
 
 Les messages d’erreurs doivent suivre une structure simple :
 

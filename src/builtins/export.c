@@ -6,7 +6,7 @@
 /*   By: malde-ch <malo@chato.fr>                   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/13 11:49:49 by malde-ch          #+#    #+#             */
-/*   Updated: 2025/02/21 04:49:12 by malde-ch         ###   ########.fr       */
+/*   Updated: 2025/02/21 05:01:30 by malde-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,6 @@ int	builtin_export(t_mini *mini, t_cmd *cmd)
 	int	return_value;
 
 	return_value = 0;
-
 	if (cmd->cmd[1] == NULL)
 		return_value = handle_export_no_args(mini->envp);
 	else if (cmd->cmd[1] != NULL)

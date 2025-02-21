@@ -6,7 +6,7 @@
 /*   By: malde-ch <malo@chato.fr>                   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/12 17:42:39 by malde-ch          #+#    #+#             */
-/*   Updated: 2025/02/21 04:28:23 by malde-ch         ###   ########.fr       */
+/*   Updated: 2025/02/21 05:52:38 by malde-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,56 +17,40 @@
 # include "exec.h"
 # include "env.h"
 
-typedef int	(*builtin_func)(t_mini *, t_cmd *cmd);
+/* 
+	Cela est un alias de la fonction builtin
+	Elles ont toutes la meme signature
+	et donc cela permet de les stocker dans un tableau
+	et de les appeler de maniere dynamique
+	avec un pointeur de fonction.
+ */
+typedef int	(*t_builtin_func)(t_mini *, t_cmd *cmd);
 
 typedef struct s_builtin
 {
 	char			*name;
-	builtin_func	func;
+	t_builtin_func	func;
 }	t_builtin;
 
-int		builtin_pwd(t_mini *mini, t_cmd *cmd);
-int		builtin_unset(t_mini *mini, t_cmd *cmd);
-int		builtin_cd(t_mini *mini, t_cmd *cmd);
-int		builtin_echo(t_mini *mini, t_cmd *cmd);
-int		builtin_exit(t_mini *mini, t_cmd *cmd);
-int		builtin_env(t_mini *mini, t_cmd *cmd);
-int		builtin_export(t_mini *mini, t_cmd *cmd);
+// BUILTINS INIT
+void			init_builtins(t_builtin *builtins);
+t_builtin_func	get_builtin_func(const char *name, t_builtin *builtins);
 
-
-/* int		builtin_pwd(t_mini *mini);
-int		builtin_unset(t_mini *mini);
-int		builtin_cd(t_mini *mini);
-int		builtin_echo(t_mini *mini);
-int		builtin_exit(t_mini *mini);
-int		builtin_env(t_mini *mini);
-int		builtin_export(t_mini *mini); */
-
-
-void	init_builtins(t_builtin *builtins);
-builtin_func get_builtin_func(const char *name, t_builtin *builtins);
+// BUILTINS
+int				builtin_pwd(t_mini *mini, t_cmd *cmd);
+int				builtin_unset(t_mini *mini, t_cmd *cmd);
+int				builtin_cd(t_mini *mini, t_cmd *cmd);
+int				builtin_echo(t_mini *mini, t_cmd *cmd);
+int				builtin_exit(t_mini *mini, t_cmd *cmd);
+int				builtin_env(t_mini *mini, t_cmd *cmd);
+int				builtin_export(t_mini *mini, t_cmd *cmd);
 
 // UTILS
-int		ft_error(char *cmd, char *error_type, char *val, int perror_active);
+int				ft_error(char *cmd, char *error_type, char *val, \
+				int perror_active);
 
-// EXPORT UTILS 0 
-int		check_valide_export(char *str);
-
-//EXPORT UTILS 2
-t_env_var	*create_sorted_list(char **envp);
+// EXPORT UTILS
+int				check_valide_export(char *str);
+t_env_var		*create_sorted_list(char **envp);
 
 #endif
-/* 
-bien revoir tous cela: 
-
-typedef int (*builtin_func)(t_mini *);
-
-typedef struct s_builtin
-{
-	char *name;
-	builtin_func func;
-} t_builtin;
-
-je suis pas tres sur 
-
-*/
