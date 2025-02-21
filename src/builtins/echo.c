@@ -6,7 +6,7 @@
 /*   By: malde-ch <malo@chato.fr>                   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/13 11:07:51 by malde-ch          #+#    #+#             */
-/*   Updated: 2025/02/21 02:27:43 by malde-ch         ###   ########.fr       */
+/*   Updated: 2025/02/21 04:51:50 by malde-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,22 +28,23 @@ static	int	is_option_n(char *str)
 	return (0);
 }
 
-int	builtin_echo(t_mini *mini)
+int	builtin_echo(t_mini *mini, t_cmd *cmd)
 {
 	int	i;
 	int	n_option;
 
+	(void)mini;
 	i = 1;
 	n_option = 0;
-	while (mini->cmd->cmd[i] != NULL && is_option_n(mini->cmd->cmd[i]))
+	while (cmd->cmd[i] != NULL && is_option_n(cmd->cmd[i]))
 	{
 		n_option = 1;
 		i++;
 	}
-	while (mini->cmd->cmd[i] != NULL)
+	while (cmd->cmd[i] != NULL)
 	{
-		printf("%s", mini->cmd->cmd[i]);
-		if (mini->cmd->cmd[i + 1] != NULL)
+		printf("%s", cmd->cmd[i]);
+		if (cmd->cmd[i + 1] != NULL)
 			printf(" ");
 		i++;
 	}

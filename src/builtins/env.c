@@ -6,16 +6,17 @@
 /*   By: malde-ch <malo@chato.fr>                   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/13 11:57:38 by malde-ch          #+#    #+#             */
-/*   Updated: 2025/02/18 19:42:31 by malde-ch         ###   ########.fr       */
+/*   Updated: 2025/02/21 04:45:02 by malde-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "builtins.h"
 
-int	builtin_env(t_mini *mini)
+int	builtin_env(t_mini *mini, t_cmd *cmd)
 {
 	t_env_var	*env;
 
+	(void)cmd;
 	env = mini->env;
 	while (env != NULL)
 	{

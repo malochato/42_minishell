@@ -6,7 +6,7 @@
 /*   By: malde-ch <malo@chato.fr>                   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/13 11:49:49 by malde-ch          #+#    #+#             */
-/*   Updated: 2025/02/21 02:32:53 by malde-ch         ###   ########.fr       */
+/*   Updated: 2025/02/21 04:49:12 by malde-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,17 +65,17 @@ int	export_args(t_mini *mini, char *str)
 	return (env_manager(mini, key, value));
 }
 
-int	handle_export_args(t_mini *mini)
+int	handle_export_args(t_mini *mini, t_cmd *cmd)
 {
 	int	i;
 	int	return_value;
 
 	i = 1;
 	return_value = 1;
-	while (mini->cmd->cmd[i] != NULL)
+	while (cmd->cmd[i] != NULL)
 	{
-		if (check_valide_export(mini->cmd->cmd[i]) == 0)
-			return_value = export_args(mini, mini->cmd->cmd[i]);
+		if (check_valide_export(cmd->cmd[i]) == 0)
+			return_value = export_args(mini, cmd->cmd[i]);
 		if (return_value == 2)
 			return (return_value);
 		i++;
@@ -83,15 +83,16 @@ int	handle_export_args(t_mini *mini)
 	return (return_value);
 }
 
-int	builtin_export(t_mini *mini)
+int	builtin_export(t_mini *mini, t_cmd *cmd)
 {
 	int	return_value;
 
 	return_value = 0;
-	if (mini->cmd->cmd[1] == NULL)
+
+	if (cmd->cmd[1] == NULL)
 		return_value = handle_export_no_args(mini->envp);
-	else if (mini->cmd->cmd[1] != NULL)
-		return_value = handle_export_args(mini);
+	else if (cmd->cmd[1] != NULL)
+		return_value = handle_export_args(mini, cmd);
 	return (return_value);
 }
 

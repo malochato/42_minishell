@@ -17,9 +17,11 @@ int	exec(t_mini *mini)
 	t_builtin		builtins[8];
 	builtin_func	func;
 	int				return_value;
+	t_cmd			*cmd;
 
 	init_builtins(builtins);
 	return_value = 0;
+	cmd = mini->cmd;
 
 	/*
 		il va y avoir une boucle sur mini->cmd
@@ -27,18 +29,21 @@ int	exec(t_mini *mini)
 		si oui on execute le builtin											CHECK
 		sinon on execute le binaire.
 	*/
-
-	printf("cmd[0] = %s\n", mini->cmd->cmd[0]);
-	if (mini->cmd->cmd[0] == NULL)
-		return (0);
-	func = get_builtin_func(mini->cmd->cmd[0], builtins);
-	if (func)
-		return_value = func(mini);
-	else
+ 	while (cmd)
 	{
-		printf("Not a builtin\n");
-		// Execute binary here
+		if (cmd->cmd[0] == NULL)
+			return (0);
+		func = get_builtin_func(cmd->cmd[0], builtins);
+		if (func)
+			return_value = func(mini, cmd);
+		else
+		{
+			printf("Not a builtin\n");
+			// Execute binary here
+		}
+		cmd = cmd->next;
 	}
+
 	return (return_value);
 }
 /* 

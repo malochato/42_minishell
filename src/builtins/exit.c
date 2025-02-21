@@ -6,7 +6,7 @@
 /*   By: malde-ch <malo@chato.fr>                   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/20 21:45:16 by malde-ch          #+#    #+#             */
-/*   Updated: 2025/02/21 03:14:24 by malde-ch         ###   ########.fr       */
+/*   Updated: 2025/02/21 04:51:21 by malde-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,12 +51,12 @@ int	is_within_int_range(const char *str)
 	return (1);
 }
 
-void	check_if_argument_is_num(t_mini *mini)
+void	check_if_argument_is_num(t_mini *mini, t_cmd *cmd)
 {
 	int		i;
 	char	*str;
 
-	str = mini->cmd->cmd[1];
+	str = cmd->cmd[1];
 	i = 0;
 	if (str[i] == '+' || str[i] == '-')
 		i++;
@@ -77,16 +77,16 @@ void	check_if_argument_is_num(t_mini *mini)
 	}
 }
 
-int	builtin_exit(t_mini *mini)
+int	builtin_exit(t_mini *mini, t_cmd *cmd)
 {
 	ft_putstr_fd("exit\n", 2);
-	if (mini->cmd->cmd[1] == NULL)
+	if (cmd->cmd[1] == NULL)
 		ft_exit(mini, mini->exit_status, NULL);
-	else if (mini->cmd->cmd[1] != NULL)
-		check_if_argument_is_num(mini);
-	if (mini->cmd->cmd[2] != NULL)
+	else if (cmd->cmd[1] != NULL)
+		check_if_argument_is_num(mini, cmd);
+	if (cmd->cmd[2] != NULL)
 		return (ft_error("exit", "too many arguments", NULL, 0));
 	else
-		ft_exit(mini, ft_atoi(mini->cmd->cmd[1]) % 256, NULL);
+		ft_exit(mini, ft_atoi(cmd->cmd[1]) % 256, NULL);
 	return (42);
 }

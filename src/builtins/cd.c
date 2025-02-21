@@ -6,7 +6,7 @@
 /*   By: malde-ch <malo@chato.fr>                   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/19 17:12:46 by malde-ch          #+#    #+#             */
-/*   Updated: 2025/02/21 02:24:46 by malde-ch         ###   ########.fr       */
+/*   Updated: 2025/02/21 04:47:03 by malde-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,18 +33,18 @@ int	update_pwd(t_mini *mini)
 	return (0);
 }
 
-int	cd_no_arg(t_mini *mini)
+int	cd_no_arg(t_mini *mini, t_cmd *cmd)
 {
 	if (get_env_value(mini->env, "HOME") == NULL)
 		return (ft_error("cd", "HOME not set", NULL, 0));
 	if (*(char *)get_env_value(mini->env, "HOME") == '\0')
 		return (0);
 	if (chdir(get_env_value(mini->env, "HOME")) == -1)
-		return (ft_error("cd", mini->cmd->cmd[1], NULL, 1));
+		return (ft_error("cd", cmd->cmd[1], NULL, 1));
 	return (update_pwd(mini));
 }
 
-int	cd_arg_minus(t_mini *mini)
+int	cd_arg_minus(t_mini *mini, t_cmd *cmd)
 {
 	if (get_env_value(mini->env, "OLDPWD") == NULL)
 		return (ft_error("cd", "OLDPWD not set", NULL, 0));
@@ -54,30 +54,30 @@ int	cd_arg_minus(t_mini *mini)
 		return (0);
 	}
 	if (chdir(get_env_value(mini->env, "OLDPWD")) == -1)
-		return (ft_error("cd", mini->cmd->cmd[1], NULL, 1));
+		return (ft_error("cd", cmd->cmd[1], NULL, 1));
 	return (update_pwd(mini));
 }
 
-int	cd_arg_path(t_mini *mini)
+int	cd_arg_path(t_mini *mini, t_cmd *cmd)
 {
-	if (chdir(mini->cmd->cmd[1]) == -1)
-		return (ft_error("cd", mini->cmd->cmd[1], NULL, 1));
+	if (chdir(cmd->cmd[1]) == -1)
+		return (ft_error("cd", cmd->cmd[1], NULL, 1));
 	return (update_pwd(mini));
 }
 
-int	builtin_cd(t_mini *mini)
+int	builtin_cd(t_mini *mini, t_cmd *cmd)
 {
-	if (mini->cmd->cmd[1] == NULL)
-		return (cd_no_arg(mini));
-	else if (mini->cmd->cmd[2] != NULL)
+	if (cmd->cmd[1] == NULL)
+		return (cd_no_arg(mini, cmd));
+	else if (cmd->cmd[2] != NULL)
 		return (ft_error("cd", "too many arguments", NULL, 0));
-	else if (ft_strncmp(mini->cmd->cmd[1], "-", 2) == 0 && \
-			ft_strlen(mini->cmd->cmd[1]) == 1)
-		return (cd_arg_minus(mini));
+	else if (ft_strncmp(cmd->cmd[1], "-", 2) == 0 && \
+			ft_strlen(cmd->cmd[1]) == 1)
+		return (cd_arg_minus(mini, cmd));
 	else
 	{
 		printf("cd with arg\n");
-		return (cd_arg_path(mini));
+		return (cd_arg_path(mini, cmd));
 	}
 }
 
