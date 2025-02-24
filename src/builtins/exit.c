@@ -6,13 +6,13 @@
 /*   By: malde-ch <malo@chato.fr>                   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/20 21:45:16 by malde-ch          #+#    #+#             */
-/*   Updated: 2025/02/24 18:40:34 by malde-ch         ###   ########.fr       */
+/*   Updated: 2025/02/24 19:38:21 by malde-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "builtins.h"
 
-void	ft_exit(t_mini *mini, int num, char *str)
+void	ft_exit(t_mini *mini, int exit_status, char *str)
 {
 	if (str)
 	{
@@ -20,7 +20,7 @@ void	ft_exit(t_mini *mini, int num, char *str)
 		ft_putstr_fd("\n", 2);
 	}
 	free_all(mini);
-	exit(num);
+	exit(exit_status);
 }
 
 int	is_within_int_range(const char *str)

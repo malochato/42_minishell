@@ -23,6 +23,30 @@ void print_split(char **split)
 	}
 	printf("NULL\n|\n");
 }
+/*
+nous utilisons des opérations bit à bit pour vérifier si le processus enfant s'est terminé normalement 
+et pour obtenir son code de sortie. 
+Le masque 0x7F est utilisé pour vérifier si le processus s'est terminé normalement, 
+et le décalage de bits >> 8 suivi du masque 0xFF est utilisé pour obtenir le code de sortie.
+Similaire a la macro WIFEXITED(status) de wait.h
+*/
+int	check_exit_status(t_mini *mini, int status)
+{
+	int exit_status;
+	int term_signal;
+
+	if ((status & 0x7F) == 0)
+	{
+		exit_status = (status >> 8) & 0xFF;
+		return (exit_status);
+	}
+	else
+	{
+		term_signal = status & 0x7F;
+		ft_exit(mini, term_signal, "Command terminated by signal");
+	}
+	return (-42);
+}
 
 int execute_command(t_mini *mini, char **cmd, char **envp)
 {
@@ -31,42 +55,22 @@ int execute_command(t_mini *mini, char **cmd, char **envp)
 
 	pid = fork();
 	if (pid == -1)
-	{
-		perror("fork");
-		return (-1);
-	}
+		ft_exit(mini, 1, "fork failed");
 	else if (pid == 0)
 	{
-
-		// Child process
-		print_split(cmd);
-		if (access(cmd[0], F_OK | X_OK) == 0)
-		{
-			if (execve(cmd[0], cmd, envp) == -1)
-			{
-				perror("execve");
-				ft_exit(mini, 1, "execve failed");
-			}
-		}
-		else
-		{
-			ft_exit(mini, 127, "command not found");
-		}
+		if (execve(cmd[0], cmd, envp) == -1)
+			ft_exit(mini, 1, "execve failed");
 	}
 	else
 	{
-		// Parent process
 		if (waitpid(pid, &status, 0) == -1)
-		{
-			perror("waitpid");
-			return (-1);
-		}
+			ft_exit(mini, 1, "waitpid failed");
+
+		return (check_exit_status(mini, status));
 	}
-	return (0);
+	return (-42);
 }
 
-
-#include "exec.h"
 
 int	exec(t_mini *mini)
 {
@@ -90,7 +94,7 @@ int	exec(t_mini *mini)
 			printf("Executing binaire\n");
 			exit_status = update_to_absolute_path(mini, cmd);
 			if (exit_status == 0)
-				execute_command(mini, cmd->cmd, mini->envp);
+				exit_status = execute_command(mini, cmd->cmd, mini->envp);
 			
 		}
 		mini->exit_status = exit_status;

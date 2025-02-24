@@ -6,7 +6,7 @@
 /*   By: malde-ch <malo@chato.fr>                   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/17 13:40:50 by malde-ch          #+#    #+#             */
-/*   Updated: 2025/02/24 18:23:14 by malde-ch         ###   ########.fr       */
+/*   Updated: 2025/02/24 20:02:48 by malde-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@
 
 int	exec(t_mini *mini);
 
-//Absolute path
+//ABSOLUTE_PATH
 int	update_to_absolute_path(t_mini *mini, t_cmd *cmd);
 
 #endif
