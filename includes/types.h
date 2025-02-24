@@ -6,7 +6,7 @@
 /*   By: malde-ch <malo@chato.fr>                   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/21 05:44:09 by malde-ch          #+#    #+#             */
-/*   Updated: 2025/02/21 05:45:55 by malde-ch         ###   ########.fr       */
+/*   Updated: 2025/02/24 20:16:12 by malde-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,17 +32,13 @@ typedef enum e_operator
 	OP_HERE_DOC, // <<
 }	t_operator;
 
-typedef struct s_redirection
-{
-	char		*file;
-	t_operator	type;
-}	t_redirection;
-
 typedef struct s_cmd
 {
-	char			**cmd;
-	t_redirection	*input;
-	t_redirection	*output;
+	char		**cmd;
+	int			pipe[2];
+	int			pipe_in;
+	int			pipe_out;
+	t_operator	operator;
 	struct s_cmd	*next;
 }	t_cmd;
 

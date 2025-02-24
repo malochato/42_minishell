@@ -75,7 +75,7 @@ int execute_command(t_mini *mini, char **cmd, char **envp)
 int	exec(t_mini *mini)
 {
 	t_builtin		builtins[8];
-	t_builtin_func	func;
+		t_builtin_func	func;
 	int				exit_status;
 	t_cmd			*cmd;
 
@@ -95,7 +95,6 @@ int	exec(t_mini *mini)
 			exit_status = update_to_absolute_path(mini, cmd);
 			if (exit_status == 0)
 				exit_status = execute_command(mini, cmd->cmd, mini->envp);
-			
 		}
 		mini->exit_status = exit_status;
 		cmd = cmd->next;
