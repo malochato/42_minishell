@@ -6,7 +6,7 @@
 /*   By: malde-ch <malo@chato.fr>                   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/20 21:45:16 by malde-ch          #+#    #+#             */
-/*   Updated: 2025/02/21 04:51:21 by malde-ch         ###   ########.fr       */
+/*   Updated: 2025/02/24 18:40:34 by malde-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@ void	ft_exit(t_mini *mini, int num, char *str)
 {
 	if (str)
 	{
-		ft_putstr_fd("Error with ", 2);
 		ft_putstr_fd(str, 2);
 		ft_putstr_fd("\n", 2);
 	}
