@@ -6,11 +6,50 @@
 /*   By: malde-ch <malo@chato.fr>                   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/07 16:53:33 by malde-ch          #+#    #+#             */
-/*   Updated: 2025/02/24 18:40:58 by malde-ch         ###   ########.fr       */
+/*   Updated: 2025/03/03 23:51:21 by malde-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+void false_parser(t_mini *mini)
+{
+	t_cmd *cmd1 = malloc(sizeof(t_cmd));
+	t_cmd *cmd2 = malloc(sizeof(t_cmd));
+	t_cmd *cmd3 = malloc(sizeof(t_cmd));
+
+	if (!cmd1 || !cmd2 || !cmd3)
+	{
+		perror("malloc");
+		exit(1);
+	}
+
+	cmd1->cmd = ft_split("ls", ' ');
+	cmd1->pipe[0] = -1;
+	cmd1->pipe[1] = -1;
+	cmd1->pipe_in = -1;
+	cmd1->pipe_out = -1;
+	cmd1->operator = OP_NONE;
+	cmd1->next = cmd2;
+
+	cmd2->cmd = ft_split("|", ' ');
+	cmd2->pipe[0] = -1;
+	cmd2->pipe[1] = -1;
+	cmd2->pipe_in = -1;
+	cmd2->pipe_out = -1;
+	cmd2->operator = OP_PIPE;
+	cmd2->next = cmd3;
+
+	cmd3->cmd = ft_split("grep m", ' ');
+	cmd3->pipe[0] = -1;
+	cmd3->pipe[1] = -1;
+	cmd3->pipe_in = -1;
+	cmd3->pipe_out = -1;
+	cmd3->operator = OP_NONE;
+	cmd3->next = NULL;
+
+	mini->cmd = cmd1;
+}
 
 int	shell_init(t_mini *mini)
 {
@@ -92,6 +131,7 @@ int	main(int argc, char **argv, char **envp)
 			add_history(input);
 		}
 		parse_input_simple(mini, input);
+		//false_parser(mini);
 		exec(mini);
 		printf("You entered: %s\n", input);
 		free(input);

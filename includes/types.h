@@ -6,7 +6,7 @@
 /*   By: malde-ch <malo@chato.fr>                   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/21 05:44:09 by malde-ch          #+#    #+#             */
-/*   Updated: 2025/02/24 20:16:12 by malde-ch         ###   ########.fr       */
+/*   Updated: 2025/03/03 23:48:56 by malde-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ typedef enum e_operator
 	OP_REDIRECT_OUT_APPEND, // >>
 	OP_REDIRECT_IN, // <
 	OP_HERE_DOC, // <<
+	CMD,
 }	t_operator;
 
 typedef struct s_cmd
