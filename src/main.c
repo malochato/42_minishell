@@ -6,9 +6,10 @@
 /*   By: malde-ch <malo@chato.fr>                   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/07 16:53:33 by malde-ch          #+#    #+#             */
-/*   Updated: 2025/03/03 23:51:21 by malde-ch         ###   ########.fr       */
+/*   Updated: 2025/03/04 01:26:36 by malde-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 
 #include "minishell.h"
 
@@ -113,12 +114,13 @@ int	main(int argc, char **argv, char **envp)
 	mini->cmd = NULL;
 	mini->exit_status = 0;
 	mini->env = parser_env(envp);
+	
 	if (!mini->env)
 	{
-		printf("No env: Bye (with love)\n");
-		free(mini);
-		return (1);
+		ft_exit(mini, 1, "malloc");
 	}
+
+
 	mini->envp = duplicate_env(envp);
 	shell_init(mini);
 	while (1)

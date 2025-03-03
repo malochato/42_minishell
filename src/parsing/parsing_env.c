@@ -6,7 +6,7 @@
 /*   By: malde-ch <malo@chato.fr>                   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/17 10:31:52 by malde-ch          #+#    #+#             */
-/*   Updated: 2025/02/21 05:57:25 by malde-ch         ###   ########.fr       */
+/*   Updated: 2025/03/04 00:21:14 by malde-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,8 +64,22 @@ char	**duplicate_env(char **envp)
 	new_env[i] = NULL;
 	return (new_env);
 }
+char	**default_env(void)
+{
+	char		**default_env;
+	
+	 default_env = malloc(4 * sizeof(char *));
+	if (!default_env)
+		return (NULL);
+	default_env[0] = ft_strdup("PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin");
+	default_env[1] = ft_strdup("HOME=/home/user");
+	default_env[2] = ft_strdup("USER=user");
+	default_env[3] = NULL;
+	return (default_env);
+}
 
-t_env_var	*parser_env(char **env)
+
+t_env_var	*create_env_list(char **env_dup)
 {
 	t_env_var	*head;
 	t_env_var	*current;
@@ -75,11 +89,9 @@ t_env_var	*parser_env(char **env)
 	head = NULL;
 	current = NULL;
 	i = 0;
-	if (!env)
-		return (NULL);
-	while (env[i])
+	while (env_dup[i])
 	{
-		new_var = create_env_var(env[i]);
+		new_var = create_env_var(env_dup[i]);
 		if (!new_var)
 		{
 			free_env(head);
@@ -94,8 +106,29 @@ t_env_var	*parser_env(char **env)
 	}
 	return (head);
 }
+
+t_env_var	*parser_env(char **env)
+{
+	t_env_var	*head;
+	char		**env_dup;
+
+	if (!env || !env[0])
+		env_dup = default_env();
+	else
+		env_dup = duplicate_env(env);
+	if (!env_dup)
+		return (NULL);
+
+	head = create_env_list(env_dup);
+	free_split(env_dup);
+	return (head);
+}
+
+
+
 /* 
 	TO DO:
-	- create_env_var if there is no envp
+	- create_env_var if there is no envp CHECK
+	
 
  */
