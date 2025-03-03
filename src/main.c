@@ -6,7 +6,7 @@
 /*   By: malde-ch <malo@chato.fr>                   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/07 16:53:33 by malde-ch          #+#    #+#             */
-/*   Updated: 2025/02/21 05:04:40 by malde-ch         ###   ########.fr       */
+/*   Updated: 2025/03/04 00:22:45 by malde-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,12 +74,13 @@ int	main(int argc, char **argv, char **envp)
 	mini->cmd = NULL;
 	mini->exit_status = 0;
 	mini->env = parser_env(envp);
+	
 	if (!mini->env)
 	{
-		printf("No env: Bye (with love)\n");
-		free(mini);
-		return (1);
+		ft_exit(mini, 1, "malloc");
 	}
+
+
 	mini->envp = duplicate_env(envp);
 	shell_init(mini);
 	while (1)
