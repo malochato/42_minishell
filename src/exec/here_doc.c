@@ -6,17 +6,17 @@
 /*   By: malde-ch <malo@chato.fr>                   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/04 12:35:06 by malde-ch          #+#    #+#             */
-/*   Updated: 2025/03/04 16:34:13 by malde-ch         ###   ########.fr       */
+/*   Updated: 2025/03/04 21:15:29 by malde-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "exec.h"
 
-void	remove_file(t_mini *mini)
+void	remove_file(t_mini *mini, char *file)
 {
-	if (access(".tmp_here_doc", F_OK) == 0)
+	if (access(file, F_OK) == 0)
 	{
-		if (unlink(".tmp_here_doc") == -1)
+		if (unlink(file) == -1)
 			ft_exit(mini, 1, "unlink failed");
 	}
 }
@@ -48,11 +48,12 @@ int	handle_here_doc(t_mini *mini, t_cmd *cmd, t_cmd *op)
 {
 	if (op->operator == OP_HERE_DOC)
 	{
+		if (is_syntax_error(op))
+			return (2);
 		write_here_doc(mini, cmd, op->next->cmd[0]);
 		cmd->fd_in = open(".tmp_here_doc", O_RDONLY);
 		if (cmd->fd_in == -1)
 			ft_exit(mini, 1, "open .tmp_here_doc for reading failed");
-		return (3);
 	}
 	return (0);
 }

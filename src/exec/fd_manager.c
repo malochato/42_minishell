@@ -6,7 +6,7 @@
 /*   By: malde-ch <malo@chato.fr>                   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/04 01:32:30 by malde-ch          #+#    #+#             */
-/*   Updated: 2025/03/04 20:20:48 by malde-ch         ###   ########.fr       */
+/*   Updated: 2025/03/04 22:03:40 by malde-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,35 +47,27 @@ t_handler get_handler(t_operator operator, t_handler *handler)
 int	prepare_cmd(t_mini *mini, t_cmd *cmd)
 {
 	t_handler	handler[6];
-	t_cmd	*current;
-	t_handler current_handler;
-	int ret;
+	t_cmd		*current;
+	t_handler	current_handler;
+	int			ret;
 
 	ret = 0;
 	init_handler(handler);
 	current = cmd->next;
-	printf("prepare_cmd\n");
 	while (current != NULL && current->operator != OP_PIPE)
 	{
 		current_handler = get_handler(current->operator, handler);
 		if (current_handler.operator != OP_NONE)
 		{
-			ret = current_handler.func(mini, cmd, current);
-			current = current->next->next;
-		}
-		else
-		{
-			append_to_array(mini, &cmd->cmd, current->cmd[0]);
-			printf("New array \n");
+			if(current_handler.func(mini, cmd, current))
+				return (2);
 			current = current->next;
 		}
+		else
+			append_to_array(mini, &cmd->cmd, current->cmd[0]);
+		current = current->next;
 	}
 	if (current != NULL && current->operator == OP_PIPE)
-	{
-		printf("ladies and gentlemen, we got him\n");
-		return(handle_pipe(mini, cmd, current));
-	}
-	printf("prepare_cmd end\n");
-	printf("ret = %d\n", ret);
+		return (handle_pipe(mini, cmd, current));
 	return (0);
 }

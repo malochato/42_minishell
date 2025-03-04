@@ -6,7 +6,7 @@
 /*   By: malde-ch <malo@chato.fr>                   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/17 13:40:50 by malde-ch          #+#    #+#             */
-/*   Updated: 2025/03/04 18:33:19 by malde-ch         ###   ########.fr       */
+/*   Updated: 2025/03/04 21:15:38 by malde-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ int	execute_builtins(t_mini *mini, t_cmd *cmd, t_builtin_func func);
 int	prepare_cmd(t_mini *mini, t_cmd *cmd);
 
 //REDIRECT_HANDLER
+int is_syntax_error(t_cmd *op);
 int	handle_redirect_out(t_mini *mini, t_cmd *cmd, t_cmd *op);
 int	handle_redirect_out_append(t_mini *mini, t_cmd *cmd, t_cmd *op);
 int	handle_redirect_in(t_mini *mini, t_cmd *cmd, t_cmd *op);
@@ -48,7 +49,7 @@ void	close_all_fd(t_cmd *cmd);
 
 //HERE_DOC
 int handle_here_doc(t_mini *mini, t_cmd *cmd, t_cmd *op);
-void	remove_file(t_mini *mini);
+void	remove_file(t_mini *mini, char *file);
 
 //UTILS
 void	append_to_array(t_mini *mini, char ***array, const char *str);

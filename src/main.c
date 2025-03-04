@@ -6,7 +6,7 @@
 /*   By: malde-ch <malo@chato.fr>                   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/07 16:53:33 by malde-ch          #+#    #+#             */
-/*   Updated: 2025/03/04 20:11:16 by malde-ch         ###   ########.fr       */
+/*   Updated: 2025/03/04 21:52:36 by malde-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,7 +113,7 @@ void false_parser3(t_mini *mini)
 	t_cmd *cmd2 = malloc(sizeof(t_cmd));
 	t_cmd *cmd3 = malloc(sizeof(t_cmd));
 	t_cmd *cmd4 = malloc(sizeof(t_cmd));
-	//t_cmd *cmd5 = malloc(sizeof(t_cmd));
+	t_cmd *cmd5 = malloc(sizeof(t_cmd));
 
 	if (!cmd1 || !cmd2 || !cmd3 || !cmd4)
 	// || !cmd5)
@@ -144,15 +144,13 @@ void false_parser3(t_mini *mini)
 	cmd4->fd_in = -1;
 	cmd4->fd_out = -1;
 	cmd4->operator = OP_REDIRECT_OUT_APPEND;
-	cmd4->next = NULL;
+	cmd4->next = cmd5;
 
-/* 	cmd5->cmd = ft_split("fichier1", ' ');
-	cmd5->pipe[0] = -1;
-	cmd5->pipe[1] = -1;
+ 	cmd5->cmd = ft_split("<<", ' ');
 	cmd5->fd_in = -1;
 	cmd5->fd_out = -1;
-	cmd5->operator = OP_NONE;
-	cmd5->next = NULL; */
+	cmd5->operator = OP_HERE_DOC;
+	cmd5->next = NULL;
 
 	mini->cmd = cmd1;
 }
@@ -180,13 +178,13 @@ void false_parser4(t_mini *mini)
 	cmd2->fd_in = -1;
 	cmd2->fd_out = -1;
 	cmd2->operator = OP_PIPE;
-	cmd2->next = cmd3;
+	cmd2->next = NULL;
 
-	cmd3->cmd = ft_split("grep 7", ' ');
+/* 	cmd3->cmd = ft_split("grep 7", ' ');
 	cmd3->fd_in = -1;
 	cmd3->fd_out = -1;
 	cmd3->operator = OP_NONE;
-	cmd3->next = NULL;
+	cmd3->next = NULL; */
 
 	mini->cmd = cmd1;
 }
