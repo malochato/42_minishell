@@ -6,7 +6,7 @@
 /*   By: malde-ch <malo@chato.fr>                   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/17 10:31:52 by malde-ch          #+#    #+#             */
-/*   Updated: 2025/03/04 00:21:14 by malde-ch         ###   ########.fr       */
+/*   Updated: 2025/03/04 20:45:37 by malde-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,14 +67,12 @@ char	**duplicate_env(char **envp)
 char	**default_env(void)
 {
 	char		**default_env;
-	
-	 default_env = malloc(4 * sizeof(char *));
+
+	 default_env = malloc(2 * sizeof(char *));
 	if (!default_env)
 		return (NULL);
 	default_env[0] = ft_strdup("PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin");
-	default_env[1] = ft_strdup("HOME=/home/user");
-	default_env[2] = ft_strdup("USER=user");
-	default_env[3] = NULL;
+	default_env[1] = NULL;
 	return (default_env);
 }
 
