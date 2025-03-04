@@ -6,7 +6,7 @@
 /*   By: malde-ch <malo@chato.fr>                   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/21 05:44:09 by malde-ch          #+#    #+#             */
-/*   Updated: 2025/03/04 06:41:10 by malde-ch         ###   ########.fr       */
+/*   Updated: 2025/03/04 18:53:21 by malde-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,20 +23,21 @@ typedef struct s_env_var
 typedef enum e_operator
 {
 	OP_NONE, // 0
-	OP_AND, // &&
-	OP_OR, // ||
 	OP_PIPE, // |
+
+
 	OP_REDIRECT_OUT, // >
 	OP_REDIRECT_OUT_APPEND, // >>
 	OP_REDIRECT_IN, // <
 	OP_HERE_DOC, // <<
-	CMD,
+
+	
+	OPERATOR,
 }	t_operator;
 
 typedef struct s_cmd
 {
 	char		**cmd;
-	int			pipe[2];
 	int			fd_in;
 	int			fd_out;
 	t_operator	operator;
@@ -66,5 +67,14 @@ typedef struct s_builtin
 	char			*name;
 	t_builtin_func	func;
 }	t_builtin;
+
+typedef int (*t_handler_func)(t_mini *mini, t_cmd *cmd, t_cmd *op);
+
+typedef struct s_handler
+{
+	t_operator	operator;
+	t_handler_func	func;
+}	t_handler;
+
 
 #endif

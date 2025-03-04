@@ -21,7 +21,9 @@ BUILTINS_FILES = 	pwd.c env.c echo.c unset.c cd.c exit.c\
 BUILTINS = $(addprefix $(BUILTINS_DIR), $(BUILTINS_FILES))
 
 EXEC_DIR = $(SRC_DIR)exec/
-EXEC_FILES = exec.c absolute_path.c fd_manager.c fd_closer.c exec_cmd.c
+EXEC_FILES = exec.c absolute_path.c fd_manager.c \
+				fd_closer.c exec_cmd.c here_doc.c \
+				utils.c redirect_handler.c
 EXEC = $(addprefix $(EXEC_DIR), $(EXEC_FILES))
 
 SRC_FILES = main.c free_all.c

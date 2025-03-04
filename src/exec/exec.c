@@ -24,15 +24,19 @@ void print_split(char **split)
 	printf("NULL\n|\n");
 }
 
-t_cmd	*go_to_cmd(t_cmd *cmd, int i)
+t_cmd	*go_to_next_pipe(t_cmd *cmd)
 {
-	while (i > 0 && cmd)
+	while (cmd && cmd->operator != OP_PIPE)
 	{
 		cmd = cmd->next;
-		i--;
+	}
+	if (cmd && cmd->operator == OP_PIPE)
+	{
+		cmd = cmd->next;
 	}
 	return cmd;
 }
+
 
 
 int	exec(t_mini *mini)
@@ -48,11 +52,12 @@ int	exec(t_mini *mini)
 	cmd = mini->cmd;
 	while (cmd)
 	{
+		if (cmd->cmd[0] == NULL)
+			return (0);
 		next_cmd = prepare_cmd(mini, cmd);
 		printf("next cmd = %d\n", next_cmd);
 
-		if (cmd->cmd[0] == NULL)
-			return (0);
+
 		func = get_builtin_func(cmd->cmd[0], builtins);
 		if (func)
 			exit_status = execute_builtins(mini, cmd, func);
@@ -64,7 +69,8 @@ int	exec(t_mini *mini)
 				exit_status = execute_command(mini, cmd);
 		}
 		mini->exit_status = exit_status;
-		cmd = go_to_cmd(cmd, next_cmd);
+		cmd = go_to_next_pipe(cmd);
+		remove_file(mini);
 	}
 	return (exit_status);
 }
