@@ -6,20 +6,22 @@
 /*   By: malde-ch <malo@chato.fr>                   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/07 16:53:33 by malde-ch          #+#    #+#             */
-/*   Updated: 2025/03/04 01:26:36 by malde-ch         ###   ########.fr       */
+/*   Updated: 2025/03/04 06:33:17 by malde-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 
 #include "minishell.h"
 
-void false_parser(t_mini *mini)
+void false_parser1(t_mini *mini)
 {
 	t_cmd *cmd1 = malloc(sizeof(t_cmd));
 	t_cmd *cmd2 = malloc(sizeof(t_cmd));
 	t_cmd *cmd3 = malloc(sizeof(t_cmd));
+	t_cmd *cmd4 = malloc(sizeof(t_cmd));
+	t_cmd *cmd5 = malloc(sizeof(t_cmd));
 
-	if (!cmd1 || !cmd2 || !cmd3)
+	if (!cmd1 || !cmd2 || !cmd3 || !cmd4 || !cmd5)
 	{
 		perror("malloc");
 		exit(1);
@@ -28,29 +30,200 @@ void false_parser(t_mini *mini)
 	cmd1->cmd = ft_split("ls", ' ');
 	cmd1->pipe[0] = -1;
 	cmd1->pipe[1] = -1;
-	cmd1->pipe_in = -1;
-	cmd1->pipe_out = -1;
+	cmd1->fd_in = -1;
+	cmd1->fd_out = -1;
 	cmd1->operator = OP_NONE;
 	cmd1->next = cmd2;
 
-	cmd2->cmd = ft_split("|", ' ');
+	cmd2->cmd = ft_split(">", ' ');
 	cmd2->pipe[0] = -1;
 	cmd2->pipe[1] = -1;
-	cmd2->pipe_in = -1;
-	cmd2->pipe_out = -1;
-	cmd2->operator = OP_PIPE;
+	cmd2->fd_in = -1;
+	cmd2->fd_out = -1;
+	cmd2->operator = OP_REDIRECT_OUT;
 	cmd2->next = cmd3;
 
-	cmd3->cmd = ft_split("grep m", ' ');
+	cmd3->cmd = ft_split("fichier1", ' ');
 	cmd3->pipe[0] = -1;
 	cmd3->pipe[1] = -1;
-	cmd3->pipe_in = -1;
-	cmd3->pipe_out = -1;
+	cmd3->fd_in = -1;
+	cmd3->fd_out = -1;
+	cmd3->operator = OP_NONE;
+	cmd3->next = cmd4;
+
+	cmd4->cmd = ft_split(">", ' ');
+	cmd4->pipe[0] = -1;
+	cmd4->pipe[1] = -1;
+	cmd4->fd_in = -1;
+	cmd4->fd_out = -1;
+	cmd4->operator = OP_REDIRECT_OUT;
+	cmd4->next = cmd5;
+
+	cmd5->cmd = ft_split("fichier7", ' ');
+	cmd5->pipe[0] = -1;
+	cmd5->pipe[1] = -1;
+	cmd5->fd_in = -1;
+	cmd5->fd_out = -1;
+	cmd5->operator = OP_NONE;
+	cmd5->next = NULL;
+
+	mini->cmd = cmd1;
+}
+
+void false_parser2(t_mini *mini)
+{
+	t_cmd *cmd1 = malloc(sizeof(t_cmd));
+	t_cmd *cmd2 = malloc(sizeof(t_cmd));
+	t_cmd *cmd3 = malloc(sizeof(t_cmd));
+	t_cmd *cmd4 = malloc(sizeof(t_cmd));
+	t_cmd *cmd5 = malloc(sizeof(t_cmd));
+
+	if (!cmd1 || !cmd2 || !cmd3 || !cmd4 || !cmd5)
+	{
+		perror("malloc");
+		exit(1);
+	}
+
+	cmd1->cmd = ft_split("ls", ' ');
+	cmd1->pipe[0] = -1;
+	cmd1->pipe[1] = -1;
+	cmd1->fd_in = -1;
+	cmd1->fd_out = -1;
+	cmd1->operator = OP_NONE;
+	cmd1->next = cmd2;
+
+	cmd2->cmd = ft_split(">>", ' ');
+	cmd2->pipe[0] = -1;
+	cmd2->pipe[1] = -1;
+	cmd2->fd_in = -1;
+	cmd2->fd_out = -1;
+	cmd2->operator = OP_REDIRECT_OUT_APPEND;
+	cmd2->next = cmd3;
+
+	cmd3->cmd = ft_split("fichier1", ' ');
+	cmd3->pipe[0] = -1;
+	cmd3->pipe[1] = -1;
+	cmd3->fd_in = -1;
+	cmd3->fd_out = -1;
+	cmd3->operator = OP_NONE;
+	cmd3->next = cmd4;
+
+	cmd4->cmd = ft_split(">>", ' ');
+	cmd4->pipe[0] = -1;
+	cmd4->pipe[1] = -1;
+	cmd4->fd_in = -1;
+	cmd4->fd_out = -1;
+	cmd4->operator = OP_REDIRECT_OUT_APPEND;
+	cmd4->next = cmd5;
+
+	cmd5->cmd = ft_split("fichier7", ' ');
+	cmd5->pipe[0] = -1;
+	cmd5->pipe[1] = -1;
+	cmd5->fd_in = -1;
+	cmd5->fd_out = -1;
+	cmd5->operator = OP_NONE;
+	cmd5->next = NULL;
+
+	mini->cmd = cmd1;
+}
+
+void false_parser3(t_mini *mini)
+{
+	t_cmd *cmd1 = malloc(sizeof(t_cmd));
+	t_cmd *cmd2 = malloc(sizeof(t_cmd));
+	t_cmd *cmd3 = malloc(sizeof(t_cmd));
+	t_cmd *cmd4 = malloc(sizeof(t_cmd));
+	t_cmd *cmd5 = malloc(sizeof(t_cmd));
+
+	if (!cmd1 || !cmd2 || !cmd3 || !cmd4 || !cmd5)
+	{
+		perror("malloc");
+		exit(1);
+	}
+
+	cmd1->cmd = ft_split("grep 7", ' ');
+	cmd1->pipe[0] = -1;
+	cmd1->pipe[1] = -1;
+	cmd1->fd_in = -1;
+	cmd1->fd_out = -1;
+	cmd1->operator = OP_NONE;
+	cmd1->next = cmd2;
+
+	cmd2->cmd = ft_split("<", ' ');
+	cmd2->pipe[0] = -1;
+	cmd2->pipe[1] = -1;
+	cmd2->fd_in = -1;
+	cmd2->fd_out = -1;
+	cmd2->operator = OP_REDIRECT_IN;
+	cmd2->next = cmd3;
+
+	cmd3->cmd = ft_split("fichier7", ' ');
+	cmd3->pipe[0] = -1;
+	cmd3->pipe[1] = -1;
+	cmd3->fd_in = -1;
+	cmd3->fd_out = -1;
+	cmd3->operator = OP_NONE;
+	cmd3->next = cmd4;
+
+	cmd4->cmd = ft_split(">>", ' ');
+	cmd4->pipe[0] = -1;
+	cmd4->pipe[1] = -1;
+	cmd4->fd_in = -1;
+	cmd4->fd_out = -1;
+	cmd4->operator = OP_REDIRECT_OUT_APPEND;
+	cmd4->next = cmd5;
+
+	cmd5->cmd = ft_split("fichier1", ' ');
+	cmd5->pipe[0] = -1;
+	cmd5->pipe[1] = -1;
+	cmd5->fd_in = -1;
+	cmd5->fd_out = -1;
+	cmd5->operator = OP_NONE;
+	cmd5->next = NULL;
+
+	mini->cmd = cmd1;
+}
+
+void false_parser4(t_mini *mini)
+{
+	t_cmd *cmd1 = malloc(sizeof(t_cmd));
+	t_cmd *cmd2 = malloc(sizeof(t_cmd));
+	t_cmd *cmd3 = malloc(sizeof(t_cmd));
+
+
+	if (!cmd1 || !cmd2 || !cmd3 )
+	{
+		perror("malloc");
+		exit(1);
+	}
+
+	cmd1->cmd = ft_split("echo bonjour est ce que ca fonctionne", ' ');
+	cmd1->pipe[0] = -1;
+	cmd1->pipe[1] = -1;
+	cmd1->fd_in = -1;
+	cmd1->fd_out = -1;
+	cmd1->operator = OP_NONE;
+	cmd1->next = cmd2;
+
+	cmd2->cmd = ft_split(">", ' ');
+	cmd2->pipe[0] = -1;
+	cmd2->pipe[1] = -1;
+	cmd2->fd_in = -1;
+	cmd2->fd_out = -1;
+	cmd2->operator = OP_REDIRECT_OUT_APPEND;
+	cmd2->next = cmd3;
+
+	cmd3->cmd = ft_split("fichier7", ' ');
+	cmd3->pipe[0] = -1;
+	cmd3->pipe[1] = -1;
+	cmd3->fd_in = -1;
+	cmd3->fd_out = -1;
 	cmd3->operator = OP_NONE;
 	cmd3->next = NULL;
 
 	mini->cmd = cmd1;
 }
+
 
 int	shell_init(t_mini *mini)
 {
@@ -95,6 +268,11 @@ void	parse_input_simple(t_mini *mini, char *input)
 			ft_exit(mini, 1, "malloc");
 		mini->cmd->cmd[0] = NULL;
 	}
+	mini->cmd->pipe[0] = -1;
+	mini->cmd->pipe[1] = -1;
+	mini->cmd->fd_in = -1;
+	mini->cmd->fd_out = -1;
+	mini->cmd->operator = OP_NONE;
 	mini->cmd->next = NULL;
 }
 
@@ -120,7 +298,6 @@ int	main(int argc, char **argv, char **envp)
 		ft_exit(mini, 1, "malloc");
 	}
 
-
 	mini->envp = duplicate_env(envp);
 	shell_init(mini);
 	while (1)
@@ -132,8 +309,27 @@ int	main(int argc, char **argv, char **envp)
 		{
 			add_history(input);
 		}
-		parse_input_simple(mini, input);
-		//false_parser(mini);
+		
+		if (ft_strncmp(input, "aa", 2) == 0)
+		{
+			false_parser1(mini);
+		}
+		else if (ft_strncmp(input, "ss", 2) == 0)
+		{
+			false_parser2(mini);
+		}
+		else if (ft_strncmp(input, "dd", 2) == 0)
+		{
+			false_parser3(mini);
+		}
+		else if (ft_strncmp(input, "ff", 2) == 0)
+		{
+			false_parser4(mini);
+		}
+		else
+		{
+			parse_input_simple(mini, input);
+		}
 		exec(mini);
 		printf("You entered: %s\n", input);
 		free(input);

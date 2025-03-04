@@ -6,7 +6,7 @@
 /*   By: malde-ch <malo@chato.fr>                   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/21 05:44:09 by malde-ch          #+#    #+#             */
-/*   Updated: 2025/03/03 23:48:56 by malde-ch         ###   ########.fr       */
+/*   Updated: 2025/03/04 06:41:10 by malde-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,8 +37,8 @@ typedef struct s_cmd
 {
 	char		**cmd;
 	int			pipe[2];
-	int			pipe_in;
-	int			pipe_out;
+	int			fd_in;
+	int			fd_out;
 	t_operator	operator;
 	struct s_cmd	*next;
 }	t_cmd;
@@ -50,5 +50,21 @@ typedef struct s_mini
 	t_env_var	*env;
 	t_cmd		*cmd;
 }	t_mini;
+
+
+/* 
+	Cela est un alias de la fonction builtin
+	Elles ont toutes la meme signature
+	et donc cela permet de les stocker dans un tableau
+	et de les appeler de maniere dynamique
+	avec un pointeur de fonction.
+ */
+typedef int	(*t_builtin_func)(t_mini *, t_cmd *cmd);
+
+typedef struct s_builtin
+{
+	char			*name;
+	t_builtin_func	func;
+}	t_builtin;
 
 #endif
