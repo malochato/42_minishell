@@ -6,7 +6,7 @@
 /*   By: malde-ch <malo@chato.fr>                   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/04 15:09:25 by malde-ch          #+#    #+#             */
-/*   Updated: 2025/03/04 22:08:35 by malde-ch         ###   ########.fr       */
+/*   Updated: 2025/03/05 23:35:21 by malde-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,10 +38,10 @@ void	append_to_array(t_mini *mini, char ***array, const char *str)
 		new_array[i] = (*array)[i];
 		i++;
 	}
-	new_array[size] = malloc((strlen(str) + 1) * sizeof(char));
+	new_array[size] = malloc((ft_strlen(str) + 1) * sizeof(char));
 	if (new_array[size] == NULL)
 		ft_exit(mini, 1, "Error malloc");
-	strcpy(new_array[size], str);
+	ft_strlcpy(new_array[size], str, ft_strlen(str) + 1);
 	new_array[size + 1] = NULL;
 	free(*array);
 	*array = new_array;

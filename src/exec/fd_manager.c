@@ -6,7 +6,7 @@
 /*   By: malde-ch <malo@chato.fr>                   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/04 01:32:30 by malde-ch          #+#    #+#             */
-/*   Updated: 2025/03/04 22:03:40 by malde-ch         ###   ########.fr       */
+/*   Updated: 2025/03/05 23:36:06 by malde-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,9 +49,7 @@ int	prepare_cmd(t_mini *mini, t_cmd *cmd)
 	t_handler	handler[6];
 	t_cmd		*current;
 	t_handler	current_handler;
-	int			ret;
 
-	ret = 0;
 	init_handler(handler);
 	current = cmd->next;
 	while (current != NULL && current->operator != OP_PIPE)
