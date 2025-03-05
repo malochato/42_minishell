@@ -6,7 +6,7 @@
 /*   By: malde-ch <malo@chato.fr>                   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/04 02:03:00 by malde-ch          #+#    #+#             */
-/*   Updated: 2025/03/04 17:42:08 by malde-ch         ###   ########.fr       */
+/*   Updated: 2025/03/05 23:44:24 by malde-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,8 +42,6 @@ int	check_exit_status(t_mini *mini, int status)
 
 void	handle_redirection(t_cmd *cmd)
 {
-	printf("cmd->fd_in = %d\n", cmd->fd_in);
-	printf("cmd->fd_out = %d\n", cmd->fd_out);
 	if (cmd->fd_in != -1)
 	{
 		if (dup2(cmd->fd_in, STDIN_FILENO) == -1)
