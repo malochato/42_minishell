@@ -6,7 +6,7 @@
 /*   By: malde-ch <malo@chato.fr>                   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/04 01:32:30 by malde-ch          #+#    #+#             */
-/*   Updated: 2025/03/05 23:36:06 by malde-ch         ###   ########.fr       */
+/*   Updated: 2025/03/05 23:38:09 by malde-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,8 +41,6 @@ t_handler get_handler(t_operator operator, t_handler *handler)
 	}
 	return (handler[i]);
 }
-
-
 
 int	prepare_cmd(t_mini *mini, t_cmd *cmd)
 {
