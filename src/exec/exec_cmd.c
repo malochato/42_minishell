@@ -6,7 +6,7 @@
 /*   By: malde-ch <malo@chato.fr>                   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/04 02:03:00 by malde-ch          #+#    #+#             */
-/*   Updated: 2025/03/05 23:44:24 by malde-ch         ###   ########.fr       */
+/*   Updated: 2025/03/05 23:47:04 by malde-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,6 @@ int	check_exit_status(t_mini *mini, int status)
 	}
 	return (-42);
 }
-
 
 void	handle_redirection(t_cmd *cmd)
 {

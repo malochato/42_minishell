@@ -6,7 +6,7 @@
 /*   By: malde-ch <malo@chato.fr>                   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/07 16:53:33 by malde-ch          #+#    #+#             */
-/*   Updated: 2025/03/04 21:52:36 by malde-ch         ###   ########.fr       */
+/*   Updated: 2025/03/05 23:51:55 by malde-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -298,8 +298,7 @@ int	main(int argc, char **argv, char **envp)
 	mini = malloc(sizeof(t_mini));
 	if (mini == NULL)
 	{
-		perror("malloc");
-		return (1);
+		ft_exit(mini, 1, "ERROR malloc");
 	}
 	mini->cmd = NULL;
 	mini->exit_status = 0;
@@ -307,7 +306,7 @@ int	main(int argc, char **argv, char **envp)
 	
 	if (!mini->env)
 	{
-		ft_exit(mini, 1, "malloc");
+		ft_exit(mini, 1, "ERROR malloc");
 	}
 
 	mini->envp = duplicate_env(envp);
