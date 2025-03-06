@@ -6,7 +6,7 @@
 /*   By: malde-ch <malo@chato.fr>                   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/20 22:09:10 by malde-ch          #+#    #+#             */
-/*   Updated: 2025/02/21 02:50:22 by malde-ch         ###   ########.fr       */
+/*   Updated: 2025/03/05 23:50:45 by malde-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,9 +64,11 @@ void	free_cmd(t_cmd *cmd)
 
 void	free_all(t_mini *mini)
 {
+	if (mini == NULL)
+		return ;
 	if (mini->cmd != NULL)
 	{
-		printf("freeing cmd\n");
+		close_all_fd_list(mini->cmd);
 		free_cmd(mini->cmd);
 		mini->cmd = NULL;
 	}

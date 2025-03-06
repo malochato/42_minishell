@@ -6,22 +6,22 @@
 /*   By: malde-ch <malo@chato.fr>                   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/20 21:45:16 by malde-ch          #+#    #+#             */
-/*   Updated: 2025/02/21 04:51:21 by malde-ch         ###   ########.fr       */
+/*   Updated: 2025/03/06 18:54:55 by malde-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "builtins.h"
 
-void	ft_exit(t_mini *mini, int num, char *str)
+void	ft_exit(t_mini *mini, int exit_status, char *str)
 {
 	if (str)
 	{
-		ft_putstr_fd("Error with ", 2);
 		ft_putstr_fd(str, 2);
 		ft_putstr_fd("\n", 2);
 	}
-	free_all(mini);
-	exit(num);
+	if (mini)
+		free_all(mini);
+	exit(exit_status);
 }
 
 int	is_within_int_range(const char *str)

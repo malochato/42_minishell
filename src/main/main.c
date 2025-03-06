@@ -6,7 +6,7 @@
 /*   By: malde-ch <malo@chato.fr>                   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/07 16:53:33 by malde-ch          #+#    #+#             */
-/*   Updated: 2025/03/04 00:22:45 by malde-ch         ###   ########.fr       */
+/*   Updated: 2025/03/06 18:58:21 by malde-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,38 +38,57 @@ int	shell_init(t_mini *mini)
 	return (0);
 }
 
-void	parse_input_simple(t_mini *mini, char *input)
+// Désactiver l'écho du signal SIGQUIT
+// Désactiver l'écho des caractères de contrôle
+void	disable_sigquit_echo(void)
 {
-	mini->cmd = malloc(sizeof(t_cmd));
-	if (mini->cmd == NULL)
+	struct termios	term;
+
+	if (tcgetattr(STDIN_FILENO, &term) == -1)
+		ft_exit(NULL, 1, "ERROR with tcgetattr");
+	term.c_lflag &= ~ECHOCTL;
+	if (tcsetattr(STDIN_FILENO, TCSANOW, &term) == -1)
+		ft_exit(NULL, 1, "ERROR with tcsetattr");
+}
+
+void	handle_signal(int signal)
+{
+	if (signal == SIGINT)
 	{
-		perror("malloc");
-		free_all(mini);
-		exit(1);
+		write(STDOUT_FILENO, "\n", 1);
+		rl_on_new_line();
+		rl_replace_line("", 0);
+		rl_redisplay();
+		// la il faut update le exit status a 130
 	}
-	mini->cmd->cmd = ft_split(input, ' ');
-	if (mini->cmd->cmd == NULL)
+	else if (signal == SIGQUIT)
 	{
-		mini->cmd->cmd = malloc(sizeof(char *));
-		if (mini->cmd->cmd == NULL)
-			ft_exit(mini, 1, "malloc");
-		mini->cmd->cmd[0] = NULL;
+		rl_on_new_line();
+		rl_replace_line("", 0);
+		rl_redisplay();
 	}
-	mini->cmd->next = NULL;
 }
 
 int	main(int argc, char **argv, char **envp)
 {
 	t_mini	*mini;
 	char	*input;
+	int		exit_status;
+	char	*prompt;
 
 	(void)argc;
 	(void)argv;
+	disable_sigquit_echo();
+	if (signal(SIGINT, handle_signal) == SIG_ERR)
+		ft_exit(NULL, 1, "ERROR with signal");
+	if (signal(SIGQUIT, handle_signal) == SIG_ERR)
+		ft_exit(NULL, 1, "ERROR with signal");
+
+
 	mini = malloc(sizeof(t_mini));
 	if (mini == NULL)
 	{
-		perror("malloc");
-		return (1);
+		ft_exit(mini, 1, "ERROR malloc");
 	}
 	mini->cmd = NULL;
 	mini->exit_status = 0;
@@ -77,29 +96,61 @@ int	main(int argc, char **argv, char **envp)
 	
 	if (!mini->env)
 	{
-		ft_exit(mini, 1, "malloc");
+		ft_exit(mini, 1, "ERROR malloc");
 	}
-
 
 	mini->envp = duplicate_env(envp);
 	shell_init(mini);
+
+
+
 	while (1)
 	{
-		input = readline("minishell $>");
+		prompt = get_prompt(mini);
+		input = readline(prompt);
 		if (input == NULL)
 			break ;
 		if (*input)
 		{
 			add_history(input);
 		}
-		parse_input_simple(mini, input);
+		
+		if (ft_strncmp(input, "aa", 2) == 0)
+		{
+			false_parser1(mini);
+		}
+		else if (ft_strncmp(input, "ss", 2) == 0)
+		{
+			false_parser2(mini);
+		}
+		else if (ft_strncmp(input, "dd", 2) == 0)
+		{
+			false_parser3(mini);
+		}
+		else if (ft_strncmp(input, "ff", 2) == 0)
+		{
+			false_parser4(mini);
+		}
+		else if (ft_strncmp(input, "gg", 2) == 0)
+		{
+			false_parser5(mini);
+		}
+		else
+		{
+			parse_input_simple(mini, input);
+		}
 		exec(mini);
-		printf("You entered: %s\n", input);
+		//printf("You entered: %s\n", input);
+
+		
 		free(input);
 		free_cmd(mini->cmd);
 		mini->cmd = NULL;
+		free(prompt);
+		prompt = NULL;
 	}
+	exit_status = mini->exit_status;
 	rl_clear_history();
 	free_all(mini);
-	return (0);
+	return (exit_status);
 }
