@@ -6,7 +6,7 @@
 /*   By: malde-ch <malo@chato.fr>                   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/17 13:40:50 by malde-ch          #+#    #+#             */
-/*   Updated: 2025/03/06 20:32:14 by malde-ch         ###   ########.fr       */
+/*   Updated: 2025/03/06 18:07:56 by malde-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,12 +17,10 @@
 
 # include <sys/wait.h>
 
-
-
-#include <unistd.h>
-#include <sys/types.h>
-#include <sys/wait.h>
-#include <stdio.h>
+# include <unistd.h>
+# include <sys/types.h>
+# include <sys/wait.h>
+# include <stdio.h>
 
 int		exec(t_mini *mini);
 

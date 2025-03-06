@@ -6,7 +6,7 @@
 /*   By: malde-ch <malo@chato.fr>                   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/04 01:32:30 by malde-ch          #+#    #+#             */
-/*   Updated: 2025/03/06 21:17:44 by malde-ch         ###   ########.fr       */
+/*   Updated: 2025/03/06 18:11:46 by malde-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ void	init_handler(t_handler *handler)
 	handler[5].func = NULL;
 }
 
-t_handler get_handler(t_operator operator, t_handler *handler)
+t_handler	get_handler(t_operator operator, t_handler *handler)
 {
 	int	i;
 

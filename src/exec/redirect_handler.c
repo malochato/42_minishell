@@ -6,13 +6,13 @@
 /*   By: malde-ch <malo@chato.fr>                   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/04 18:31:48 by malde-ch          #+#    #+#             */
-/*   Updated: 2025/03/06 21:17:01 by malde-ch         ###   ########.fr       */
+/*   Updated: 2025/03/06 18:11:12 by malde-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "exec.h"
 
-int is_syntax_error(t_cmd *op)
+int	is_syntax_error(t_cmd *op)
 {
 	if (op->next == NULL || op->next->cmd == NULL \
 		|| op->next->operator == OP_PIPE \
@@ -28,7 +28,7 @@ int is_syntax_error(t_cmd *op)
 			ft_putstr_fd("'\n", 2);
 			remove_file(NULL, op->next->cmd[0]);
 		}
-		else 
+		else
 		{
 			ft_putstr_fd \
 			("minishell: syntax error near unexpected token `newline'\n", 2);

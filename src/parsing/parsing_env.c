@@ -6,7 +6,7 @@
 /*   By: malde-ch <malo@chato.fr>                   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/17 10:31:52 by malde-ch          #+#    #+#             */
-/*   Updated: 2025/03/06 22:42:46 by malde-ch         ###   ########.fr       */
+/*   Updated: 2025/03/06 18:10:47 by malde-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,23 +64,20 @@ char	**duplicate_env(char **envp)
 	new_env[i] = NULL;
 	return (new_env);
 }
+
 char	**default_env(void)
 {
 	char		**default_env;
 
-	 default_env = malloc(3 * sizeof(char *));
+	default_env = malloc(3 * sizeof(char *));
 	if (!default_env)
 		return (NULL);
-	default_env[0] = ft_strdup("PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin");
+	default_env[0] = ft_strdup \
+	("PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin");
 	default_env[1] = ft_strdup("TERM=xterm-256color");
 	default_env[2] = NULL;
-
-	// add more default env here
-	// TERM = xterm-256color
-
 	return (default_env);
 }
-
 
 t_env_var	*create_env_list(char **env_dup)
 {
@@ -121,17 +118,7 @@ t_env_var	*parser_env(char **env)
 		env_dup = duplicate_env(env);
 	if (!env_dup)
 		return (NULL);
-
 	head = create_env_list(env_dup);
 	free_split(env_dup);
 	return (head);
 }
-
-
-
-/* 
-	TO DO:
-	- create_env_var if there is no envp CHECK
-	
-
- */

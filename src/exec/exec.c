@@ -22,7 +22,7 @@ t_cmd	*go_to_next_cmd(t_cmd *cmd)
 	{
 		cmd = cmd->next;
 	}
-	return cmd;
+	return (cmd);
 }
 
 int	exec(t_mini *mini)
@@ -44,7 +44,7 @@ int	exec(t_mini *mini)
 		{
 			mini->exit_status = exit_status;
 			close_all_fd(cmd);
-			break;
+			break ;
 		}
 		func = get_builtin_func(cmd->cmd[0], builtins);
 		if (func)

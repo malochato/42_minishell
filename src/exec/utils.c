@@ -6,7 +6,7 @@
 /*   By: malde-ch <malo@chato.fr>                   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/04 15:09:25 by malde-ch          #+#    #+#             */
-/*   Updated: 2025/03/05 23:35:21 by malde-ch         ###   ########.fr       */
+/*   Updated: 2025/03/06 18:12:03 by malde-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,3 @@ void	append_to_array(t_mini *mini, char ***array, const char *str)
 	free(*array);
 	*array = new_array;
 }
-
-
-
-// have to refactor all of this !

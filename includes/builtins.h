@@ -6,7 +6,7 @@
 /*   By: malde-ch <malo@chato.fr>                   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/12 17:42:39 by malde-ch          #+#    #+#             */
-/*   Updated: 2025/03/04 06:41:33 by malde-ch         ###   ########.fr       */
+/*   Updated: 2025/03/06 18:06:42 by malde-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,6 @@
 # include "minishell.h"
 # include "exec.h"
 # include "env.h"
-
-
 
 // BUILTINS INIT
 void			init_builtins(t_builtin *builtins);
