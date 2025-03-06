@@ -6,12 +6,20 @@
 /*   By: malde-ch <malo@chato.fr>                   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/07 16:53:33 by malde-ch          #+#    #+#             */
-/*   Updated: 2025/03/05 23:51:55 by malde-ch         ###   ########.fr       */
+/*   Updated: 2025/03/06 23:03:06 by malde-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 
 #include "minishell.h"
+
+
+#include <signal.h>
+#include <termios.h>
+#define COLOR_RESET "\033[0m"
+#define COLOR_GREEN "\033[32m"
+#define COLOR_RED "\033[31m"
+
 
 void false_parser1(t_mini *mini)
 {
@@ -237,6 +245,28 @@ void false_parser5(t_mini *mini)
 	mini->cmd = cmd1;
 }
 
+void	parse_input_simple(t_mini *mini, char *input)
+{
+	mini->cmd = malloc(sizeof(t_cmd));
+	if (mini->cmd == NULL)
+	{
+		perror("malloc");
+		free_all(mini);
+		exit(1);
+	}
+	mini->cmd->cmd = ft_split(input, ' ');
+	if (mini->cmd->cmd == NULL)
+	{
+		mini->cmd->cmd = malloc(sizeof(char *));
+		if (mini->cmd->cmd == NULL)
+			ft_exit(mini, 1, "malloc");
+		mini->cmd->cmd[0] = NULL;
+	}
+	mini->cmd->fd_in = -1;
+	mini->cmd->fd_out = -1;
+	mini->cmd->operator = OP_NONE;
+	mini->cmd->next = NULL;
+}
 
 
 int	shell_init(t_mini *mini)
@@ -265,27 +295,81 @@ int	shell_init(t_mini *mini)
 	return (0);
 }
 
-void	parse_input_simple(t_mini *mini, char *input)
+// Désactiver l'écho du signal SIGQUIT
+void disable_sigquit_echo()
 {
-	mini->cmd = malloc(sizeof(t_cmd));
-	if (mini->cmd == NULL)
+	struct termios term;
+	if (tcgetattr(STDIN_FILENO, &term) == -1)
 	{
-		perror("malloc");
-		free_all(mini);
+		perror("tcgetattr");
 		exit(1);
 	}
-	mini->cmd->cmd = ft_split(input, ' ');
-	if (mini->cmd->cmd == NULL)
+	term.c_lflag &= ~ECHOCTL; // Désactiver l'écho des caractères de contrôle
+	if (tcsetattr(STDIN_FILENO, TCSANOW, &term) == -1)
 	{
-		mini->cmd->cmd = malloc(sizeof(char *));
-		if (mini->cmd->cmd == NULL)
-			ft_exit(mini, 1, "malloc");
-		mini->cmd->cmd[0] = NULL;
+		perror("tcsetattr");
+		exit(1);
 	}
-	mini->cmd->fd_in = -1;
-	mini->cmd->fd_out = -1;
-	mini->cmd->operator = OP_NONE;
-	mini->cmd->next = NULL;
+}
+
+
+
+void handle_signal(int signal)
+{
+	if (signal == SIGINT)
+	{
+		printf("Received SIGINT (Ctrl+C), exiting...\n");
+		exit(0);
+	}
+}
+
+
+char *get_prompt(t_mini *mini)
+{
+		char	*prompt;
+		char	*exit_status_str;
+		char	*pwd;
+		char	*home;
+		char	*home_replacement;
+		char	*color;
+
+
+		pwd = getcwd(NULL, 0);
+		home = get_env_value(mini->env, "HOME");
+		if (home != NULL && pwd != NULL && ft_strncmp(pwd, home, ft_strlen(home)) == 0)
+		{
+			home_replacement = ft_strjoin("~", pwd + ft_strlen(home));
+			free(pwd);
+			pwd = home_replacement;
+		}
+		exit_status_str = ft_itoa(mini->exit_status);
+		if (mini->exit_status == 0)
+			color = COLOR_GREEN;
+		else
+			color = COLOR_RED;
+
+		size_t prompt_size = ft_strlen("minishell: ") + ft_strlen(pwd) + ft_strlen(" [") +
+						 ft_strlen(color) + ft_strlen(exit_status_str) +
+						 ft_strlen(COLOR_RESET) + ft_strlen("] % ") + 1;
+
+		prompt = malloc(prompt_size);		
+		if (prompt == NULL)
+			ft_exit(mini, 1, "ERROR malloc");
+		
+		ft_strlcpy(prompt, "minishell: ", prompt_size);
+		if (pwd != NULL)
+		{
+			ft_strlcat(prompt, pwd, prompt_size);
+		}
+		ft_strlcat(prompt, " [", prompt_size);
+		ft_strlcat(prompt, color, prompt_size);
+		ft_strlcat(prompt, exit_status_str, prompt_size);
+		ft_strlcat(prompt, COLOR_RESET, prompt_size);
+		ft_strlcat(prompt, "] % ", prompt_size);
+
+		free(exit_status_str);
+		free(pwd);
+		return (prompt);
 }
 
 int	main(int argc, char **argv, char **envp)
@@ -311,9 +395,26 @@ int	main(int argc, char **argv, char **envp)
 
 	mini->envp = duplicate_env(envp);
 	shell_init(mini);
+
+
+	disable_sigquit_echo();
+	if (signal(SIGINT, handle_signal) == SIG_ERR)
+	{
+		perror("signal");
+		exit(1);
+	}
+	if (signal(SIGQUIT, handle_signal) == SIG_ERR)
+	{
+		perror("signal");
+		exit(1);
+	}
+
+
 	while (1)
 	{
-		input = readline("minishell $>");
+		char *prompt = get_prompt(mini);
+		input = readline(prompt);
+		free(prompt);
 		if (input == NULL)
 			break ;
 		if (*input)
@@ -346,7 +447,7 @@ int	main(int argc, char **argv, char **envp)
 			parse_input_simple(mini, input);
 		}
 		exec(mini);
-		printf("You entered: %s\n", input);
+		//printf("You entered: %s\n", input);
 		free(input);
 		free_cmd(mini->cmd);
 		mini->cmd = NULL;

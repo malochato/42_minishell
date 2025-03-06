@@ -6,7 +6,7 @@
 /*   By: malde-ch <malo@chato.fr>                   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/04 01:32:30 by malde-ch          #+#    #+#             */
-/*   Updated: 2025/03/05 23:38:09 by malde-ch         ###   ########.fr       */
+/*   Updated: 2025/03/06 21:17:44 by malde-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,7 @@ int	prepare_cmd(t_mini *mini, t_cmd *cmd)
 	t_handler	handler[6];
 	t_cmd		*current;
 	t_handler	current_handler;
+	int			ret;
 
 	init_handler(handler);
 	current = cmd->next;
@@ -55,8 +56,9 @@ int	prepare_cmd(t_mini *mini, t_cmd *cmd)
 		current_handler = get_handler(current->operator, handler);
 		if (current_handler.operator != OP_NONE)
 		{
-			if(current_handler.func(mini, cmd, current))
-				return (2);
+			ret = current_handler.func(mini, cmd, current);
+			if (ret)
+				return (ret);
 			current = current->next;
 		}
 		else

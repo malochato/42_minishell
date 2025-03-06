@@ -40,8 +40,9 @@ int	exec(t_mini *mini)
 		if (cmd->cmd[0] == NULL)
 			return (mini->exit_status);
 		exit_status = prepare_cmd(mini, cmd);
-		if (exit_status == 2)
+		if (exit_status)
 		{
+			mini->exit_status = exit_status;
 			close_all_fd(cmd);
 			break;
 		}

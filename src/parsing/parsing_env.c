@@ -6,7 +6,7 @@
 /*   By: malde-ch <malo@chato.fr>                   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/17 10:31:52 by malde-ch          #+#    #+#             */
-/*   Updated: 2025/03/04 20:52:59 by malde-ch         ###   ########.fr       */
+/*   Updated: 2025/03/06 22:42:46 by malde-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,11 +68,12 @@ char	**default_env(void)
 {
 	char		**default_env;
 
-	 default_env = malloc(2 * sizeof(char *));
+	 default_env = malloc(3 * sizeof(char *));
 	if (!default_env)
 		return (NULL);
 	default_env[0] = ft_strdup("PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin");
-	default_env[1] = NULL;
+	default_env[1] = ft_strdup("TERM=xterm-256color");
+	default_env[2] = NULL;
 
 	// add more default env here
 	// TERM = xterm-256color

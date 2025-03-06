@@ -6,7 +6,7 @@
 /*   By: malde-ch <malo@chato.fr>                   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/04 18:31:48 by malde-ch          #+#    #+#             */
-/*   Updated: 2025/03/04 22:00:19 by malde-ch         ###   ########.fr       */
+/*   Updated: 2025/03/06 21:17:01 by malde-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ int	handle_redirect_out(t_mini *mini, t_cmd *cmd, t_cmd *op)
 		cmd->fd_out = open(op->next->cmd[0], \
 						O_WRONLY | O_CREAT | O_TRUNC, 0644);
 		if (cmd->fd_out == -1)
-			ft_exit(mini, 1, "Error opening file");
+			ft_exit(mini, 1, "Error opening / creating file");
 	}
 	return (0);
 }
@@ -61,7 +61,7 @@ int	handle_redirect_out_append(t_mini *mini, t_cmd *cmd, t_cmd *op)
 		cmd->fd_out = open(op->next->cmd[0], \
 						O_WRONLY | O_CREAT | O_APPEND, 0644);
 		if (cmd->fd_out == -1)
-			ft_exit(mini, 1, "Error opening file");
+			ft_exit(mini, 1, "Error opening / creating file");
 	}
 	return (0);
 }
@@ -72,6 +72,11 @@ int	handle_redirect_in(t_mini *mini, t_cmd *cmd, t_cmd *op)
 	{
 		if (is_syntax_error(op))
 			return (2);
+		if (access(op->next->cmd[0], F_OK) == -1)
+		{
+			ft_error(op->next->cmd[0], "No such file or directory", NULL, 0);
+			return (1);
+		}
 		cmd->fd_in = open(op->next->cmd[0], O_RDONLY);
 		if (cmd->fd_in == -1)
 			ft_exit(mini, 1, "Error opening file");
