@@ -6,7 +6,7 @@
 /*   By: malde-ch <malo@chato.fr>                   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/07 16:53:33 by malde-ch          #+#    #+#             */
-/*   Updated: 2025/03/06 18:58:21 by malde-ch         ###   ########.fr       */
+/*   Updated: 2025/03/06 19:28:22 by malde-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,7 +109,7 @@ int	main(int argc, char **argv, char **envp)
 		prompt = get_prompt(mini);
 		input = readline(prompt);
 		if (input == NULL)
-			break ;
+			ft_exit(mini, 0, NULL);
 		if (*input)
 		{
 			add_history(input);
