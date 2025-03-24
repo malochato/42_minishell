@@ -25,6 +25,20 @@ t_cmd	*go_to_next_cmd(t_cmd *cmd)
 	return (cmd);
 }
 
+
+static void	print_split_result(char **split_result)
+{
+	int	i;
+
+	i = 0;
+	while (split_result[i])
+	{
+		printf("split_result[%d]: %s\n", i, split_result[i]);
+		i++;
+	}
+}
+
+
 int	exec(t_mini *mini)
 {
 	t_builtin		builtins[8];
@@ -35,6 +49,7 @@ int	exec(t_mini *mini)
 	init_builtins(builtins);
 	exit_status = 0;
 	cmd = mini->cmd;
+	print_split_result(cmd->cmd);
 	while (cmd)
 	{
 		if (cmd->cmd[0] == NULL)

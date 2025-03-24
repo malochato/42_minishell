@@ -6,7 +6,7 @@
 /*   By: malde-ch <malo@chato.fr>                   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/04 01:32:30 by malde-ch          #+#    #+#             */
-/*   Updated: 2025/03/06 18:11:46 by malde-ch         ###   ########.fr       */
+/*   Updated: 2025/03/24 18:33:08 by malde-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,8 +51,11 @@ int	prepare_cmd(t_mini *mini, t_cmd *cmd)
 
 	init_handler(handler);
 	current = cmd->next;
+	//while (current != NULL && ft_strncmp(current->cmd[0], "|", 2) != 0)
 	while (current != NULL && current->operator != OP_PIPE)
 	{
+		printf("operator: %d\n", cmd->operator);
+		printf("current->cmd[0]: %s\n", current->cmd[0]);
 		current_handler = get_handler(current->operator, handler);
 		if (current_handler.operator != OP_NONE)
 		{

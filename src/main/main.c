@@ -6,11 +6,20 @@
 /*   By: malde-ch <malo@chato.fr>                   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/07 16:53:33 by malde-ch          #+#    #+#             */
-/*   Updated: 2025/03/06 20:01:24 by malde-ch         ###   ########.fr       */
+/*   Updated: 2025/03/24 18:40:02 by malde-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+void do_it(t_mini *ms, char *input, char **envp)
+{
+			parser(ms, input);
+			expander(ms, &ms->token, envp);
+			create_cmd_list(ms);
+			print_cmd(ms);
+			//free_all(ms);
+}
 
 int	shell_init(t_mini *mini)
 {
@@ -93,6 +102,8 @@ int	main(int argc, char **argv, char **envp)
 	mini->cmd = NULL;
 	mini->exit_status = 0;
 	mini->env = parser_env(envp);
+	mini->token = NULL;
+	//ms->exit_status = 42;
 	
 	if (!mini->env)
 	{
@@ -106,6 +117,7 @@ int	main(int argc, char **argv, char **envp)
 
 	while (1)
 	{
+		printf("holi\n");
 		prompt = get_prompt(mini);
 		input = readline(prompt);
 		if (input == NULL)
@@ -113,41 +125,17 @@ int	main(int argc, char **argv, char **envp)
 		if (*input)
 		{
 			add_history(input);
-		}
 		
-		if (ft_strncmp(input, "aa", 2) == 0)
-		{
-			false_parser1(mini);
+			do_it(mini, input, envp);
+			//printf("You entered: %s\n", input);
+			exec(mini);
+			free_all_parsing(mini);
+			free(input);
+			free_cmd(mini->cmd);
+			mini->cmd = NULL;
+			free(prompt);
+			prompt = NULL;
 		}
-		else if (ft_strncmp(input, "ss", 2) == 0)
-		{
-			false_parser2(mini);
-		}
-		else if (ft_strncmp(input, "dd", 2) == 0)
-		{
-			false_parser3(mini);
-		}
-		else if (ft_strncmp(input, "ff", 2) == 0)
-		{
-			false_parser4(mini);
-		}
-		else if (ft_strncmp(input, "gg", 2) == 0)
-		{
-			false_parser5(mini);
-		}
-		else
-		{
-			parse_input_simple(mini, input);
-		}
-		exec(mini);
-		//printf("You entered: %s\n", input);
-
-		
-		free(input);
-		free_cmd(mini->cmd);
-		mini->cmd = NULL;
-		free(prompt);
-		prompt = NULL;
 	}
 	exit_status = mini->exit_status;
 	rl_clear_history();

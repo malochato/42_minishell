@@ -110,7 +110,7 @@ void false_parser3(t_mini *mini)
 		exit(1);
 	}
 
-	cmd1->cmd = ft_split("grep 7", ' ');
+	cmd1->cmd = ft_split("echo ", ' ');
 	cmd1->fd_in = -1;
 	cmd1->fd_out = -1;
 	cmd1->operator = OP_NONE;
@@ -155,8 +155,7 @@ void false_parser4(t_mini *mini)
 		perror("malloc");
 		exit(1);
 	}
-
-	cmd1->cmd = ft_split("ls -l", ' ');
+	cmd1->cmd = ft_split("ls", ' ');
 	cmd1->fd_in = -1;
 	cmd1->fd_out = -1;
 	cmd1->operator = OP_NONE;
@@ -166,13 +165,13 @@ void false_parser4(t_mini *mini)
 	cmd2->fd_in = -1;
 	cmd2->fd_out = -1;
 	cmd2->operator = OP_PIPE;
-	cmd2->next = NULL;
+	cmd2->next = cmd3;
 
-/* 	cmd3->cmd = ft_split("grep 7", ' ');
+	cmd3->cmd = ft_split("grep m", ' ');
 	cmd3->fd_in = -1;
 	cmd3->fd_out = -1;
 	cmd3->operator = OP_NONE;
-	cmd3->next = NULL; */
+	cmd3->next = NULL;
 
 	mini->cmd = cmd1;
 }

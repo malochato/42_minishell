@@ -6,12 +6,58 @@
 /*   By: malde-ch <malo@chato.fr>                   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/21 05:44:09 by malde-ch          #+#    #+#             */
-/*   Updated: 2025/03/06 18:07:42 by malde-ch         ###   ########.fr       */
+/*   Updated: 2025/03/24 15:57:55 by malde-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef TYPES_H
 # define TYPES_H
+
+
+
+
+
+enum e_type{
+	
+	PIPE = 10,
+	EXECVE = 11,
+	BUILDIN = 12,
+	ARG = 13,
+	ARG_FILE = 14,
+	REDIRECT = 15,
+	HEREDOC = 16
+};
+
+typedef struct s_token
+{
+	char	*cmd;
+    int     type;
+	struct s_token	*next;
+	struct s_token	*prev;
+}	t_token;
+
+
+typedef struct s_expand
+{
+	char	**hold_str;
+	int		ex;
+	int		start;
+	int		end;
+	int		quotes;
+	int		ex_n;
+	int		i;
+}	t_expand;
+
+
+
+
+
+
+
+
+
+
+
 
 typedef struct s_env_var
 {
@@ -40,13 +86,39 @@ typedef struct s_cmd
 	struct s_cmd	*next;
 }	t_cmd;
 
-typedef struct s_mini
+
+
+
+
+/* typedef struct s_mini
 {
 	int			exit_status;
 	char		**envp;
 	t_env_var	*env;
 	t_cmd		*cmd;
-}	t_mini;
+}	t_mini; */
+
+typedef struct s_mini
+{
+	int			exit_status;
+	char		**envp;
+	t_token		*token;
+	t_cmd		*cmd;
+	t_env_var	*env;
+} t_mini;
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 /* 
 	Cela est un alias de la fonction builtin

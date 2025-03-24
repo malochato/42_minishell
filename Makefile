@@ -5,9 +5,17 @@ LIBFT = $(LIBFT_PATH)libft.a
 
 SRC_DIR = ./src/
 
+
+
 PARSING_DIR = $(SRC_DIR)parsing/
-PARSING_FILES = parsing_env.c
+PARSING_FILES = parsing_env.c cmd.c  expander.c  free.c  lexer.c parser.c  parser_utils.c syntax.c  token.c
 PARSING = $(addprefix $(PARSING_DIR), $(PARSING_FILES))
+
+
+
+
+
+
 
 ENV_DIR = $(SRC_DIR)env/
 ENV_FILES = env_manager.c utils_0.c utils_1.c

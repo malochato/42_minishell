@@ -6,7 +6,7 @@
 /*   By: malde-ch <malo@chato.fr>                   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/07 17:00:22 by malde-ch          #+#    #+#             */
-/*   Updated: 2025/03/06 18:47:34 by malde-ch         ###   ########.fr       */
+/*   Updated: 2025/03/24 15:57:17 by malde-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@
 
 # include "types.h"
 
+# include "parsing.h"
 # include "exec.h"
 # include "builtins.h"
 # include "env.h"
@@ -59,5 +60,6 @@ void		false_parser3(t_mini *mini);
 void		false_parser4(t_mini *mini);
 void		false_parser5(t_mini *mini);
 void		parse_input_simple(t_mini *mini, char *input);
+
 
 #endif
