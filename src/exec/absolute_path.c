@@ -6,7 +6,7 @@
 /*   By: malde-ch <malo@chato.fr>                   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/24 18:07:52 by malde-ch          #+#    #+#             */
-/*   Updated: 2025/03/05 23:27:47 by malde-ch         ###   ########.fr       */
+/*   Updated: 2025/03/25 15:26:42 by malde-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,13 +75,23 @@ char	*get_absolute_path(t_env_var *env, char *cmd)
 int	update_to_absolute_path(t_mini *mini, t_cmd *cmd)
 {
 	char	*absolute_path;
+	struct stat	buf;
 
 	if (access(cmd->cmd[0], F_OK | X_OK) == 0)
+	{
+		stat(cmd->cmd[0], &buf);
+		if (S_ISDIR(buf.st_mode))
+		{
+			ft_error(cmd->cmd[0], "is a directory", NULL, 0);
+			return (126);
+		}
+		printf("Ca passe la: %s\n", cmd->cmd[0]);
 		return (0);
+	}
 	absolute_path = get_absolute_path(mini->env, cmd->cmd[0]);
 	if (absolute_path == NULL)
 	{
-		ft_error("Command not found", cmd->cmd[0], NULL, 0);
+		ft_error("command not found", cmd->cmd[0], NULL, 0);
 		return (127);
 	}
 	free(cmd->cmd[0]);

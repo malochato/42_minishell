@@ -6,7 +6,7 @@
 /*   By: malde-ch <malo@chato.fr>                   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/07 16:53:33 by malde-ch          #+#    #+#             */
-/*   Updated: 2025/03/24 18:40:02 by malde-ch         ###   ########.fr       */
+/*   Updated: 2025/03/25 14:42:24 by malde-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,11 +117,11 @@ int	main(int argc, char **argv, char **envp)
 
 	while (1)
 	{
-		printf("holi\n");
+		//printf("holi\n");
 		prompt = get_prompt(mini);
 		input = readline(prompt);
 		if (input == NULL)
-			ft_exit(mini, 0, "exit");
+			ft_exit(mini, mini->exit_status, "exit");
 		if (*input)
 		{
 			add_history(input);
@@ -130,12 +130,12 @@ int	main(int argc, char **argv, char **envp)
 			//printf("You entered: %s\n", input);
 			exec(mini);
 			free_all_parsing(mini);
-			free(input);
 			free_cmd(mini->cmd);
 			mini->cmd = NULL;
-			free(prompt);
-			prompt = NULL;
 		}
+		free(input);
+		free(prompt);
+		prompt = NULL;
 	}
 	exit_status = mini->exit_status;
 	rl_clear_history();
