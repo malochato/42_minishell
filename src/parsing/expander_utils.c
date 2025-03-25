@@ -6,7 +6,7 @@
 /*   By: dalara-s <dalara-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/07 16:53:33 by malde-ch          #+#    #+#             */
-/*   Updated: 2025/03/25 16:12:32 by dalara-s         ###   ########.fr       */
+/*   Updated: 2025/03/25 17:10:33 by dalara-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,8 @@ char	*expand(t_mini *ms, char *cmd, char **envp)
 static char	*exit_status(t_mini *ms, char *f, char *cmd)
 {
 	char	*ret;
+	char	*res;
+	char	*temp;
 
 	ret = NULL;
 	if (!*cmd)
@@ -73,7 +75,12 @@ static char	*exit_status(t_mini *ms, char *f, char *cmd)
 	if (cmd && cmd[0])
 		ret = ft_strdup(++cmd);
 	f = free_ptr(f);
-	return (ft_strjoin(ft_itoa(ms->exit_status), ret));
+	temp = ft_itoa(ms->exit_status);
+	res = ft_strjoin(temp, ret);
+	free(ret);
+	free(temp);
+	return (res);
+
 }
 
 int	find_equalsing(char *var)

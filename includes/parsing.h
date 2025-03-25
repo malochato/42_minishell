@@ -6,7 +6,7 @@
 /*   By: dalara-s <dalara-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/24 15:37:12 by malde-ch          #+#    #+#             */
-/*   Updated: 2025/03/25 16:06:28 by dalara-s         ###   ########.fr       */
+/*   Updated: 2025/03/25 17:03:05 by dalara-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@
 
 
 // to put in the parsing.h
-void    expander(t_mini *ms, t_token **head, char **envp);
+void    expander(t_mini *ms, t_token **head);
 
 char    *get_envp(t_mini *ms, char *cmd, char **envp);
 void	insert_token(t_token **head, char *token);

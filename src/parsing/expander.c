@@ -6,7 +6,7 @@
 /*   By: dalara-s <dalara-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/07 16:53:33 by malde-ch          #+#    #+#             */
-/*   Updated: 2025/03/25 16:05:45 by dalara-s         ###   ########.fr       */
+/*   Updated: 2025/03/25 17:02:30 by dalara-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ static char	*expand_quotes(char *cmd)
 	return (ft_mattstr_copy(ret));
 }
 
-void	expander(t_mini *ms, t_token **head, char **envp)
+void	expander(t_mini *ms, t_token **head)
 {
 	char	*temp;
 	t_token	*token;
@@ -49,7 +49,7 @@ void	expander(t_mini *ms, t_token **head, char **envp)
 		if (ft_strchr(token->cmd, '$'))
 		{
 			temp = token->cmd;
-			token->cmd = expand(ms, token->cmd, envp);
+			token->cmd = expand(ms, token->cmd, ms->envp);
 			if (token->cmd == NULL)
 				token->cmd = temp;
 			else

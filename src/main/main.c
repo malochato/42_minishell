@@ -6,18 +6,18 @@
 /*   By: dalara-s <dalara-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/07 16:53:33 by malde-ch          #+#    #+#             */
-/*   Updated: 2025/03/25 16:14:25 by dalara-s         ###   ########.fr       */
+/*   Updated: 2025/03/25 17:03:59 by dalara-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void do_it(t_mini *ms, char *input, char **envp)
+void do_it(t_mini *ms, char *input)
 {
 			if (parser(ms, input) == 2){
 				return ;
 			}
-			expander(ms, &ms->token, envp);
+			expander(ms, &ms->token);
 			create_cmd_list(ms);
 			//print_cmd(ms);
 			exec(ms);
@@ -129,7 +129,7 @@ int	main(int argc, char **argv, char **envp)
 		{
 			add_history(input);
 		
-			do_it(mini, input, envp);
+			do_it(mini, input);
 			//printf("You entered: %s\n", input);
 			
 			free_all_parsing(mini);
