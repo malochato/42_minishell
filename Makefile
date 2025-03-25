@@ -27,7 +27,7 @@ EXEC_FILES = exec.c absolute_path.c fd_manager.c \
 EXEC = $(addprefix $(EXEC_DIR), $(EXEC_FILES))
 
 MAIN_DIR = $(SRC_DIR)main/
-MAIN_FILES = main.c free_all.c simple_parser.c prompt_utils.c main_utils.c
+MAIN_FILES = main.c free_all.c prompt_utils.c main_utils.c
 MAIN = $(addprefix $(MAIN_DIR), $(MAIN_FILES))
 
 SRC =  $(MAIN) $(PARSING) $(EXEC) $(BUILTINS) $(ENV)

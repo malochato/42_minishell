@@ -6,7 +6,7 @@
 /*   By: malde-ch <malo@chato.fr>                   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/07 17:00:22 by malde-ch          #+#    #+#             */
-/*   Updated: 2025/03/25 22:17:35 by malde-ch         ###   ########.fr       */
+/*   Updated: 2025/03/25 23:07:06 by malde-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,8 +55,6 @@ int			update_exit_status(int value);
 void		handle_signal(int signal);
 void		signal_handler(void);
 int			init_shell_env(t_mini *mini);
-
-
 
 // From prompt_utils.c
 char		*get_prompt(void);
