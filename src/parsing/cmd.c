@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cmd.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dalara-s <dalara-s@student.42.fr>          +#+  +:+       +#+        */
+/*   By: malde-ch <malo@chato.fr>                   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/13 13:29:19 by dalara-s          #+#    #+#             */
-/*   Updated: 2025/03/25 19:55:01 by dalara-s         ###   ########.fr       */
+/*   Updated: 2025/03/25 20:55:23 by malde-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,7 +117,6 @@ void	create_cmd_list(t_mini *ms)
 	ms->cmd = NULL;
 	while (cmd_lexer[i])
 	{
-		printf("cmd_lexer[%d]: %s\n", i, cmd_lexer[i]);
 		add_cmd(&ms->cmd, cmd_lexer[i]);
 		current_cmd = ms->cmd;
 		while (current_cmd->next != NULL)

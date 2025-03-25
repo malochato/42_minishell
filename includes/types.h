@@ -3,22 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   types.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dalara-s <dalara-s@student.42.fr>          +#+  +:+       +#+        */
+/*   By: malde-ch <malo@chato.fr>                   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/21 05:44:09 by malde-ch          #+#    #+#             */
-/*   Updated: 2025/03/25 15:42:53 by dalara-s         ###   ########.fr       */
+/*   Updated: 2025/03/25 21:39:00 by malde-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef TYPES_H
 # define TYPES_H
 
-
-
-
-
-enum e_type{
-	
+enum e_type
+{
 	PIPE = 10,
 	EXECVE = 11,
 	BUILDIN = 12,
@@ -30,12 +26,11 @@ enum e_type{
 
 typedef struct s_token
 {
-	char	*cmd;
-    int     type;
+	char			*cmd;
+	int				type;
 	struct s_token	*next;
 	struct s_token	*prev;
 }	t_token;
-
 
 typedef struct s_expand
 {
@@ -47,8 +42,6 @@ typedef struct s_expand
 	int		ex_n;
 	int		i;
 }	t_expand;
-
-
 
 typedef struct s_env_var
 {
@@ -78,18 +71,6 @@ typedef struct s_cmd
 	struct s_cmd	*next;
 }	t_cmd;
 
-
-
-
-
-/* typedef struct s_mini
-{
-	int			exit_status;
-	char		**envp;
-	t_env_var	*env;
-	t_cmd		*cmd;
-}	t_mini; */
-
 typedef struct s_mini
 {
 	int			exit_status;
@@ -97,20 +78,7 @@ typedef struct s_mini
 	t_token		*token;
 	t_cmd		*cmd;
 	t_env_var	*env;
-} t_mini;
-
-
-
-
-
-
-
-
-
-
-
-
-
+}	t_mini;
 
 /* 
 	Cela est un alias de la fonction builtin

@@ -6,7 +6,7 @@
 /*   By: malde-ch <malo@chato.fr>                   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/06 18:43:01 by malde-ch          #+#    #+#             */
-/*   Updated: 2025/03/25 17:58:46 by malde-ch         ###   ########.fr       */
+/*   Updated: 2025/03/25 21:54:18 by malde-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ char	*build_prompt(const char *pwd, const char *color, \
 	return (prompt);
 }
 
-char	*get_prompt()
+char	*get_prompt(void)
 {
 	char	*pwd;
 	char	*exit_status_str;

@@ -5,17 +5,9 @@ LIBFT = $(LIBFT_PATH)libft.a
 
 SRC_DIR = ./src/
 
-
-
 PARSING_DIR = $(SRC_DIR)parsing/
 PARSING_FILES = parsing_env.c cmd.c  expander.c  free.c  lexer.c parser.c  parser_utils.c syntax.c  token.c expander_utils.c
 PARSING = $(addprefix $(PARSING_DIR), $(PARSING_FILES))
-
-
-
-
-
-
 
 ENV_DIR = $(SRC_DIR)env/
 ENV_FILES = env_manager.c utils_0.c utils_1.c
@@ -35,7 +27,7 @@ EXEC_FILES = exec.c absolute_path.c fd_manager.c \
 EXEC = $(addprefix $(EXEC_DIR), $(EXEC_FILES))
 
 MAIN_DIR = $(SRC_DIR)main/
-MAIN_FILES = main.c free_all.c simple_parser.c prompt_utils.c
+MAIN_FILES = main.c free_all.c simple_parser.c prompt_utils.c main_utils.c
 MAIN = $(addprefix $(MAIN_DIR), $(MAIN_FILES))
 
 SRC =  $(MAIN) $(PARSING) $(EXEC) $(BUILTINS) $(ENV)

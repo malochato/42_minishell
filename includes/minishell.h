@@ -6,7 +6,7 @@
 /*   By: malde-ch <malo@chato.fr>                   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/07 17:00:22 by malde-ch          #+#    #+#             */
-/*   Updated: 2025/03/25 17:59:05 by malde-ch         ###   ########.fr       */
+/*   Updated: 2025/03/25 22:17:35 by malde-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@
 # include <readline/readline.h>
 # include <readline/history.h>
 # include <limits.h>
-#include <sys/stat.h>
+# include <sys/stat.h>
 
 # include "types.h"
 
@@ -30,13 +30,12 @@
 # include "builtins.h"
 # include "env.h"
 
-#include <signal.h>
-#include <termios.h>
+# include <signal.h>
+# include <termios.h>
 
-#define COLOR_RESET "\033[0m"
-#define COLOR_GREEN "\033[32m"
-#define COLOR_RED "\033[31m"
-
+# define COLOR_RESET "\033[0m"
+# define COLOR_GREEN "\033[32m"
+# define COLOR_RED "\033[31m"
 
 // to put in the parsing.h
 t_env_var	*parser_env(char **env);
@@ -50,7 +49,14 @@ void		free_all(t_mini *mini);
 
 // From main.c
 void		ft_exit(t_mini *mini, int num, char *str);
-int update_exit_status(int value);
+
+// From main_utils.c
+int			update_exit_status(int value);
+void		handle_signal(int signal);
+void		signal_handler(void);
+int			init_shell_env(t_mini *mini);
+
+
 
 // From prompt_utils.c
 char		*get_prompt(void);
@@ -62,6 +68,5 @@ void		false_parser3(t_mini *mini);
 void		false_parser4(t_mini *mini);
 void		false_parser5(t_mini *mini);
 void		parse_input_simple(t_mini *mini, char *input);
-
 
 #endif

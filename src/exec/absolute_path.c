@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   absolute_path.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dalara-s <dalara-s@student.42.fr>          +#+  +:+       +#+        */
+/*   By: malde-ch <malo@chato.fr>                   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/24 18:07:52 by malde-ch          #+#    #+#             */
-/*   Updated: 2025/03/25 19:05:32 by dalara-s         ###   ########.fr       */
+/*   Updated: 2025/03/25 21:43:13 by malde-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ char	*get_absolute_path(t_env_var *env, char *cmd)
 
 int	update_to_absolute_path(t_mini *mini, t_cmd *cmd)
 {
-	char	*absolute_path;
+	char		*absolute_path;
 	struct stat	buf;
 
 	if (access(cmd->cmd[0], F_OK | X_OK) == 0)
