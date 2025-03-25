@@ -120,11 +120,11 @@ int	main(int argc, char **argv, char **envp)
 
 	while (1)
 	{
-		printf("holi\n");
+		//printf("holi\n");
 		prompt = get_prompt(mini);
 		input = readline(prompt);
 		if (input == NULL)
-			ft_exit(mini, 0, "exit");
+			ft_exit(mini, mini->exit_status, "exit");
 		if (*input)
 		{
 			add_history(input);
@@ -133,12 +133,12 @@ int	main(int argc, char **argv, char **envp)
 			//printf("You entered: %s\n", input);
 			
 			free_all_parsing(mini);
-			free(input);
 			free_cmd(mini->cmd);
 			mini->cmd = NULL;
-			free(prompt);
-			prompt = NULL;
 		}
+		free(input);
+		free(prompt);
+		prompt = NULL;
 	}
 	exit_status = mini->exit_status;
 	rl_clear_history();
