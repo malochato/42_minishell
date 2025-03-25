@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: malde-ch <malo@chato.fr>                   +#+  +:+       +#+        */
+/*   By: dalara-s <dalara-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/07 16:53:33 by malde-ch          #+#    #+#             */
-/*   Updated: 2025/03/25 14:42:24 by malde-ch         ###   ########.fr       */
+/*   Updated: 2025/03/25 16:14:25 by dalara-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,13 @@
 
 void do_it(t_mini *ms, char *input, char **envp)
 {
-			parser(ms, input);
+			if (parser(ms, input) == 2){
+				return ;
+			}
 			expander(ms, &ms->token, envp);
 			create_cmd_list(ms);
-			print_cmd(ms);
+			//print_cmd(ms);
+			exec(ms);
 			//free_all(ms);
 }
 
@@ -128,7 +131,7 @@ int	main(int argc, char **argv, char **envp)
 		
 			do_it(mini, input, envp);
 			//printf("You entered: %s\n", input);
-			exec(mini);
+			
 			free_all_parsing(mini);
 			free_cmd(mini->cmd);
 			mini->cmd = NULL;

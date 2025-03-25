@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: malde-ch <malo@chato.fr>                   +#+  +:+       +#+        */
+/*   By: dalara-s <dalara-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/24 15:37:12 by malde-ch          #+#    #+#             */
-/*   Updated: 2025/03/24 17:21:40 by malde-ch         ###   ########.fr       */
+/*   Updated: 2025/03/25 16:06:28 by dalara-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,13 +32,14 @@ t_env_var *parser_env(char **env);
 void	free_env(t_env_var *env_var);
 char *free_ptr(char *ptr);
 char	**lexer(char *input);
-void parser(t_mini *ms, char *str);
+int parser(t_mini *ms, char *str);
 int	check_quotes(char c, int quotes);
 char	**free_mat(char **mat);
 void print_tokens(t_token *head);
 void print_cmd(t_mini *ms);
 t_token	*free_token(t_token *token);
 
+char	*expand(t_mini *ms, char *cmd, char **envp);
 void	fill_token(t_token **head,char **cmd_lexer);
 char	*lexer_quotes(char *cmd);
 char	*ft_mattstr_copy(char **mat);
