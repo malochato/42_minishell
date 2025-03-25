@@ -6,7 +6,7 @@
 /*   By: malde-ch <malo@chato.fr>                   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/07 17:00:22 by malde-ch          #+#    #+#             */
-/*   Updated: 2025/03/25 15:21:08 by malde-ch         ###   ########.fr       */
+/*   Updated: 2025/03/25 17:59:05 by malde-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,9 +50,10 @@ void		free_all(t_mini *mini);
 
 // From main.c
 void		ft_exit(t_mini *mini, int num, char *str);
+int update_exit_status(int value);
 
 // From prompt_utils.c
-char		*get_prompt(t_mini *mini);
+char		*get_prompt(void);
 
 // from simple_parser.c
 void		false_parser1(t_mini *mini);

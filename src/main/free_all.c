@@ -6,7 +6,7 @@
 /*   By: malde-ch <malo@chato.fr>                   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/20 22:09:10 by malde-ch          #+#    #+#             */
-/*   Updated: 2025/03/05 23:50:45 by malde-ch         ###   ########.fr       */
+/*   Updated: 2025/03/25 16:38:56 by malde-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,6 +81,11 @@ void	free_all(t_mini *mini)
 	{
 		free_split(mini->envp);
 		mini->envp = NULL;
+	}
+	if(mini->token != NULL)
+	{
+		free_token(mini->token);
+		mini->token = NULL;
 	}
 	free(mini);
 	mini = NULL;
