@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   types.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: malde-ch <malo@chato.fr>                   +#+  +:+       +#+        */
+/*   By: dalara-s <dalara-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/21 05:44:09 by malde-ch          #+#    #+#             */
-/*   Updated: 2025/03/24 15:57:55 by malde-ch         ###   ########.fr       */
+/*   Updated: 2025/03/25 15:42:53 by dalara-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,15 +50,6 @@ typedef struct s_expand
 
 
 
-
-
-
-
-
-
-
-
-
 typedef struct s_env_var
 {
 	char				*key;
@@ -69,6 +60,7 @@ typedef struct s_env_var
 typedef enum e_operator
 {
 	OP_NONE, // 0
+	BUILTIN, // 1
 	OP_PIPE, // |
 	OP_REDIRECT_OUT, // >
 	OP_REDIRECT_OUT_APPEND, // >>

@@ -6,7 +6,7 @@
 /*   By: dalara-s <dalara-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/11 16:02:31 by dalara-s          #+#    #+#             */
-/*   Updated: 2025/03/24 13:08:59 by dalara-s         ###   ########.fr       */
+/*   Updated: 2025/03/25 16:00:14 by dalara-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,8 +44,8 @@ char	*lexer_quotes(char *cmd)
 		quotes = check_quotes(cmd[i], quotes);
 		if ((cmd[i] == '\'' || cmd[i] == '\"') && !quotes)
 			cmd[i] = SEP;
-		else if ((cmd[i] == '\'' && quotes == 2) || 
-		(cmd[i] == '\"' && quotes == 1))
+		else if ((cmd[i] == '\'' && quotes == 2) || \
+			(cmd[i] == '\"' && quotes == 1))
 			cmd[i] = SEP;
 	}
 	ret = ft_split(cmd, SEP);
@@ -55,42 +55,7 @@ char	*lexer_quotes(char *cmd)
 		return (ft_strdup(""));
 	}
 	return (ft_mattstr_copy(ret));
-} 
-
-// char *lexer_quotes(char *cmd, int exit_status)
-// {
-//     int     i;
-//     int     j;
-//     int     quotes;
-//     char    *result;
-//     char    *temp;
-
-//     i = 0;
-//     j = 0;
-//     quotes = 0;
-//     result = (char *)malloc(1024);
-//     if (!result)
-//         return (NULL);
-//     while (cmd[i])
-//     {
-//         quotes = check_quotes(cmd[i], quotes);
-//         if (cmd[i] == '$' && quotes != 2)
-//         {
-//             temp = expand_variable(&cmd[i], exit_status);
-//             while (*temp)
-//                 result[j++] = *temp++;
-//             while (cmd[i] && (ft_isalnum(cmd[i]) || cmd[i] == '_' || cmd[i] == '?'))
-//                 i++;
-//             free(temp);
-//         }
-//         else
-//         {
-//             result[j++] = cmd[i++];
-//         }
-//     }
-//     result[j] = '\0';
-//     return (result);
-// }
+}
 
 static char	*filler(char *input, int pos)
 {

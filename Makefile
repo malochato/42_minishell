@@ -8,7 +8,7 @@ SRC_DIR = ./src/
 
 
 PARSING_DIR = $(SRC_DIR)parsing/
-PARSING_FILES = parsing_env.c cmd.c  expander.c  free.c  lexer.c parser.c  parser_utils.c syntax.c  token.c
+PARSING_FILES = parsing_env.c cmd.c  expander.c  free.c  lexer.c parser.c  parser_utils.c syntax.c  token.c expander_utils.c
 PARSING = $(addprefix $(PARSING_DIR), $(PARSING_FILES))
 
 
