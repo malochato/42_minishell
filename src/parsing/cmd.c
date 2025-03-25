@@ -6,33 +6,55 @@
 /*   By: dalara-s <dalara-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/13 13:29:19 by dalara-s          #+#    #+#             */
-/*   Updated: 2025/03/25 16:11:59 by dalara-s         ###   ########.fr       */
+/*   Updated: 2025/03/25 19:55:01 by dalara-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
+// void	add_cmd(t_cmd **cmd_list, char *cmd_str)
+// {
+// 	t_cmd	*new_cmd;
+// 	t_cmd	*temp;
+
+// 	new_cmd = ft_calloc(1, sizeof(t_cmd));
+// 	new_cmd->cmd = split_args(cmd_str);
+// 	new_cmd->next = NULL;
+// 	if (*cmd_list == NULL)
+// 		*cmd_list = new_cmd;
+// 	else
+// 	{
+// 		temp = *cmd_list;
+// 		while (temp->next != NULL)
+// 		{
+// 			temp = temp->next;
+// 		}
+// 		temp->next = new_cmd;
+// 	}
+// }
 void	add_cmd(t_cmd **cmd_list, char *cmd_str)
 {
-	t_cmd	*new_cmd;
-	t_cmd	*temp;
+    t_cmd	*new_cmd;
+    t_cmd	*temp;
 
-	new_cmd = ft_calloc(1, sizeof(t_cmd));
-	new_cmd->cmd = split_args(cmd_str);
-	new_cmd->next = NULL;
-	if (*cmd_list == NULL)
-		*cmd_list = new_cmd;
-	else
-	{
-		temp = *cmd_list;
-		while (temp->next != NULL)
-		{
-			temp = temp->next;
-		}
-		temp->next = new_cmd;
-	}
+    new_cmd = ft_calloc(1, sizeof(t_cmd));
+    new_cmd->cmd = ft_calloc(2, sizeof(char *)); // Aloca espaço para cmd[0] e cmd[1] (NULL)
+    new_cmd->cmd[0] = ft_strdup(cmd_str);        // Copia cmd_str para cmd[0]
+    new_cmd->cmd[1] = NULL;                      // Define cmd[1] como NULL
+    new_cmd->next = NULL;
+
+    if (*cmd_list == NULL)
+        *cmd_list = new_cmd;
+    else
+    {
+        temp = *cmd_list;
+        while (temp->next != NULL)
+        {
+            temp = temp->next;
+        }
+        temp->next = new_cmd;
+    }
 }
-
 static int	is_buildin(char *cmd)
 {
 	char	**list;
@@ -95,6 +117,7 @@ void	create_cmd_list(t_mini *ms)
 	ms->cmd = NULL;
 	while (cmd_lexer[i])
 	{
+		printf("cmd_lexer[%d]: %s\n", i, cmd_lexer[i]);
 		add_cmd(&ms->cmd, cmd_lexer[i]);
 		current_cmd = ms->cmd;
 		while (current_cmd->next != NULL)

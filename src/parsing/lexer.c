@@ -6,7 +6,7 @@
 /*   By: dalara-s <dalara-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/11 16:02:31 by dalara-s          #+#    #+#             */
-/*   Updated: 2025/03/25 16:00:14 by dalara-s         ###   ########.fr       */
+/*   Updated: 2025/03/25 19:54:34 by dalara-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,31 +31,7 @@ int	check_quotes(char c, int quotes)
 	return (quotes);
 }
 
-char	*lexer_quotes(char *cmd)
-{
-	int		i;
-	int		quotes;
-	char	**ret;
 
-	i = -1;
-	quotes = 0;
-	while (cmd[++i])
-	{
-		quotes = check_quotes(cmd[i], quotes);
-		if ((cmd[i] == '\'' || cmd[i] == '\"') && !quotes)
-			cmd[i] = SEP;
-		else if ((cmd[i] == '\'' && quotes == 2) || \
-			(cmd[i] == '\"' && quotes == 1))
-			cmd[i] = SEP;
-	}
-	ret = ft_split(cmd, SEP);
-	if (!*ret)
-	{
-		ret = free_mat(ret);
-		return (ft_strdup(""));
-	}
-	return (ft_mattstr_copy(ret));
-}
 
 static char	*filler(char *input, int pos)
 {
@@ -83,29 +59,33 @@ static char	*filler(char *input, int pos)
 	return (ret);
 }
 
+#include "minishell.h"
+
 char	**lexer(char *input)
 {
-	int		i;
-	int		quotes;
-	char	*temp;
-	char	**ret;
+    int		i;
+    int		quotes;
+    char	*temp;
+    char	**ret;
 
-	i = -1;
-	quotes = 0;
-	temp = ft_strdup(input);
-	while (temp && temp[++i])
-	{
-		if ((temp[i] == '|' || temp[i] == '>' || temp[i] == '<' ) && !quotes)
-		{
-			temp = filler(temp, i);
-			i = i + 2;
-		}
-		else if (temp[i] == '\"' || temp[i] == '\'')
-			quotes = check_quotes(temp[i], quotes);
-	}
-	if (quotes)
-		temp = free_ptr(temp);
-	ret = ft_split(temp, SEP);
-	temp = free_ptr(temp);
-	return (ret);
+    i = -1;
+    quotes = 0;
+    temp = ft_strdup(input);
+    while (temp && temp[++i])
+    {
+        if ((temp[i] == '|' || temp[i] == '>' || temp[i] == '<') && !quotes)
+        {
+            temp = filler(temp, i);
+            i = i + 2;
+        }
+        else if (temp[i] == '\"' || temp[i] == '\'')
+            quotes = check_quotes(temp[i], quotes);
+        else if (temp[i] == ' ' && !quotes) // Separa por espaço fora de aspas
+            temp[i] = SEP;
+    }
+    if (quotes) // Caso as aspas não estejam fechadas
+        temp = free_ptr(temp);
+    ret = ft_split(temp, SEP); // Divide os tokens usando o separador
+    temp = free_ptr(temp);
+    return (ret);
 }

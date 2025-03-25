@@ -6,7 +6,7 @@
 /*   By: dalara-s <dalara-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/24 15:37:12 by malde-ch          #+#    #+#             */
-/*   Updated: 2025/03/25 17:03:05 by dalara-s         ###   ########.fr       */
+/*   Updated: 2025/03/25 19:54:50 by dalara-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,17 +35,16 @@ char	**lexer(char *input);
 int parser(t_mini *ms, char *str);
 int	check_quotes(char c, int quotes);
 char	**free_mat(char **mat);
-void print_tokens(t_token *head);
-void print_cmd(t_mini *ms);
+
 t_token	*free_token(t_token *token);
 
 char	*expand(t_mini *ms, char *cmd, char **envp);
 void	fill_token(t_token **head,char **cmd_lexer);
-char	*lexer_quotes(char *cmd);
+
 char	*ft_mattstr_copy(char **mat);
 char	**split_args(char *input);
 void create_cmd_list(t_mini *ms);
-void	prepare_cmds(char **cmd_lexer);
+
 char	**token_to_mat(t_token *token);
 int	syntax_checker(t_mini *ms);
 void expand_tokens(t_token *head, int exit_status);

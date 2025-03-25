@@ -6,7 +6,7 @@
 /*   By: dalara-s <dalara-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/07 16:53:33 by malde-ch          #+#    #+#             */
-/*   Updated: 2025/03/25 18:45:42 by dalara-s         ###   ########.fr       */
+/*   Updated: 2025/03/25 19:54:03 by dalara-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ void do_it(t_mini *ms, char *input)
 			expander(ms, &ms->token);
 			create_cmd_list(ms);
 			//print_cmd(ms);
+			//print_tokens(ms->token);
 			exec(ms);
 			//free_all(ms);
 }
