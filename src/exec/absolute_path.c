@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   absolute_path.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: malde-ch <malo@chato.fr>                   +#+  +:+       +#+        */
+/*   By: dalara-s <dalara-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/24 18:07:52 by malde-ch          #+#    #+#             */
-/*   Updated: 2025/03/25 15:26:42 by malde-ch         ###   ########.fr       */
+/*   Updated: 2025/03/25 19:05:32 by dalara-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,6 @@ int	update_to_absolute_path(t_mini *mini, t_cmd *cmd)
 			ft_error(cmd->cmd[0], "is a directory", NULL, 0);
 			return (126);
 		}
-		printf("Ca passe la: %s\n", cmd->cmd[0]);
 		return (0);
 	}
 	absolute_path = get_absolute_path(mini->env, cmd->cmd[0]);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_cmd.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: malde-ch <malo@chato.fr>                   +#+  +:+       +#+        */
+/*   By: dalara-s <dalara-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/04 02:03:00 by malde-ch          #+#    #+#             */
-/*   Updated: 2025/03/24 17:57:14 by malde-ch         ###   ########.fr       */
+/*   Updated: 2025/03/25 19:03:48 by dalara-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,19 +20,6 @@ normalement, et le décalage de bits >> 8 suivi du masque 0xFF est utilisé pour
 obtenir le code de sortie.
 Similaire a la macro WIFEXITED(status) de wait.h
 */
-
-void	print_split_result(char **split_result)
-{
-	int	i;
-
-	i = 0;
-	while (split_result[i])
-	{
-		printf("split_result[%d]: %s\n", i, split_result[i]);
-		i++;
-	}
-}
-
 
 int	check_exit_status(t_mini *mini, int status)
 {
@@ -79,7 +66,6 @@ int	execute_command(t_mini *mini, t_cmd *cmd)
 	else if (pid == 0)
 	{
 		handle_redirection(cmd);
-		print_split_result(cmd->cmd);
 		if (execve(cmd->cmd[0], cmd->cmd, mini->envp) == -1)
 			ft_exit(mini, 1, "execve failed");
 	}
