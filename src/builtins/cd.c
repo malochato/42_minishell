@@ -6,7 +6,7 @@
 /*   By: malde-ch <malo@chato.fr>                   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/19 17:12:46 by malde-ch          #+#    #+#             */
-/*   Updated: 2025/03/05 23:41:47 by malde-ch         ###   ########.fr       */
+/*   Updated: 2025/03/25 23:46:17 by malde-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,10 +75,7 @@ int	builtin_cd(t_mini *mini, t_cmd *cmd)
 			ft_strlen(cmd->cmd[1]) == 1)
 		return (cd_arg_minus(mini, cmd));
 	else
-	{
-		printf("cd with arg\n");
 		return (cd_arg_path(mini, cmd));
-	}
 }
 
 /*
