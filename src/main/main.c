@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dalara-s <dalara-s@student.42.fr>          +#+  +:+       +#+        */
+/*   By: malde-ch <malo@chato.fr>                   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/07 16:53:33 by malde-ch          #+#    #+#             */
-/*   Updated: 2025/03/25 16:14:25 by dalara-s         ###   ########.fr       */
+/*   Updated: 2025/03/25 18:33:45 by malde-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,16 +63,39 @@ void	disable_sigquit_echo(void)
 		ft_exit(NULL, 1, "ERROR with tcsetattr");
 }
 
+int update_exit_status(int value)
+{
+	static int	status;
+	int			tmp;
+
+	if (value == -42)
+	{
+		status = 0;
+		return (status);
+	}
+	if (value == -1)
+		return (status);
+	tmp = status;
+	status = value;
+	return (tmp);
+}
+
+
+
 void	handle_signal(int signal)
 {
-	if (signal == SIGINT)
-	{
-		write(STDOUT_FILENO, "\n", 1);
-		rl_on_new_line();
+	char	*prompt;
+
+    if (signal == SIGINT)
+    {
 		rl_replace_line("", 0);
 		rl_redisplay();
-		// la il faut update le exit status a 130
-	}
+        update_exit_status(130);
+        write(STDOUT_FILENO, "\n", 1);
+		prompt = get_prompt();
+		write(STDOUT_FILENO, prompt, ft_strlen(prompt));
+		free(prompt);
+    }
 	else if (signal == SIGQUIT)
 	{
 		rl_on_new_line();
@@ -103,10 +126,9 @@ int	main(int argc, char **argv, char **envp)
 		ft_exit(mini, 1, "ERROR malloc");
 	}
 	mini->cmd = NULL;
-	mini->exit_status = 0;
+	mini->exit_status = update_exit_status(-42);
 	mini->env = parser_env(envp);
 	mini->token = NULL;
-	//ms->exit_status = 42;
 	
 	if (!mini->env)
 	{
@@ -120,21 +142,21 @@ int	main(int argc, char **argv, char **envp)
 
 	while (1)
 	{
-		//printf("holi\n");
-		prompt = get_prompt(mini);
+		mini->exit_status = update_exit_status(-1);
+		prompt = get_prompt();
 		input = readline(prompt);
 		if (input == NULL)
 			ft_exit(mini, mini->exit_status, "exit");
 		if (*input)
 		{
 			add_history(input);
-		
+			mini->exit_status = update_exit_status(-1);
 			do_it(mini, input, envp);
-			//printf("You entered: %s\n", input);
 			
 			free_all_parsing(mini);
 			free_cmd(mini->cmd);
 			mini->cmd = NULL;
+			mini->exit_status = update_exit_status(mini->exit_status);
 		}
 		free(input);
 		free(prompt);
