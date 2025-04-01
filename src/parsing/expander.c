@@ -6,7 +6,7 @@
 /*   By: dalara-s <dalara-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/07 16:53:33 by malde-ch          #+#    #+#             */
-/*   Updated: 2025/03/25 19:25:01 by dalara-s         ###   ########.fr       */
+/*   Updated: 2025/04/01 15:53:34 by dalara-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,33 @@ static char	*expand_quotes(char *cmd)
 	return (ft_mattstr_copy(ret));
 }
 
+static void	handle_expansion(t_mini *ms, t_token *token)
+{
+	char	*temp;
+
+	if (ft_strchr(token->cmd, '$'))
+	{
+		temp = token->cmd;
+		token->cmd = expand(ms, token->cmd, ms->envp);
+		if (token->cmd == NULL)
+			token->cmd = temp;
+		else
+			temp = free_ptr(temp);
+	}
+	else if (ft_strchr(token->cmd, '~'))
+	{
+		temp = token->cmd;
+		if (get_env_value(ms->env, "HOME") != NULL)
+		{
+			token->cmd = expand(ms, "$HOME", ms->envp);
+			if (token->cmd == NULL)
+				token->cmd = temp;
+			else
+				temp = free_ptr(temp);
+		}
+	}
+}
+
 void	expander(t_mini *ms, t_token **head)
 {
 	char	*temp;
@@ -46,15 +73,7 @@ void	expander(t_mini *ms, t_token **head)
 	token = *head;
 	while (token)
 	{
-		if (ft_strchr(token->cmd, '$'))
-		{
-			temp = token->cmd;
-			token->cmd = expand(ms, token->cmd, ms->envp);
-			if (token->cmd == NULL)
-				token->cmd = temp;
-			else
-				temp = free_ptr(temp);
-		}
+		handle_expansion(ms, token);
 		if (!token->prev || (token->prev && token->prev->type != HEREDOC))
 		{
 			temp = token->cmd;

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expander_utils.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: malde-ch <malo@chato.fr>                   +#+  +:+       +#+        */
+/*   By: dalara-s <dalara-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/07 16:53:33 by malde-ch          #+#    #+#             */
-/*   Updated: 2025/03/25 23:07:59 by malde-ch         ###   ########.fr       */
+/*   Updated: 2025/04/01 15:53:47 by dalara-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ char	*expand(t_mini *ms, char *cmd, char **envp)
 
 	ft_bzero (&exp, sizeof(t_expand));
 	while (cmd[exp.i])
-		exp.ex_n += 1 * (cmd[exp.i++] == '$');
+		exp.ex_n += (cmd[exp.i++] == '$');
 	exp.ex = (exp.ex_n * 2) + 2;
 	exp.hold_str = ft_calloc(exp.ex, sizeof(char *));
 	if (!exp.hold_str)
