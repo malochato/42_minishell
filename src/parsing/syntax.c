@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   free.c                                             :+:      :+:    :+:   */
+/*   syntax.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dalara-s <dalara-s@student.42barcelon      +#+  +:+       +#+        */
+/*   By: dalara-s <dalara-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/11 16:02:14 by dalara-s          #+#    #+#             */
-/*   Updated: 2025/02/11 17:23:36 by dalara-s         ###   ########.fr       */
+/*   Updated: 2025/04/03 14:56:26 by dalara-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,13 @@ static int	check_next(t_mini *ms, t_token *token, int type)
 	{
 		ft_printf("minishell: syntax error near unexpected token `%s'\n", \
 		token->next->cmd);
+		ms->exit_status = 2;
+		return (2);
+	}
+	else if (type == PIPE && token->next == NULL && token->prev == NULL)
+	{
+		ft_printf("minishell: syntax error near unexpected token `%s'\n", \
+		token->cmd);
 		ms->exit_status = 2;
 		return (2);
 	}

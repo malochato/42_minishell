@@ -6,18 +6,36 @@
 /*   By: dalara-s <dalara-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/13 13:29:19 by dalara-s          #+#    #+#             */
-/*   Updated: 2025/04/01 15:55:17 by dalara-s         ###   ########.fr       */
+/*   Updated: 2025/04/04 12:44:34 by dalara-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static void	check_pipe(char *cmd, t_mini *ms)
+static int	only_spaces(char *str)
+{
+	int	i;
+
+	i = 0;
+	while (str[i])
+	{
+		if (str[i] != ' ')
+			return (0);
+		i++;
+	}
+	return (1);
+}
+
+static void	check_pipe(char **cmd, t_mini *ms)
 {
 	char	*input;
+	int		i;
 
+	i = 0;
 	input = NULL;
-	if (!ft_strncmp(cmd, "|", 2))
+	while (cmd[i] != NULL)
+		i++;
+	if (!ft_strncmp(cmd[i - 1], "|", 1))
 	{
 		input = readline("> ");
 		if (input && !input[0])
@@ -34,10 +52,12 @@ int	parser(t_mini *ms, char *str)
 {
 	char	**cmd_lexer;
 	t_token	**head;
-	int		i;
 
 	head = &ms->token;
-	cmd_lexer = lexer(str);
+	if (!only_spaces(str))
+		cmd_lexer = lexer(str);
+	else
+		return (2);
 	if (!cmd_lexer)
 	{
 		ft_putstr_fd("-minishell: parser: unclosed quotes\n", 2);
@@ -50,10 +70,7 @@ int	parser(t_mini *ms, char *str)
 		free_mat(cmd_lexer);
 		return (2);
 	}
-	i = 0;
-	while (cmd_lexer[i])
-		i++;
-	check_pipe(cmd_lexer[i - 1], ms);
+	check_pipe(cmd_lexer, ms);
 	free_mat(cmd_lexer);
 	return (0);
 }

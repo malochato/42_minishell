@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: malde-ch <malo@chato.fr>                   +#+  +:+       +#+        */
+/*   By: dalara-s <dalara-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/24 15:37:12 by malde-ch          #+#    #+#             */
-/*   Updated: 2025/03/25 21:41:13 by malde-ch         ###   ########.fr       */
+/*   Updated: 2025/04/04 12:45:28 by dalara-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ char		**lexer(char *input);
 int			parser(t_mini *ms, char *str);
 int			check_quotes(char c, int quotes);
 char		**free_mat(char **mat);
+char		**ft_matdup(char **mat);
 
 t_token		*free_token(t_token *token);
 
