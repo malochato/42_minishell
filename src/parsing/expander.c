@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expander.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dalara-s <dalara-s@student.42.fr>          +#+  +:+       +#+        */
+/*   By: malde-ch <malo@chato.fr>                   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/07 16:53:33 by malde-ch          #+#    #+#             */
-/*   Updated: 2025/04/01 15:53:34 by dalara-s         ###   ########.fr       */
+/*   Updated: 2025/04/01 16:27:48 by malde-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,37 +38,51 @@ static char	*expand_quotes(char *cmd)
 	return (ft_mattstr_copy(ret));
 }
 
-static void	handle_expansion(t_mini *ms, t_token *token)
+static void	handle_dollar_expansion(t_mini *ms, t_token *token)
 {
 	char	*temp;
 
-	if (ft_strchr(token->cmd, '$'))
+	temp = token->cmd;
+	token->cmd = expand(ms, token->cmd, ms->envp);
+	if (token->cmd == NULL)
+		token->cmd = temp;
+	else
+		temp = free_ptr(temp);
+}
+
+static void	handle_tilde_expansion(t_mini *ms, t_token *token)
+{
+	char	*temp;
+	char	*rest;
+
+	temp = token->cmd;
+	if (get_env_value(ms->env, "HOME") != NULL)
 	{
-		temp = token->cmd;
-		token->cmd = expand(ms, token->cmd, ms->envp);
+		rest = ft_strdup(token->cmd + 1);
+		token->cmd = expand(ms, "$HOME", ms->envp);
 		if (token->cmd == NULL)
 			token->cmd = temp;
 		else
 			temp = free_ptr(temp);
-	}
-	else if (ft_strchr(token->cmd, '~'))
-	{
 		temp = token->cmd;
-		if (get_env_value(ms->env, "HOME") != NULL)
-		{
-			token->cmd = expand(ms, "$HOME", ms->envp);
-			if (token->cmd == NULL)
-				token->cmd = temp;
-			else
-				temp = free_ptr(temp);
-		}
+		token->cmd = ft_strjoin(temp, rest);
+		rest = free_ptr(rest);
+		temp = free_ptr(temp);
 	}
+}
+
+static void	handle_expansion(t_mini *ms, t_token *token)
+{
+	if (ft_strchr(token->cmd, '$'))
+		handle_dollar_expansion(ms, token);
+	else if (ft_strchr(token->cmd, '~'))
+		handle_tilde_expansion(ms, token);
 }
 
 void	expander(t_mini *ms, t_token **head)
 {
-	char	*temp;
 	t_token	*token;
+	char	*temp;
 
 	token = *head;
 	while (token)
