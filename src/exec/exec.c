@@ -93,7 +93,7 @@ int	exec(t_mini *mini)
 	{
 		while (cmd)
 		{
-			execute_single_command(mini, cmd, builtins);
+			update_exit_status(execute_single_command(mini, cmd, builtins));
 			cmd = go_to_next_cmd(cmd);
 			remove_file(mini, ".tmp_here_doc");
 		}

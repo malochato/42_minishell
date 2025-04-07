@@ -6,7 +6,7 @@
 /*   By: malde-ch <malo@chato.fr>                   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/07 16:53:33 by malde-ch          #+#    #+#             */
-/*   Updated: 2025/04/07 16:41:44 by malde-ch         ###   ########.fr       */
+/*   Updated: 2025/04/07 19:38:26 by malde-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,7 @@ int	main(int argc, char **argv, char **envp)
 		ft_exit(mini, 1, "ERROR malloc");
 	mini->cmd = NULL;
 	mini->exit_status = update_exit_status(-42);
+	//in_a_here_doc(-1);
 	mini->env = parser_env(envp);
 	mini->token = NULL;
 	if (!mini->env)
