@@ -6,7 +6,7 @@
 /*   By: malde-ch <malo@chato.fr>                   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/07 17:00:22 by malde-ch          #+#    #+#             */
-/*   Updated: 2025/04/07 02:18:51 by malde-ch         ###   ########.fr       */
+/*   Updated: 2025/04/07 15:25:29 by malde-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,9 @@ void		free_all(t_mini *mini);
 
 // From main.c
 void		ft_exit(t_mini *mini, int num, char *str);
+void		setup_signals(void);
+void		handle_sigint(int signal);
+
 
 // From main_utils.c
 int			update_exit_status(int value);

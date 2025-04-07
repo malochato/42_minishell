@@ -4,6 +4,7 @@
 		"minishell.h": "c",
 		"exec.h": "c",
 		"wait.h": "c",
-		"stdio.h": "c"
+		"stdio.h": "c",
+		"termios.h": "c"
 	}
 }

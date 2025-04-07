@@ -6,7 +6,7 @@
 /*   By: malde-ch <malo@chato.fr>                   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/04 02:03:00 by malde-ch          #+#    #+#             */
-/*   Updated: 2025/04/07 02:35:33 by malde-ch         ###   ########.fr       */
+/*   Updated: 2025/04/07 16:21:58 by malde-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,7 @@ int	execute_command(t_mini *mini, t_cmd *cmd)
 		ft_exit(mini, 1, "fork failed");
 	else if (pid == 0)
 	{
+		signal(SIGQUIT, SIG_DFL);
 		handle_redirection(cmd);
 		close_all_fd_list(cmd);
 		if (execve(cmd->cmd[0], cmd->cmd, mini->envp) == -1)

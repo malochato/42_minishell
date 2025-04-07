@@ -47,7 +47,7 @@ void	wait_for_all_children(t_mini *mini, t_cmd *cmd, t_builtin *builtins)
 
 	child_count = count_children(cmd, builtins);
 	signal(SIGINT, SIG_IGN);
-	signal(SIGQUIT, SIG_IGN);
+	signal(SIGQUIT, handle_signal);
 	while (child_count > 0)
 	{
 		waited_pid = waitpid(-1, &status, 0);
@@ -57,7 +57,7 @@ void	wait_for_all_children(t_mini *mini, t_cmd *cmd, t_builtin *builtins)
 		handle_child_status(mini, status);
 	}
 	signal(SIGINT, handle_signal);
-	signal(SIGQUIT, handle_signal);
+	signal(SIGQUIT, SIG_IGN);
 }
 
 static int	process_command(t_mini *mini, t_cmd *cmd, t_builtin *builtins)

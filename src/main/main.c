@@ -6,7 +6,7 @@
 /*   By: malde-ch <malo@chato.fr>                   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/07 16:53:33 by malde-ch          #+#    #+#             */
-/*   Updated: 2025/04/07 02:19:30 by malde-ch         ###   ########.fr       */
+/*   Updated: 2025/04/07 15:51:50 by malde-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,10 +28,12 @@ int	main_loop(t_mini *mini)
 
 	while (1)
 	{
+		setup_signals();
 		prompt = get_prompt();
 		input = readline(prompt);
 		if (input == NULL)
 			ft_exit(mini, mini->exit_status, "exit");
+		mini->exit_status = update_exit_status(-1);
 		if (*input)
 		{
 			add_history(input);
@@ -39,7 +41,7 @@ int	main_loop(t_mini *mini)
 			free_all_parsing(mini);
 			free_cmd(mini->cmd);
 			mini->cmd = NULL;
-			mini->exit_status = update_exit_status(mini->exit_status);
+			mini->exit_status = update_exit_status(-1);
 		}
 		free(input);
 		free(prompt);
@@ -55,7 +57,6 @@ int	main(int argc, char **argv, char **envp)
 
 	(void)argc;
 	(void)argv;
-	signal_handler();
 	mini = malloc(sizeof(t_mini));
 	if (mini == NULL)
 		ft_exit(mini, 1, "ERROR malloc");
