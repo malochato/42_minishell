@@ -6,7 +6,7 @@
 /*   By: malde-ch <malo@chato.fr>                   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/04 18:31:48 by malde-ch          #+#    #+#             */
-/*   Updated: 2025/03/06 18:11:12 by malde-ch         ###   ########.fr       */
+/*   Updated: 2025/04/07 22:29:41 by malde-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,10 +97,14 @@ int	handle_pipe(t_mini *mini, t_cmd *cmd_cpy, t_cmd *op)
 	if (is_syntax_error(op))
 		return (2);
 	cmd_next = op->next;
-	if (cmd_cpy->fd_out != -1)
-		return (0);
 	if (pipe(pipe_fd) == -1)
 		ft_exit(mini, 1, "Error creating pipe");
+	if (cmd_cpy->fd_out != -1)
+	{
+		cmd_next->fd_in = pipe_fd[0];
+		close(pipe_fd[1]);
+		return (0);
+	}
 	cmd_next->fd_in = pipe_fd[0];
 	cmd_cpy->fd_out = pipe_fd[1];
 	return (0);
