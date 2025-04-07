@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expander.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: malde-ch <malo@chato.fr>                   +#+  +:+       +#+        */
+/*   By: dalara-s <dalara-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/07 16:53:33 by malde-ch          #+#    #+#             */
-/*   Updated: 2025/04/01 16:27:48 by malde-ch         ###   ########.fr       */
+/*   Updated: 2025/04/07 16:04:51 by dalara-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ static char	*expand_quotes(char *cmd)
 	if (!*ret)
 	{
 		ret = free_mat(ret);
-		return (ft_strdup(""));
+		return (NULL);
 	}
 	return (ft_mattstr_copy(ret));
 }
@@ -79,7 +79,7 @@ static void	handle_expansion(t_mini *ms, t_token *token)
 		handle_tilde_expansion(ms, token);
 }
 
-void	expander(t_mini *ms, t_token **head)
+int	expander(t_mini *ms, t_token **head)
 {
 	t_token	*token;
 	char	*temp;
@@ -93,7 +93,10 @@ void	expander(t_mini *ms, t_token **head)
 			temp = token->cmd;
 			token->cmd = expand_quotes(token->cmd);
 			temp = free_ptr(temp);
+			if(!token->cmd && !token->prev && !token->next)
+				return (1);
 		}
 		token = token->next;
 	}
+	return (0);
 }
