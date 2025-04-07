@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dalara-s <dalara-s@student.42.fr>          +#+  +:+       +#+        */
+/*   By: malde-ch <malo@chato.fr>                   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/07 16:53:33 by malde-ch          #+#    #+#             */
-/*   Updated: 2025/04/07 16:32:58 by dalara-s         ###   ########.fr       */
+/*   Updated: 2025/04/07 16:41:44 by malde-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,11 +16,10 @@ void	do_it(t_mini *ms, char *input)
 {
 	if (parser(ms, input) == 2)
 		return ;
-	if((expander(ms, &ms->token) == 1))
+	if ((expander(ms, &ms->token) == 1))
 		return ;
 	create_cmd_list(ms);
 	exec(ms);
-	
 }
 
 int	main_loop(t_mini *mini)

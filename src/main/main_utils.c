@@ -6,16 +6,16 @@
 /*   By: malde-ch <malo@chato.fr>                   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/25 21:56:20 by malde-ch          #+#    #+#             */
-/*   Updated: 2025/04/07 16:18:13 by malde-ch         ###   ########.fr       */
+/*   Updated: 2025/04/07 16:41:26 by malde-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int update_exit_status(int value)
+int	update_exit_status(int value)
 {
-	static int status;
-	int tmp;
+	static int	status;
+	int			tmp;
 
 	if (value == -42)
 	{
@@ -29,7 +29,7 @@ int update_exit_status(int value)
 	return (tmp);
 }
 
-void handle_signal(int signal)
+void	handle_signal(int signal)
 {
 	if (signal == SIGINT)
 	{
@@ -46,22 +46,22 @@ void handle_signal(int signal)
 	}
 }
 
-void setup_signals(void)
+void	setup_signals(void)
 {
 	signal(SIGINT, handle_signal);
 	signal(SIGQUIT, SIG_IGN);
 }
 
-int init_shell_env(t_mini *mini)
+int	init_shell_env(t_mini *mini)
 {
-	char *pwd;
-	char *char_shlvl;
-	int shlvl;
+	char	*pwd;
+	char	*char_shlvl;
+	int		shlvl;
 
 	pwd = getcwd(NULL, 0);
 	if (pwd == NULL)
-		return (ft_error("error retrieving current directory", "getcwd",
-						 NULL, 1));
+		return (ft_error("error retrieving current directory", "getcwd", \
+			NULL, 1));
 	env_manager(mini, ft_strdup("PWD"), pwd);
 	char_shlvl = get_env_value(mini->env, "SHLVL");
 	if (char_shlvl != NULL)

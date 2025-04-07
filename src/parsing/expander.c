@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expander.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dalara-s <dalara-s@student.42.fr>          +#+  +:+       +#+        */
+/*   By: malde-ch <malo@chato.fr>                   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/07 16:53:33 by malde-ch          #+#    #+#             */
-/*   Updated: 2025/04/07 16:04:51 by dalara-s         ###   ########.fr       */
+/*   Updated: 2025/04/07 16:41:59 by malde-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,7 +93,7 @@ int	expander(t_mini *ms, t_token **head)
 			temp = token->cmd;
 			token->cmd = expand_quotes(token->cmd);
 			temp = free_ptr(temp);
-			if(!token->cmd && !token->prev && !token->next)
+			if (!token->cmd && !token->prev && !token->next)
 				return (1);
 		}
 		token = token->next;
