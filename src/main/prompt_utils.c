@@ -6,7 +6,7 @@
 /*   By: malde-ch <malo@chato.fr>                   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/06 18:43:01 by malde-ch          #+#    #+#             */
-/*   Updated: 2025/04/07 02:36:36 by malde-ch         ###   ########.fr       */
+/*   Updated: 2025/04/07 14:56:30 by malde-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,8 @@ char	*get_current_directory(void)
 	char	*home_replacement;
 
 	pwd = getcwd(NULL, 0);
+	if (pwd == NULL)
+		return (ft_strdup(""));
 	home = getenv("HOME");
 	if (home != NULL && pwd != NULL && \
 	ft_strncmp(pwd, home, ft_strlen(home)) == 0)
