@@ -5,6 +5,7 @@
 		"exec.h": "c",
 		"wait.h": "c",
 		"stdio.h": "c",
+<<<<<<< HEAD
 		"optional": "c",
 		"istream": "c",
 		"ostream": "c",
@@ -14,5 +15,8 @@
 		"tuple": "c",
 		"type_traits": "c",
 		"utility": "c"
+=======
+		"termios.h": "c"
+>>>>>>> 0351dca8ceb248dc615fb925fa30c06839a9b7ee
 	}
 }

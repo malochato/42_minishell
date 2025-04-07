@@ -6,16 +6,16 @@
 /*   By: malde-ch <malo@chato.fr>                   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/25 21:56:20 by malde-ch          #+#    #+#             */
-/*   Updated: 2025/04/07 02:24:19 by malde-ch         ###   ########.fr       */
+/*   Updated: 2025/04/07 16:18:13 by malde-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	update_exit_status(int value)
+int update_exit_status(int value)
 {
-	static int	status;
-	int			tmp;
+	static int status;
+	int tmp;
 
 	if (value == -42)
 	{
@@ -29,45 +29,39 @@ int	update_exit_status(int value)
 	return (tmp);
 }
 
-void	handle_signal(int signal)
+void handle_signal(int signal)
 {
 	if (signal == SIGINT)
 	{
 		update_exit_status(130);
-		write(1, "\n", 1);
+		write(STDOUT_FILENO, "\n", 1);
 		rl_on_new_line();
 		rl_replace_line("", 0);
 		rl_redisplay();
 	}
+	if (signal == SIGQUIT)
+	{
+		update_exit_status(131);
+		write(STDOUT_FILENO, "Quit: 3\n", 8);
+	}
 }
 
-// Désactiver l'écho du signal SIGQUIT
-// Désactiver l'écho des caractères de contrôle
-void	signal_handler(void)
+void setup_signals(void)
 {
-	struct termios	term;
-
-	if (tcgetattr(STDIN_FILENO, &term) == -1)
-		ft_exit(NULL, 1, "ERROR with tcgetattr");
-	term.c_lflag &= ~ECHOCTL;
-	if (tcsetattr(STDIN_FILENO, TCSANOW, &term) == -1)
-		ft_exit(NULL, 1, "ERROR with tcsetattr");
-	if (signal(SIGINT, handle_signal) == SIG_ERR)
-		ft_exit(NULL, 1, "ERROR with signal");
-	if (signal(SIGQUIT, SIG_IGN) == SIG_ERR)
-		ft_exit(NULL, 1, "ERROR with signal");
+	signal(SIGINT, handle_signal);
+	signal(SIGQUIT, SIG_IGN);
 }
 
-int	init_shell_env(t_mini *mini)
+int init_shell_env(t_mini *mini)
 {
-	char	*pwd;
-	char	*char_shlvl;
-	int		shlvl;
+	char *pwd;
+	char *char_shlvl;
+	int shlvl;
 
 	pwd = getcwd(NULL, 0);
 	if (pwd == NULL)
-		return (ft_error("error retrieving current directory", "getcwd", \
-		NULL, 1));
+		return (ft_error("error retrieving current directory", "getcwd",
+						 NULL, 1));
 	env_manager(mini, ft_strdup("PWD"), pwd);
 	char_shlvl = get_env_value(mini->env, "SHLVL");
 	if (char_shlvl != NULL)
