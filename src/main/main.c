@@ -6,7 +6,7 @@
 /*   By: malde-ch <malo@chato.fr>                   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/07 16:53:33 by malde-ch          #+#    #+#             */
-/*   Updated: 2025/03/25 23:19:11 by malde-ch         ###   ########.fr       */
+/*   Updated: 2025/04/07 02:19:30 by malde-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,12 +21,6 @@ void	do_it(t_mini *ms, char *input)
 	exec(ms);
 }
 
-void	control_d(t_mini *mini)
-{
-	mini->exit_status = update_exit_status(-1);
-	ft_exit(mini, mini->exit_status, "exit");
-}
-
 int	main_loop(t_mini *mini)
 {
 	char	*input;
@@ -37,11 +31,10 @@ int	main_loop(t_mini *mini)
 		prompt = get_prompt();
 		input = readline(prompt);
 		if (input == NULL)
-			control_d(mini);
+			ft_exit(mini, mini->exit_status, "exit");
 		if (*input)
 		{
 			add_history(input);
-			mini->exit_status = update_exit_status(-1);
 			do_it(mini, input);
 			free_all_parsing(mini);
 			free_cmd(mini->cmd);

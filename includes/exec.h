@@ -6,7 +6,7 @@
 /*   By: malde-ch <malo@chato.fr>                   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/17 13:40:50 by malde-ch          #+#    #+#             */
-/*   Updated: 2025/03/06 18:07:56 by malde-ch         ###   ########.fr       */
+/*   Updated: 2025/04/07 02:33:08 by malde-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,10 @@ int		exec(t_mini *mini);
 int		update_to_absolute_path(t_mini *mini, t_cmd *cmd);
 
 //EXEC_CMD
+int		count_children(t_cmd *cmd, t_builtin *builtins);
 int		execute_command(t_mini *mini, t_cmd *cmd);
 int		execute_builtins(t_mini *mini, t_cmd *cmd, t_builtin_func func);
+int		execute_single_command(t_mini *mini, t_cmd *cmd, t_builtin *builtins);
 
 //FD_MANAGER
 int		prepare_cmd(t_mini *mini, t_cmd *cmd);

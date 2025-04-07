@@ -3,40 +3,29 @@
 /*                                                        :::      ::::::::   */
 /*   exec_cmd.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dalara-s <dalara-s@student.42.fr>          +#+  +:+       +#+        */
+/*   By: malde-ch <malo@chato.fr>                   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/04 02:03:00 by malde-ch          #+#    #+#             */
-/*   Updated: 2025/03/25 19:03:48 by dalara-s         ###   ########.fr       */
+/*   Updated: 2025/04/07 02:35:33 by malde-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "exec.h"
 
-/*
-nous utilisons des opérations bit à bit pour vérifier si le processus enfant
-s'est terminé normalement et pour obtenir son code de sortie. 
-Le masque 0x7F est utilisé pour vérifier si le processus s'est terminé 
-normalement, et le décalage de bits >> 8 suivi du masque 0xFF est utilisé pour
-obtenir le code de sortie.
-Similaire a la macro WIFEXITED(status) de wait.h
-*/
-
-int	check_exit_status(t_mini *mini, int status)
+int	count_children(t_cmd *cmd, t_builtin *builtins)
 {
-	int	exit_status;
-	int	term_signal;
+	int	child_count;
 
-	if ((status & 0x7F) == 0)
+	child_count = 0;
+	while (cmd)
 	{
-		exit_status = (status >> 8) & 0xFF;
-		return (exit_status);
+		if (cmd->operator == OP_PIPE)
+			child_count++;
+		if (get_builtin_func(cmd->cmd[0], builtins))
+			child_count--;
+		cmd = cmd->next;
 	}
-	else
-	{
-		term_signal = status & 0x7F;
-		ft_exit(mini, term_signal, "Command terminated by signal");
-	}
-	return (-42);
+	return (child_count + 1);
 }
 
 void	handle_redirection(t_cmd *cmd)
@@ -58,7 +47,6 @@ void	handle_redirection(t_cmd *cmd)
 int	execute_command(t_mini *mini, t_cmd *cmd)
 {
 	pid_t	pid;
-	int		status;
 
 	pid = fork();
 	if (pid == -1)
@@ -66,15 +54,14 @@ int	execute_command(t_mini *mini, t_cmd *cmd)
 	else if (pid == 0)
 	{
 		handle_redirection(cmd);
+		close_all_fd_list(cmd);
 		if (execve(cmd->cmd[0], cmd->cmd, mini->envp) == -1)
 			ft_exit(mini, 1, "execve failed");
 	}
 	else
 	{
 		close_all_fd(cmd);
-		if (waitpid(pid, &status, 0) == -1)
-			ft_exit(mini, 1, "waitpid failed");
-		return (check_exit_status(mini, status));
+		return (0);
 	}
 	return (-42);
 }
@@ -98,5 +85,32 @@ int	execute_builtins(t_mini *mini, t_cmd *cmd, t_builtin_func func)
 		dup2(saved_stdout, STDOUT_FILENO);
 		close(saved_stdout);
 	}
+	return (exit_status);
+}
+
+int	execute_single_command(t_mini *mini, t_cmd *cmd, t_builtin *builtins)
+{
+	t_builtin_func	func;
+	int				exit_status;
+
+	exit_status = prepare_cmd(mini, cmd);
+	if (exit_status)
+	{
+		mini->exit_status = exit_status;
+		close_all_fd(cmd);
+		return (exit_status);
+	}
+	if (cmd->cmd[0] == NULL)
+		return (mini->exit_status);
+	func = get_builtin_func(cmd->cmd[0], builtins);
+	if (func)
+		exit_status = execute_builtins(mini, cmd, func);
+	else
+	{
+		exit_status = update_to_absolute_path(mini, cmd);
+		if (exit_status == 0)
+			exit_status = execute_command(mini, cmd);
+	}
+	mini->exit_status = exit_status;
 	return (exit_status);
 }

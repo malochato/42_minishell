@@ -6,7 +6,7 @@
 /*   By: malde-ch <malo@chato.fr>                   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/25 21:56:20 by malde-ch          #+#    #+#             */
-/*   Updated: 2025/03/25 23:34:42 by malde-ch         ###   ########.fr       */
+/*   Updated: 2025/04/07 02:24:19 by malde-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,20 +31,10 @@ int	update_exit_status(int value)
 
 void	handle_signal(int signal)
 {
-	char	*prompt;
-
 	if (signal == SIGINT)
 	{
 		update_exit_status(130);
-		prompt = get_prompt();
-		rl_replace_line("", 0);
-		rl_redisplay();
-		write(STDOUT_FILENO, "\n", 1);
-		write(STDOUT_FILENO, prompt, ft_strlen(prompt));
-		free(prompt);
-	}
-	else if (signal == SIGQUIT)
-	{
+		write(1, "\n", 1);
 		rl_on_new_line();
 		rl_replace_line("", 0);
 		rl_redisplay();
@@ -64,7 +54,7 @@ void	signal_handler(void)
 		ft_exit(NULL, 1, "ERROR with tcsetattr");
 	if (signal(SIGINT, handle_signal) == SIG_ERR)
 		ft_exit(NULL, 1, "ERROR with signal");
-	if (signal(SIGQUIT, handle_signal) == SIG_ERR)
+	if (signal(SIGQUIT, SIG_IGN) == SIG_ERR)
 		ft_exit(NULL, 1, "ERROR with signal");
 }
 

@@ -6,7 +6,7 @@
 /*   By: malde-ch <malo@chato.fr>                   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/07 17:00:22 by malde-ch          #+#    #+#             */
-/*   Updated: 2025/03/25 23:07:06 by malde-ch         ###   ########.fr       */
+/*   Updated: 2025/04/07 02:18:51 by malde-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,13 +58,5 @@ int			init_shell_env(t_mini *mini);
 
 // From prompt_utils.c
 char		*get_prompt(void);
-
-// from simple_parser.c
-void		false_parser1(t_mini *mini);
-void		false_parser2(t_mini *mini);
-void		false_parser3(t_mini *mini);
-void		false_parser4(t_mini *mini);
-void		false_parser5(t_mini *mini);
-void		parse_input_simple(t_mini *mini, char *input);
 
 #endif
