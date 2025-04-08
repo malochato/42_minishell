@@ -57,9 +57,8 @@ $(NAME): $(OBJ) $(LIBFT)
 	@$(CC) $(FLAGS) -o $(NAME) $(OBJ) -L $(LIBFT_PATH) -lft -lreadline
 	@echo "Compilation $(NAME) done"
 
-$(LIBFT):
-	@$(MAKE) -C $(LIBFT_PATH) --no-print-directory 
-	@echo "LIBFT created"
+$(LIBFT): 
+	@$(MAKE) -C $(LIBFT_PATH) --no-print-directory > /dev/null 2>&1
 
 $(OBJ_DIR)%.o: $(SRC_DIR)%.c
 	@mkdir -p $(dir $@)
